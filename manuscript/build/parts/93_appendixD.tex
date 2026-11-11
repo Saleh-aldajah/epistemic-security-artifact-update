@@ -1,0 +1,49 @@
+The executable monitor implements Algorithm~\ref{alg:monitor} event for
+event: lattice-meet label propagation, authorized endorsement, fresh
+root certificates, support scoring, and bound-slot checks precede every
+protected commit. Its constructed suites exercise each crosswalk
+predicate, the \Ifive{} differential harness, and truncation legality.
+Table~\ref{tab:refsem} reports these semantics checks separately from
+live-model efficacy.
+
+\begin{table}[!htb]
+\centering
+\caption{Executable semantics checks; counterfactual results are
+invariance followed by witnesses.}
+\label{tab:refsem}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{0.94}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.72\linewidth} r@{}}
+\toprule
+Property under test & Result \\
+\midrule
+Predicted-invariant blocks; coverage counterexamples & 10/10; 0 \\
+Honest admissions; admit/block and legality tests & 3/3; 13/13 \\
+Injection-obeying decision function & 71\,\%; 6/21 \\
+Guarded decision function & 100\,\%; 0/21 \\
+Memoized cost span; unmemoized depth correlation & $1.42\times$; 0.996 \\
+Development verdict/action invariance & 52/60; 41/60 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Across 12 tasks and five $\Dirrel$ families, reordering remained
+invariant (12/12), while inject-then-ignore was sharpest (7/12). These
+are development stability checks, not live security estimates. The
+$256\times$ depth experiment supports Remark~1: memoized receipt checks
+remain nearly flat while unmemoized cost tracks depth.
+
+\paragraph*{Evidence maturity}
+Props.~\ref{prop:safety}--\ref{prop:hyper} and
+Cor.~\ref{cor:ratgap}, with the Lean~4 safety mechanization, are
+\emph{proved}; the replacement-2 \Ifour{} bound-slot check is
+\emph{implemented}. Table~\ref{tab:refsem}, the authorization cases,
+and RQ1--RQ5 are \emph{measured}: 1,442 RQ1 episodes with zero voided
+and a DEI/B1 tie; 640 RQ2 probes plus 80 oracle episodes; 1,164 RQ3
+episodes with 50 voided and one degenerate, giving 291 pairs per
+contrast; 27/27 RQ5 cells; 824 RQ4(a) and 618 RQ4(c) episodes; and
+1,120 AgentDyn episodes with 30 voided attempts excluded. RQ4(b)
+completed 120 episodes but remains uninformative at 1/60
+susceptibility. Development checks are not held-out effectiveness
+evidence.

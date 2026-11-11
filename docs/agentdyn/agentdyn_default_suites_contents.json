@@ -1,0 +1,130 @@
+[
+  {
+    "name": "__init__.py",
+    "path": "src/agentdojo/default_suites/__init__.py",
+    "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "size": 0,
+    "url": "https://api.github.com/repos/SaFo-Lab/AgentDyn/contents/src/agentdojo/default_suites/__init__.py?ref=main",
+    "html_url": "https://github.com/SaFo-Lab/AgentDyn/blob/main/src/agentdojo/default_suites/__init__.py",
+    "git_url": "https://api.github.com/repos/SaFo-Lab/AgentDyn/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "download_url": "https://raw.githubusercontent.com/SaFo-Lab/AgentDyn/main/src/agentdojo/default_suites/__init__.py",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/SaFo-Lab/AgentDyn/contents/src/agentdojo/default_suites/__init__.py?ref=main",
+      "git": "https://api.github.com/repos/SaFo-Lab/AgentDyn/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "html": "https://github.com/SaFo-Lab/AgentDyn/blob/main/src/agentdojo/default_suites/__init__.py"
+    }
+  },
+  {
+    "name": "v1",
+    "path": "src/agentdojo/default_suites/v1",
+    "sha": "2d9a3861f163348770eed2a0bcfa66b098e3c7de",
+    "size": 0,
+    "url": "https://api.github.com/repos/SaFo-Lab/AgentDyn/contents/src/agentdojo/default_suites/v1?ref=main",
+    "html_url": "https://github.com/SaFo-Lab/AgentDyn/tree/main/src/agentdojo/default_suites/v1",
+    "git_url": "https://api.github.com/repos/SaFo-Lab/AgentDyn/git/trees/2d9a3861f163348770eed2a0bcfa66b098e3c7de",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/SaFo-Lab/AgentDyn/contents/src/agentdojo/default_suites/v1?ref=main",
+      "git": "https://api.github.com/repos/SaFo-Lab/AgentDyn/git/trees/2d9a3861f163348770eed2a0bcfa66b098e3c7de",
+      "html": "https://github.com/SaFo-Lab/AgentDyn/tree/main/src/agentdojo/default_suites/v1"
+    }
+  },
+  {
+    "name": "v1_1",
+    "path": "src/agentdojo/default_suites/v1_1",
+    "sha": "2b616cc44d76107a39c84c0a2b06c955ed920e71",
+    "size": 0,
+    "url": "https://api.github.com/repos/SaFo-Lab/AgentDyn/contents/src/agentdojo/default_suites/v1_1?ref=main",
+    "html_url": "https://github.com/SaFo-Lab/AgentDyn/tree/main/src/agentdojo/default_suites/v1_1",
+    "git_url": "https://api.github.com/repos/SaFo-Lab/AgentDyn/git/trees/2b616cc44d76107a39c84c0a2b06c955ed920e71",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/SaFo-Lab/AgentDyn/contents/src/agentdojo/default_suites/v1_1?ref=main",
+      "git": "https://api.github.com/repos/SaFo-Lab/AgentDyn/git/trees/2b616cc44d76107a39c84c0a2b06c955ed920e71",
+      "html": "https://github.com/SaFo-Lab/AgentDyn/tree/main/src/agentdojo/default_suites/v1_1"
+    }
+  },
+  {
+    "name": "v1_1_1",
+    "path": "src/agentdojo/default_suites/v1_1_1",
+    "sha": "18b717cf1533fef8a16b04703ad30853c0a0f139",
+    "size": 0,
+    "url": "https://api.github.com/repos/SaFo-Lab/AgentDyn/contents/src/agentdojo/default_suites/v1_1_1?ref=main",
+    "html_url": "https://github.com/SaFo-Lab/AgentDyn/tree/main/src/agentdojo/default_suites/v1_1_1",
+    "git_url": "https://api.github.com/repos/SaFo-Lab/AgentDyn/git/trees/18b717cf1533fef8a16b04703ad30853c0a0f139",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/SaFo-Lab/AgentDyn/contents/src/agentdojo/default_suites/v1_1_1?ref=main",
+      "git": "https://api.github.com/repos/SaFo-Lab/AgentDyn/git/trees/18b717cf1533fef8a16b04703ad30853c0a0f139",
+      "html": "https://github.com/SaFo-Lab/AgentDyn/tree/main/src/agentdojo/default_suites/v1_1_1"
+    }
+  },
+  {
+    "name": "v1_1_2",
+    "path": "src/agentdojo/default_suites/v1_1_2",
+    "sha": "4ec6353abfc0f3f0a6f12643aff1752ea321a9eb",
+    "size": 0,
+    "url": "https://api.github.com/repos/SaFo-Lab/AgentDyn/contents/src/agentdojo/default_suites/v1_1_2?ref=main",
+    "html_url": "https://github.com/SaFo-Lab/AgentDyn/tree/main/src/agentdojo/default_suites/v1_1_2",
+    "git_url": "https://api.github.com/repos/SaFo-Lab/AgentDyn/git/trees/4ec6353abfc0f3f0a6f12643aff1752ea321a9eb",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/SaFo-Lab/AgentDyn/contents/src/agentdojo/default_suites/v1_1_2?ref=main",
+      "git": "https://api.github.com/repos/SaFo-Lab/AgentDyn/git/trees/4ec6353abfc0f3f0a6f12643aff1752ea321a9eb",
+      "html": "https://github.com/SaFo-Lab/AgentDyn/tree/main/src/agentdojo/default_suites/v1_1_2"
+    }
+  },
+  {
+    "name": "v1_2",
+    "path": "src/agentdojo/default_suites/v1_2",
+    "sha": "e94bee79922528238fa18f30db4b4909a380d45e",
+    "size": 0,
+    "url": "https://api.github.com/repos/SaFo-Lab/AgentDyn/contents/src/agentdojo/default_suites/v1_2?ref=main",
+    "html_url": "https://github.com/SaFo-Lab/AgentDyn/tree/main/src/agentdojo/default_suites/v1_2",
+    "git_url": "https://api.github.com/repos/SaFo-Lab/AgentDyn/git/trees/e94bee79922528238fa18f30db4b4909a380d45e",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/SaFo-Lab/AgentDyn/contents/src/agentdojo/default_suites/v1_2?ref=main",
+      "git": "https://api.github.com/repos/SaFo-Lab/AgentDyn/git/trees/e94bee79922528238fa18f30db4b4909a380d45e",
+      "html": "https://github.com/SaFo-Lab/AgentDyn/tree/main/src/agentdojo/default_suites/v1_2"
+    }
+  },
+  {
+    "name": "v1_2_1",
+    "path": "src/agentdojo/default_suites/v1_2_1",
+    "sha": "911f1c291780688ea881947e8251a9406ab4c502",
+    "size": 0,
+    "url": "https://api.github.com/repos/SaFo-Lab/AgentDyn/contents/src/agentdojo/default_suites/v1_2_1?ref=main",
+    "html_url": "https://github.com/SaFo-Lab/AgentDyn/tree/main/src/agentdojo/default_suites/v1_2_1",
+    "git_url": "https://api.github.com/repos/SaFo-Lab/AgentDyn/git/trees/911f1c291780688ea881947e8251a9406ab4c502",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/SaFo-Lab/AgentDyn/contents/src/agentdojo/default_suites/v1_2_1?ref=main",
+      "git": "https://api.github.com/repos/SaFo-Lab/AgentDyn/git/trees/911f1c291780688ea881947e8251a9406ab4c502",
+      "html": "https://github.com/SaFo-Lab/AgentDyn/tree/main/src/agentdojo/default_suites/v1_2_1"
+    }
+  },
+  {
+    "name": "v1_2_2",
+    "path": "src/agentdojo/default_suites/v1_2_2",
+    "sha": "b0cda280c94a70e231fff8f0c1d4e367b7c431ac",
+    "size": 0,
+    "url": "https://api.github.com/repos/SaFo-Lab/AgentDyn/contents/src/agentdojo/default_suites/v1_2_2?ref=main",
+    "html_url": "https://github.com/SaFo-Lab/AgentDyn/tree/main/src/agentdojo/default_suites/v1_2_2",
+    "git_url": "https://api.github.com/repos/SaFo-Lab/AgentDyn/git/trees/b0cda280c94a70e231fff8f0c1d4e367b7c431ac",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/SaFo-Lab/AgentDyn/contents/src/agentdojo/default_suites/v1_2_2?ref=main",
+      "git": "https://api.github.com/repos/SaFo-Lab/AgentDyn/git/trees/b0cda280c94a70e231fff8f0c1d4e367b7c431ac",
+      "html": "https://github.com/SaFo-Lab/AgentDyn/tree/main/src/agentdojo/default_suites/v1_2_2"
+    }
+  }
+]

@@ -1,0 +1,17 @@
+item,requirement,location,status
+1,Database and platform names,Exact executed-search report and search appendix,complete
+2,Multi-database searching,17 executed exports across six sources,complete
+3,Study registries,Not applicable to security SoK,not applicable
+4,Online resources and browsing,Three Semantic Scholar exports; standards/backward-snowballing set documented separately,complete
+5,Citation searching,Backward snowballing of 118 foundational sources,complete
+6,Contacts,No author/expert contact,not used
+7,Full search strategies,Executed-search report/CSV; unexecuted candidates separated,complete
+8,Limits and restrictions,2017 to 24 May 2026; English-language metadata; database-specific limits documented,complete
+9,Search filters,Database-specific limits embedded in the exact executed-search ledger,complete
+10,Search strategy peer review,Not independently PRESS-reviewed,limitation
+11,Search strategy structure,Broad/focused/survey query classes,complete
+12,Search dates,2026-05-24,complete
+13,Search updates,No update after 2026-05-24; submission cut-off stated,complete
+14,Deduplication,DOI and normalized-title pipeline; public ledger preserves decisions and fingerprints,complete
+15,Total records,"6,512 identified; 4,129 duplicates; 2,383 unique",complete
+16,Search strategy accessibility,Exact executed-search CSV/Markdown report bundled,complete

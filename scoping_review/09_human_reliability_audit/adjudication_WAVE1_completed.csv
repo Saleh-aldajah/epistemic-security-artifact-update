@@ -1,0 +1,45 @@
+record_key,token,assessment_1_eligibility,assessment_1_attack_class,assessment_2_eligibility,assessment_2_attack_class,final_eligibility,final_attack_class
+Kccf5427b9a,ADJ0001,include-background,confidence or trust manipulation,include-core,no adversarial mechanism (control/evaluation),include-core,no adversarial mechanism (control/evaluation)
+Ka3a2150ada,ADJ0002,exclude,,include-core,hallucination and factuality failure,include-core,hallucination and factuality failure
+Kd767a5e278,ADJ0003,include-core,hallucination and factuality failure,include-background,hallucination and factuality failure,include-background,hallucination and factuality failure
+K90060e4df4,ADJ0004,include-core,confidence or trust manipulation,include-background,confidence or trust manipulation,include-core,confidence or trust manipulation
+Kd1a5618a02,ADJ0005,include-core,"drift, staleness, or benign reliability failure",include-core,no adversarial mechanism (control/evaluation),include-core,no adversarial mechanism (control/evaluation)
+K6b0815f881,ADJ0006,include-core,hallucination and factuality failure,include-core,misinformation and disinformation,include-core,misinformation and disinformation
+K67d4afcf9b,ADJ0007,include-core,confidence or trust manipulation,include-core,misinformation and disinformation,include-core,misinformation and disinformation
+Ka5b8e1009a,ADJ0008,include-core,no adversarial mechanism (control/evaluation),include-core,tool or agent hijacking,include-core,no adversarial mechanism (control/evaluation)
+K0bec3e285c,ADJ0009,include-core,data or model poisoning/backdoor,include-background,data or model poisoning/backdoor,include-background,data or model poisoning/backdoor
+K07764705b8,ADJ0010,include-background,confidence or trust manipulation,include-core,confidence or trust manipulation,include-core,confidence or trust manipulation
+K8933ef5c82,ADJ0011,include-core,no adversarial mechanism (control/evaluation),include-core,confidence or trust manipulation,include-core,no adversarial mechanism (control/evaluation)
+K2fc09394bc,ADJ0012,include-core,tool or agent hijacking,include-core,prompt injection and jailbreak,include-core,tool or agent hijacking
+K0d893a5227,ADJ0013,exclude,,include-background,misinformation and disinformation,exclude,nan
+K0bba35beea,ADJ0014,include-core,tool or agent hijacking,include-background,tool or agent hijacking,include-background,tool or agent hijacking
+Kf2a3179644,ADJ0015,include-core,confidence or trust manipulation,include-core,misinformation and disinformation,include-core,misinformation and disinformation
+K8f476b48ae,ADJ0016,include-core,hallucination and factuality failure,include-core,provenance or identity tampering,include-core,provenance or identity tampering
+Kb3b93b75ca,ADJ0017,include-core,retrieval and knowledge poisoning,include-core,prompt injection and jailbreak,include-core,prompt injection and jailbreak
+K1fa25c6b4e,ADJ0018,include-background,misinformation and disinformation,include-core,confidence or trust manipulation,include-background,misinformation and disinformation
+K3d84407d9e,ADJ0019,include-background,misinformation and disinformation,include-core,misinformation and disinformation,include-background,misinformation and disinformation
+K6ae51b1faa,ADJ0020,include-core,no adversarial mechanism (control/evaluation),include-background,misinformation and disinformation,include-core,no adversarial mechanism (control/evaluation)
+Kf05afcabe6,ADJ0021,include-core,no adversarial mechanism (control/evaluation),include-core,confidence or trust manipulation,include-core,no adversarial mechanism (control/evaluation)
+Kdf1b7a9c8c,ADJ0022,include-core,confidence or trust manipulation,include-core,no adversarial mechanism (control/evaluation),include-core,no adversarial mechanism (control/evaluation)
+K1cfb18e725,ADJ0023,include-core,no adversarial mechanism (control/evaluation),exclude,,exclude,nan
+Ke03a9b06b4,ADJ0024,include-core,no adversarial mechanism (control/evaluation),exclude,,include-core,no adversarial mechanism (control/evaluation)
+K0ca88fdee8,ADJ0025,include-core,hallucination and factuality failure,include-core,no adversarial mechanism (control/evaluation),include-core,no adversarial mechanism (control/evaluation)
+K7dc2158824,ADJ0026,include-core,misinformation and disinformation,include-core,hallucination and factuality failure,include-core,hallucination and factuality failure
+Kdba11ec2e4,ADJ0027,include-core,no adversarial mechanism (control/evaluation),include-background,misinformation and disinformation,include-core,no adversarial mechanism (control/evaluation)
+K9bf5fb215c,ADJ0028,include-core,prompt injection and jailbreak,include-core,provenance or identity tampering,include-core,provenance or identity tampering
+Kf20553cbc8,ADJ0029,include-background,misinformation and disinformation,include-background,no adversarial mechanism (control/evaluation),include-background,no adversarial mechanism (control/evaluation)
+K4b7388f4ae,ADJ0030,include-background,no adversarial mechanism (control/evaluation),exclude,,exclude,nan
+K0e694bd37d,ADJ0031,include-core,hallucination and factuality failure,include-core,confidence or trust manipulation,include-core,hallucination and factuality failure
+Ka1a25653f4,ADJ0032,include-background,prompt injection and jailbreak,include-core,prompt injection and jailbreak,include-background,prompt injection and jailbreak
+K8758b28e97,ADJ0033,include-background,misinformation and disinformation,include-core,no adversarial mechanism (control/evaluation),include-core,no adversarial mechanism (control/evaluation)
+K6e4d904dcb,ADJ0034,include-core,no adversarial mechanism (control/evaluation),include-core,misinformation and disinformation,include-core,misinformation and disinformation
+K78848877fa,ADJ0035,include-background,tool or agent hijacking,include-core,tool or agent hijacking,include-background,tool or agent hijacking
+Kfa0e17eef7,ADJ0036,include-core,confidence or trust manipulation,include-core,misinformation and disinformation,include-core,misinformation and disinformation
+K0237015d25,ADJ0037,include-core,tool or agent hijacking,include-core,prompt injection and jailbreak,include-core,tool or agent hijacking
+K6134f40938,ADJ0038,include-core,no adversarial mechanism (control/evaluation),exclude,,include-core,no adversarial mechanism (control/evaluation)
+Kb0759f4766,ADJ0039,include-core,hallucination and factuality failure,include-core,no adversarial mechanism (control/evaluation),include-core,no adversarial mechanism (control/evaluation)
+Kc97d0e0cef,ADJ0040,include-core,confidence or trust manipulation,include-core,hallucination and factuality failure,include-core,confidence or trust manipulation
+K607bc77d8e,ADJ0041,exclude,,include-background,misinformation and disinformation,exclude,nan
+Kd4981ada3d,ADJ0042,include-core,hallucination and factuality failure,exclude,,exclude,nan
+Kd6c80729d3,ADJ0043,include-background,confidence or trust manipulation,include-core,confidence or trust manipulation,include-core,confidence or trust manipulation
+K185d3377db,ADJ0044,include-core,confidence or trust manipulation,include-background,hallucination and factuality failure,include-core,confidence or trust manipulation

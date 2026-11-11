@@ -1,0 +1,260 @@
+\section{CZTA: A Reference Monitor for the Enforceable Fragment}
+\label{sec:czta}
+Proposition~\ref{prop:safety} says \Ione--\Ifour{} \emph{can} be
+enforced by execution monitoring; this section shows how they are
+enforced, at measured cost, on a real deployment. CZTA is a zero-trust
+gateway interposed between an agent (a production model) and a live
+MCP server, with Keycloak as policy decision point; its admission path
+is Algorithm~\ref{alg:monitor} realized at the gateway.
+
+\subsection{Architecture and Workflow}
+\label{sec:arch}
+Figure~\ref{fig:czta} shows the evaluated path. Every ingress channel
+passes a \emph{policy enforcement point} (PEP) that authenticates the
+channel, stamps $\lambda(\mathit{ch})$, digests the content, issues the
+attestation receipt of Def.~\ref{def:evidence}, and appends the atom to
+the ledger; the model runtime sees only labeled, receipt-bearing atoms.
+Beliefs are created through the update API (meet rule, $\deps$ and
+$\vals$ recorded, root certificate memoized); label raises exist only
+as endorsement-API calls checked against $\pi$ and logged with their
+principal. A protected tool call is committed as a structured
+\textsc{support}/\textsc{action}/\textsc{args} step; the gateway
+evaluates \Ione{} (receipts), \Itwo{} (per update), \Ithree{}
+(aggregator), and \Ifour{} (bound arguments against the cited beliefs'
+value sets), then dispatches the MCP request under a Keycloak-issued,
+audience-bound token or suppresses it and logs the violated predicate.
+Irreversible classes pass the audit gate of \S\ref{sec:gate} between
+admission and dispatch, and a reasoning-lineage attestation (RLA) signs
+the decision state at each enforcement point so that any holder of the
+ledger can replay the decision.
+
+\begin{figure}[t]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tikzpicture}[font=\scriptsize,
+  pipe/.style={draw, rounded corners=2pt, align=center, minimum height=7.5mm, inner sep=2.5pt, fill=white},
+  pep/.style={pipe, draw=accent, thick, fill=accentlight},
+  sup/.style={draw, rounded corners=2pt, align=center, inner sep=2.5pt, fill=black!4},
+  arr/.style={-{Stealth[length=2.2mm]}, thick},
+  darr/.style={-{Stealth[length=1.8mm]}, dashed, ledger}]
+\node[pipe, text width=1.75cm] (src) at (0,0) {Sources, tools, memory};
+\node[pep, text width=2.1cm] (ipep) at (2.85,0) {Ingress PEP: $\lambda$, digest, receipt};
+\node[pipe, text width=1.9cm] (agent) at (5.75,0) {Model runtime (untrusted)};
+\node[sup, text width=3.0cm] (api) at (1.6,-1.55) {Belief API: update (meet, $\vals$, certificate); endorse ($\pi$)};
+\node[pep, text width=2.45cm] (gw) at (5.75,-1.55) {\textbf{Admission}: \Ione--\Ifour{} + gate (\S\ref{sec:gate})};
+\node[pipe, text width=1.4cm] (mcp) at (8.1,-1.55) {MCP server};
+\node[sup, text width=2.45cm] (kc) at (5.75,-2.95) {Keycloak PDP: identity, audience, tool scope};
+\draw[arr] (src) -- (ipep); \draw[arr] (ipep) -- (agent);
+\draw[arr] (agent.south) -- node[right, font=\tiny] {commit} (gw.north);
+\draw[arr] (gw) -- node[above, font=\tiny] {token} (mcp);
+\draw[-{Stealth[length=1.8mm]}, accent] (agent.south west) -- node[above, sloped, font=\tiny] {update / endorse} (api.north east);
+\draw[-{Stealth[length=1.8mm]}, accent] (kc.north) -- (gw.south);
+\node[draw=ledger, fill=ledger!10, rounded corners=2pt, align=center, inner sep=3pt, text width=8.3cm] (rla) at (4.1,-4.25)
+ {\textbf{Append-only, hash-chained ledger + RLA signatures}: atoms, receipts, updates, endorsements, verdicts (Ed25519-sealed segments)};
+\draw[darr] (ipep.south) -- (rla.north -| ipep);
+\draw[darr] (api.south) -- (rla.north -| api);
+\draw[darr] (kc.south) -- (rla.north -| kc);
+\draw[darr] (gw.east) -- ++(0.35,0) |- ($(rla.north -| mcp) + (0,0)$);
+\end{tikzpicture}}
+\caption{The evaluated CZTA path. Blue boxes are enforcement points
+inside the epistemic TCB; the model runtime and the MCP server are
+untrusted. Every event that can affect a protected action crosses an
+enforcement point (Assumption~\ref{asm:mediation}) and is ledgered.}
+\label{fig:czta}
+\end{figure}
+
+\begin{example}[Running example, IV: the workflow end to end]
+\label{ex:workflow}
+(1)~The user turn arrives on the authenticated user channel; the ingress
+PEP stamps $\mathrm{TRUSTED}$, digests it, issues receipt $r_u$, and
+appends $e_u$. (2)~The drive listing and the document body carrying the plant
+arrive on the tool channel and are stamped $\mathrm{MEDIUM}$ with
+receipts $r_l, r_p$; nothing about the plant is detected here, and
+nothing needs to be. (3)~The model creates $b_u$, $b_l$, $b_p$ through
+the update API, each with the meet of its inputs, a root certificate
+over its receipt, and its recorded values.
+(4)~The compromised model commits \textsc{action} delete, \textsc{args}
+$\{\mathsf{target} \mapsto \text{file~13}\}$, \textsc{support}
+$\{b_u\}$. (5)~Admission: \Ione{} passes ($\cert(b_u) = \mathrm{ok}$,
+window valid); \Itwo{} was never at issue; \Ithree{} passes
+($S(\{b_u\}, \mathrm{TRUSTED}) \ge \tc$); \Ifour{} fails
+(file~13 $\notin \vals(b_u)$). The gateway suppresses the call, logs
+$\mathit{viol}_4$ with the offending slot, and the ledger entry is the
+refutation record of \S\ref{sec:falsifiability}. (6)~Had the model
+committed file~0 under a timing chosen by the plant, admission would
+pass and the gate's re-commitment with $e_p$ struck would select a
+different action, so the gateway would quarantine instead of dispatch.
+\end{example}
+
+\subsection{Instantiating the Invariants}
+Table~\ref{tab:instantiation} maps each enforceable invariant to its
+CZTA mechanism, the fields logged and attested to make post-hoc
+refutation possible, and the enforcement point. Two engineering choices
+carry the formal weight. First, \emph{root certificates}: when a belief
+is created, the gateway verifies its evidential roots once and issues a
+hash-chained receipt; at action time, \Ione{} reduces to
+$O(|\support(a)|)$ receipt verifications, the operation whose
+sign/verify latency Table~\ref{tab:overhead} reports. Second,
+\emph{endorsement as an API}: label upgrades exist only as explicit,
+logged gateway calls citing a policy rule, which is what makes \Itwo's
+``no silent upgrade'' condition checkable by inspection of the log.
+
+\begin{table}[t]
+\centering
+\caption{Instantiation of the enforceable invariants in CZTA.
+Measured costs appear in Table~\ref{tab:overhead}.}
+\label{tab:instantiation}
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabularx}{\columnwidth}{@{}c >{\raggedright\arraybackslash}p{2.3cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{1.45cm}@{}}
+\toprule
+Inv. & CZTA mechanism & Logged/attested fields & Point \\
+\midrule
+\Ione & Root certificates over attested evidence; admission check on protected tool calls & belief id; root set; receipt hash chain; attestation ids; validity windows & Gateway, pre-invocation \\
+\Itwo & Label propagation by lattice meet; endorsement API with policy-rule citation & update event; input labels; result label; endorsement rule id; principal & Gateway, per update \\
+\Ithree & Aggregator service scoring qualifying evidence against per-class thresholds & support set; qualifying-evidence ids; score; $\tc$; verdict & Gateway, pre-invocation \\
+\Ifour & Bound-slot check of $\args(a)$ against $\vals$ of cited beliefs at $\ell_{\bindpol}$ (list-valued slots element-wise); the citation contract of the pilot grid (\S\ref{sec:evalsetup}) is its weaker precursor & slot; value; citing belief id; label; verdict & Gateway, pre-invocation \\
+\Ifive & Not enforced (Prop.~\ref{prop:hyper}); audited offline and, for irreversible classes, by the gate & paired traces; $\delta$ operator id; decision distance & Offline harness; gate \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Epistemic TCB Inventory and Security Analysis}
+\label{sec:tcb}
+\label{sec:security}
+The TCB of \S\ref{sec:tcbdef} concretely comprises the ingress labeler
+and the channel authentication it relies on, the attestation verifier
+and its key store, the append-only hash-chained provenance log with its
+value recorder, the aggregator service, and the Keycloak policy engine.
+The trusted implementation is the deposited replacement
+(\texttt{v9-replacement-2}), not the unavailable original v9 package:
+the executable reference semantics of Algorithm~\ref{alg:monitor}
+(\Ione--\Ifour{} with receipt-based root and window checks), a strict
+RS256/JWKS verifier, an MCP \texttt{tools/call} decision endpoint, and a
+hash-chained Ed25519-sealed ledger. Its RLA module and all other v8
+modules are preserved byte-for-byte for audit; only modules actually
+imported are asserted on the measured path. The Keycloak realm stamps
+the claims the gateway inspects, and \texttt{/env} publishes the hash of
+every trusted module imported, so each measurement is bound to its code.
+The retired v8 scenario-specific policy pipeline is not used for any
+number here. Benchmark, scenario, and other retired modules remain
+outside the trust path. Everything else---the model, MCP servers and
+their tool descriptions, retrieved content, and memory---is untrusted.
+
+\paragraph*{What an adversary can do to the gateway}
+Interposing a monitor creates a surface of its own, and the formal
+guarantees say nothing about it. We enumerate the attack vectors the
+design admits and how each is closed or conceded.
+\emph{Channel spoofing} (adversarial content over a high channel) is
+the one attack on $\lambda$, excluded by Assumption~\ref{asm:recorded};
+in CZTA it reduces to forging a session token or a gateway receipt, so
+its security is that of RS256 verification against JWKS and of Ed25519
+receipt signatures. \emph{Endorsement abuse} requires a rule
+$\rho \in \pi$ and an authorized principal; the deployed $\pi$
+authorizes no post-ingress raise (\S\ref{sec:evalsetup}), and every
+raise is logged with its principal. \emph{Receipt replay} is closed by
+binding each receipt to a content digest checked at verification.
+\emph{Recorder evasion} (a target in a form the extractor misses) fails
+closed under \Ifour: an unextracted value is unbound and the action is
+blocked, a utility cost rather than a security cost. \emph{Mediation bypass} (a side channel from untrusted
+content to action that avoids a PEP) is Assumption~\ref{asm:mediation};
+in the evaluated path the MCP transport is the only route to the
+server, and a deployment that exposes a second route voids the
+guarantee. \emph{Denial of service through the gate} is bounded by two
+re-commitments per action and by never gating reversible classes.
+Re-commitments are never dispatched and the counterfactual plane is
+assembled inside the TCB from ledgered atoms, so re-execution has no
+side effects; a model that commits identically with and without the
+plant defeats the gate, a coverage question for the falsification
+protocol rather than a silent failure (\S\ref{sec:gate}). \emph{TCB compromise}
+(verifier keys, ledger key, aggregator) voids all guarantees; the
+hash-chained ledger makes tampering detectable after the fact but not
+preventable, which is the concession every reference monitor makes.
+\emph{Rug-pull} (a tool whose description is mutated after approval)
+is the one documented MCP pattern the evaluated gateway detects without
+preventing, as reported below.
+
+\subsection{Authorization-Layer Checks}
+\label{sec:redteam}
+The epistemic evaluation lives in \S\ref{sec:eval}; this subsection
+reports a complementary check that the gateway's \emph{authorization}
+layer behaves as specified, since \DEI{} enforcement composes with,
+and does not replace, the sink-layer defenses of CXI-class
+systems~\cite{cxi,camel}. We executed four documented MCP attack
+patterns (tool poisoning, token passthrough, confused deputy, rug-pull)
+plus a postmark-style output-exfiltration boundary case against the
+live gateway with defenses enabled. These are MCP/OAuth binding checks
+(RFC~8693/9449/9396), not tests of the coverage claim, and they were
+constructed by the authors during development; they are reported
+because a gateway monitor must get them right and because one is an
+honest negative. Tool poisoning, token passthrough, and the confused
+deputy are blocked at the authorization layer (\texttt{mcp-tool-not-exposed}
+403; \texttt{mcp-token-passthrough-forbidden} 403;
+\texttt{InvalidAudienceError} 401); the output-exfiltration case is,
+as pre-registered, detected but not prevented (accountability via the
+signed RLA output digest). The rug-pull executed (HTTP~200): a
+post-approval tool mutation is a \emph{temporal} \Itwo{} violation
+(integrity holds at approval, breaks later) while the admission check
+consults only approval-time state. Def.~\ref{def:evidence} already
+attaches a validity window to every attested atom and requires
+re-checking at use, so the fix is a tool-state attestation recomputed at
+call time rather than new machinery; we report the measured behaviour
+and leave the implementation to future work.
+
+\subsection{Measured Overhead}
+\label{sec:overhead}
+We measure the cost of interposing the unmodified reference
+monitor (source hashes published at \texttt{/env}) on a real
+authorization path: real Keycloak RS256 tokens, real JWKS
+validation, and real MCP JSON-RPC transport. Per the
+pre-registered measurement protocol, arrivals are open-loop
+Poisson at $\lambda \in \{5, 25, 100\}$\,req/s (latency taken from
+the intended send time, so coordinated omission cannot understate
+the tail), each rate held 60\,s after a discarded 20\,s warmup,
+over three independent repetitions per arm with the process
+restarted between them. Three arms share the identical request path:
+A0 with the monitor removed, A1 enforcing \Ione--\Ithree, and A2
+enforcing \Ione--\Ifour; the overhead is A2 minus A0, and the cost of
+the \Ifour{} slot check is A2 minus A1. To isolate the monitor, the
+upstream is a minimal tool stub with no model inference in the path, so
+the relative overhead reported here is an \emph{upper bound}: the fixed
+monitor cost amortizes against real tool and model latency in any
+production deployment. The protocol requires zero errored requests in
+every cell; all 27 cells passed with zero errored requests.
+
+\begin{table}[t]
+\centering
+\caption{Authorization-path latency (ms) on the live stack (Keycloak
+RS256 + JWKS + MCP \texttt{tools/call}; stub upstream, so relative
+overhead is an upper bound). Open-loop Poisson arrivals; cells are mean
+p50/p95 across three independently restarted repetitions, with zero
+errored requests required; values flow from the harness output.}
+\label{tab:overhead}
+\scriptsize
+\begin{threeparttable}
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{@{}l c c c@{}}
+\toprule
+& $\lambda{=}5$ & $\lambda{=}25$ & $\lambda{=}100$ req/s \\
+\midrule
+A0 (no monitor) p50/p95 & \RqFiveAZeroFiveCell & \RqFiveAZeroTwentyFiveCell & \RqFiveAZeroHundredCell \\
+A1 (\Ione--\Ithree) p50/p95 & \RqFiveAOneFiveCell & \RqFiveAOneTwentyFiveCell & \RqFiveAOneHundredCell \\
+A2 (\Ione--\Ifour) p50/p95 & \RqFiveATwoFiveCell & \RqFiveATwoTwentyFiveCell & \RqFiveATwoHundredCell \\
+A2$-$A0 p50 (\%) & \RqFiveOverheadFive & \RqFiveOverheadTwentyFive & \RqFiveOverheadHundred \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]\scriptsize
+\item RLA sign / verify, mean p50/p95 across
+\RqFiveRlaIterations{} iterations: \RqFiveRlaSignCell{} /
+\RqFiveRlaVerifyCell{} ms; zero verification errors.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Table~\ref{tab:overhead} reports the result: A2$-$A0 p50 overhead is
+\RqFiveOverheadFive\%, \RqFiveOverheadTwentyFive\%, and
+\RqFiveOverheadHundred\% at 5, 25, and 100 req/s; A2$-$A1 is the
+corresponding \Ifour{} increment. These are the constant factors behind
+Proposition~\ref{prop:safety}; the reference implementation confirms
+their asymptotic behaviour independently (Appendix~\ref{app:refsem}),
+and every restarted repetition is retained in the deposited result file.

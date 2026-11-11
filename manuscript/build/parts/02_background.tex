@@ -1,0 +1,104 @@
+\section{Setting, Threat Model, and Positioning}
+\label{sec:setting}
+
+\subsection{The epistemic attack surface}
+\label{sec:taxonomy}
+We organize attacks on the evidential basis of agent decisions by a
+ten-class taxonomy of primary attack or failure mechanisms:
+misinformation and disinformation; hallucination and factuality
+failure; prompt injection and jailbreak; provenance or identity
+tampering; retrieval and knowledge poisoning; data or model
+poisoning and backdoors; confidence or trust manipulation; tool or
+agent hijacking (including MCP tool-description poisoning); drift,
+staleness, or benign reliability failure; and a non-attack class for
+defense-only, benchmark-only, and evaluation records. The taxonomy was
+produced by a registered PRISMA-ScR scoping review~\cite{prisma} of
+published work on this surface (6,512 records across six databases;
+552 retained as core evidence) whose automated labeling was audited
+against two blinded domain experts and an adjudicator on a
+hash-registered 20\,\% sample ($n{=}114$): class agreement $\kappa =
+0.63$ / Gwet's $AC_1 = 0.65$ between experts, and $\kappa = 0.48$
+between experts and pipeline against the pipeline's self-agreement of
+0.83. Protocol, ledger, codebook, instruments, hashes, and amendment
+log ship with the artifact~\cite{artifact}. The review contributes exactly two things to
+this paper: the classes that the crosswalk of
+\S\ref{sec:falsifiability} maps onto invariants, and the corpus
+prevalence of each class (Appendix~\ref{app:crosswalk}), which is what lets
+us say which invariants matter most often. Nothing else in the paper
+depends on it.
+
+Categories are mutually exclusive by fiat: where mechanisms co-occur,
+the record's own framing decides. One registered disambiguation matters
+for the formalization: \emph{retrieval and knowledge poisoning} requires
+that corrupted content \emph{enter} the corpus, index, or memory, which
+distinguishes substrate corruption (a provenance failure, \Ione) from
+manipulation of which authentic evidence is selected, ranked, or
+surfaced from an intact substrate (a sufficiency failure, \Ithree); the
+latter is carried as a boundary case in the crosswalk.
+
+\subsection{Threat model}
+\label{sec:threat}
+The adversary controls the untrusted channels: they may inject
+instructions or content into retrieved documents and tool results
+(indirect prompt injection), poison tool descriptions or servers (MCP
+tool poisoning), write to persistent memory or retrieval stores
+(memory and RAG poisoning), and shape which evidence the agent sees
+(context-selection manipulation). The adversary does not control the
+epistemic TCB of \S\ref{sec:tcbdef} or hold its keys. Consistent with
+the zero-trust posture now advocated for internal agent
+deployments~\cite{controlroadmap}, the model itself is treated as
+potentially compromised: a successful injection makes the model an
+adversarial component, and every guarantee below must survive that.
+
+Two attack families deserve explicit placement because they live inside
+the model rather than on a channel. \emph{Reasoning manipulation and
+chain-of-thought poisoning}, in which injected content steers the
+model's intermediate reasoning without appearing in any cited evidence,
+are, in our terms, attacks on an untrusted component: DEI makes no claim
+about the model's internal process, so such attacks surface either as
+violations of the counterfactual bound (\Ifive, when removing the
+injected span changes the decision) or not at all (when the decision
+would have been the same). \emph{Parameter poisoning and backdoors}
+triggered by trusted input are declared out of scope: a backdoor fired
+by a legitimate directive yields an invariant-satisfying wrong action.
+The gateway's own attack surface---what an adversary can do \emph{to}
+the monitor rather than around it---is analyzed in \S\ref{sec:security}.
+
+\subsection{Positioning}
+\label{sec:positioning}
+Out-of-band defenses in the CaMeL lineage~\cite{camel,oob} and
+sink-authorization gates such as CXI~\cite{cxi} constrain what a
+proposal may \emph{do}; we constrain what may count as a \emph{reason}
+for it and prove which part of that constraint a monitor can enforce.
+Intent-to-execution integrity~\cite{qu} states the invariance
+condition we adopt as \Ifive{} but stops short of a monitor, a
+monitorability analysis, or a falsification protocol; agent epistemic
+integrity~\cite{shen} prescribes an architecture. Table~\ref{tab:positioning}
+records the comparison; \S\ref{sec:related} gives the landscape.
+
+\begin{table}[t]
+\centering
+\caption{Positioning against the closest prior work.
+$\tick$ = provided; $\partl$ = partial; --- = absent.
+\emph{Split} = runtime-enforceable separated from auditable-only
+guarantees, with supporting theory. All rows verified against the
+public record on 17 July 2026.}
+\label{tab:positioning}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\columnwidth}{@{}>{\raggedright\arraybackslash}X c c c c c >{\centering\arraybackslash}p{1.05cm}@{}}
+\toprule
+& Def. & Falsif. & Monit. & Split & Runtime & Dec.-layer \\
+\midrule
+CaMeL~\cite{camel} & \absent & \absent & \absent & \absent & \tick & \absent \\
+GuardAgent~\cite{guardagent} & \absent & \absent & \absent & \absent & \tick & \partl \\
+Intent-to-exec.~\cite{qu} & \partl & \absent & \absent & \absent & \absent & \tick \\
+Agent epist.\ int.~\cite{shen} & \partl & \absent & \absent & \absent & \absent & \tick \\
+CXI~\cite{cxi} & \tick & \absent & \absent & \partl & \tick & \absent \\
+ARGUS~\cite{argus} & \absent & \absent & \absent & \absent & \tick & \partl \\
+OOB systematization~\cite{oob} & \absent & \partl & \absent & \absent & \absent & \partl \\
+\midrule
+\textbf{This work} & \tick & \tick & \tick & \tick & \tick & \tick \\
+\bottomrule
+\end{tabularx}
+\end{table}

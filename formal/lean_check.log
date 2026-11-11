@@ -1,0 +1,15 @@
+'Dei.violFree_false_of_mem' depends on axioms: [propext]
+'Dei.exists_firing_of_violFree_false' depends on axioms: [propext]
+'Dei.violFree_append_false' depends on axioms: [propext]
+'Dei.safety_bad_prefix' depends on axioms: [propext]
+'Dei.violFree_monitor' depends on axioms: [propext]
+'Dei.monitor_eq_of_violFree' depends on axioms: [propext]
+'Dei.monitor_prefix' depends on axioms: [propext]
+'witness_truncate_at_freshness' does not depend on any axioms
+'witness_pass_verbatim' does not depend on any axioms
+'witness_freshness_disjunct' does not depend on any axioms
+'witness_meet_disjunct' does not depend on any axioms
+'single_trace_gap' does not depend on any axioms
+'sPlus_stable' does not depend on any axioms
+'sMinus_unstable' depends on axioms: [propext]
+'gap_no_sound_verdict' does not depend on any axioms

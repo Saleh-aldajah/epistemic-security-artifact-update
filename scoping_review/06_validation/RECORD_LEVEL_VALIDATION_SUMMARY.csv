@@ -1,0 +1,17 @@
+check,expected,observed,status
+identified_records,6512,6512,PASS
+record_id_unique,6512,6512,PASS
+executed_queries,17,17,PASS
+duplicates,4129,4129,PASS
+duplicate_targets_resolved,4129,4129,PASS
+unique_screened,2383,2383,PASS
+include_core,552,552,PASS
+include_background,931,931,PASS
+excluded,900,900,PASS
+unresolved_final,0,0,PASS
+unique_rationales_present,2383,2383,PASS
+excluded_reason_present,900,900,PASS
+titles_present,6512,6512,PASS
+abstracts_present,6495,6495,PASS_WITH_MISSING
+foundational_sources,118,118,PASS
+query_count_reconciliation,17,17,PASS

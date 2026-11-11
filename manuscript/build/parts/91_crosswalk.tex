@@ -1,0 +1,24 @@
+\begin{table*}[!t]
+\centering
+\caption{Crosswalk from the registered charting classes (\S\ref{sec:taxonomy}) to the invariants each attack must violate, with each class's share of the 552-record core corpus. ``Ref.\ suite'' = violated as predicted in the executable reference semantics (Appendix~\ref{app:refsem}: 10/10, no coverage counterexamples, no false positives on honest baselines), a semantics check distinct from the live measurements of \S\ref{sec:eval}. Declared scope boundaries are pre-registered, so success against them is \emph{not} a coverage counterexample. The mapping was frozen before any campaign was scored against it; \Ifour{} secondaries are not part of the registered mapping.}
+\label{tab:crosswalk}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.75cm} r c c >{\raggedright\arraybackslash}p{2.6cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{1.75cm}@{}}
+\toprule
+Charting class & Share & Prim. & Sec. & Derived mechanism & Predicted refutation signal & Status \\
+\midrule
+misinformation \& disinformation & 29.2\% & \Ithree & \Ione & spans; incl.\ inter-agent epistemic contagion & support falls below $\tc$ once non-qualifying (sub-$\lreq$, unattested, uncorroborated) evidence is excluded by A1 & \tick\ ref.\ suite \\
+hallucination \& factuality failure & 25.0\% & \Ione & \Ithree & generative confabulation & orphan belief in the support closure: a maximal derivation path ends in no evidence atom (Def.~\ref{def:i1}) & \tick\ ref.\ suite \\
+prompt injection \& jailbreak & 17.0\% & \Itwo & \Ifive & instruction-hierarchy compromise & injected span gains influence without endorsement: a label-raising update with untrusted input, or a decision shift under task-irrelevant $\delta$ (harness) & \tick\ ref.\ suite \\
+no adversarial mechanism (control/eval.) & 9.1\% & --- & --- & --- & anti-triviality: instances must be admitted; a block is a false positive, the failure mode symmetric to a coverage counterexample & \tick\ 3/3 admitted \\
+provenance or identity tampering & 5.6\% & \Ione & \Itwo & provenance laundering & attestation fails: signature chain or signer does not verify against the trusted root, at ingress or at the action-time receipt check & \tick\ ref.\ suite \\
+retrieval \& knowledge poisoning & 4.2\% & \Ione & \Itwo & evidential-substrate poisoning (corpus, index, memory write) & support closure reaches a root failing $\att$ or below $\lmin$; poisoned content cannot reach a protected action without an attested root or an unendorsed upgrade & \tick\ ref.\ suite \\
+(retrieval boundary case) & --- & \Ithree & \Ifive & context-selection manipulation over an intact substrate & selection starves qualifying support below $\tc$, or task-irrelevant reorderings shift the decision beyond $\varepsilon$ (harness) & \tick\ ref.\ suite; label per the registered anchor extension \\
+data or model poisoning/backdoor & 3.4\% & --- & --- & --- & \emph{declared out of scope}: attacks parameters, not the evidential structure; a backdoor fired by trusted input satisfies \Ione--\Ifour{} and still acts wrongly; a trigger riding on untrusted content surfaces as \Ifive & out of scope \\
+confidence or trust manipulation & 3.4\% & \Itwo & \Ithree & confidence/presentation manipulation & upgrade attempt citing no authorized endorsement rule; the aggregator scores labels, not persuasiveness & \tick\ ref.\ suite \\
+tool or agent hijacking (incl.\ MCP tool-description poisoning) & 2.9\% & \Itwo & \Ione & tool-action induction & tool-sourced content laundered above its ingress label without endorsement, or support failing root verification; \emph{partial}: sink-layer invocation control composes beneath (\S\ref{sec:redteam}) & \tick\ ref.\ suite (partial) \\
+drift, staleness, or benign reliability failure & 0.2\% & \Ione & \Itwo & long-horizon drift & lapsed validity windows fail $\att$ on previously admitted evidence (Def.~\ref{def:evidence}), or accumulated unendorsed upgrades; \emph{partial}: benign error with fresh, sufficient support is out of scope & \tick\ ref.\ suite (partial) \\
+\bottomrule
+\end{tabularx}
+\end{table*}

@@ -1,0 +1,23 @@
+item,requirement,location,status
+1,Title identifies the report as a scoping review/evidence map,main title and abstract,complete
+2,Structured summary,abstract with labelled Background/Methods/Results/Conclusions,complete
+3,Rationale,Introduction,complete
+4,Objectives and review questions,Method: Research questions,complete
+5,Protocol and registration,Dated protocol artifact; not externally preregistered,complete with limitation
+6,Eligibility criteria,Method: Eligibility criteria,complete
+7,Information sources,Method and Appendix: Search strategy,complete
+8,Search,P3_EXECUTED_SEARCH_REPORT.md and P3_executed_search_strategies.csv,complete
+9,Selection of sources of evidence,Method: Screening and adjudication,complete
+10,Data charting process,Method: two transparent computational implementations and deterministic adjudication; not human inter-rater review,complete
+11,Data items,Coding dictionary and redacted evidence-map CSV,complete
+12,Critical appraisal,Not performed; not required for descriptive scoping map,"not applicable, explained"
+13,Synthesis of results,Evidence-map results and cross-tabulation,complete
+14,Selection results,PRISMA flow and counts,complete
+15,Characteristics of sources,Evidence-map tables/CSV,complete
+16,Critical appraisal within sources,Not performed,"not applicable, explained"
+17,Results of individual sources,Rights-cleared row-level coding matrix; source text omitted,complete in artifact
+18,Synthesis of results,Evidence-map results,complete
+19,Summary of evidence,Discussion/positioning,complete
+20,Limitations,Limitations,complete
+21,Conclusions,Conclusion,complete
+22,Funding and conflicts,Declarations; identity-linked details withheld for anonymous review,complete for anonymous submission

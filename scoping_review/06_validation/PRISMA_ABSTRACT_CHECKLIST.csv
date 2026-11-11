@@ -1,0 +1,13 @@
+item,requirement,location,status
+1,Title identifies the report as a scoping evidence map,title,complete
+2,Objectives,abstract: Background/Objectives,complete
+3,Eligibility criteria,abstract: Methods,complete
+4,Information sources,abstract: Methods,complete
+5,Risk of bias appraisal,not performed for descriptive abstract-level map,"not applicable, explained"
+6,Synthesis methods,abstract: Methods,complete
+7,Included evidence,abstract: Results,complete
+8,Main results,abstract: Results,complete
+9,Limitations,abstract: Conclusions/Limitations,complete
+10,Interpretation,abstract: Conclusions,complete
+11,Funding,anonymous-review declaration,complete for anonymous submission
+12,Registration,not externally registered; dated protocol released,complete with limitation

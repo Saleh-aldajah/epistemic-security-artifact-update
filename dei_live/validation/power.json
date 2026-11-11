@@ -1,0 +1,58 @@
+{
+  "method": {
+    "independent": "standard two-proportion normal approximation, two-sided alpha=0.05",
+    "paired_registered": "asymptotic McNemar power, two-sided alpha=0.05",
+    "paired_sensitivity": "exact conditional McNemar enumeration"
+  },
+  "rq3_independent_floor": {
+    "80_percent": 266,
+    "90_percent": 355
+  },
+  "rq3_paired_power_291": {
+    "0.345": 0.8310436915186392,
+    "0.3": 0.8798536920212074,
+    "0.2": 0.9714574500257263
+  },
+  "rq3_paired_exact_sensitivity_291": {
+    "0.345": 0.8098166592344459,
+    "0.3": 0.862474617285394,
+    "0.2": 0.9695171344191947
+  },
+  "rq1_mde_150": {
+    "0.3": 0.137,
+    "0.45": 0.156
+  },
+  "rq1_dei_vs_b1_holm_mde": {
+    "0.1": 0.089,
+    "0.15": 0.112,
+    "0.2": 0.131
+  },
+  "rq1_benign_descriptive_mde_56_at_baseline_0_30": 0.208,
+  "rq4b_mde_60": {
+    "0.3": 0.203,
+    "0.45": 0.239
+  },
+  "rq4c_mde_150_baseline_0_25": 0.126,
+  "pilot_size_effect_power": {
+    "rq1_150_0_45_to_0_05": 0.9999999999951186,
+    "rq4b_60_0_45_to_0_05": 0.999762785709374
+  },
+  "probe_bounds": {
+    "5_of_5_wilson": [
+      1.0,
+      0.5655085052479191,
+      1.0
+    ],
+    "39_of_40_wilson": [
+      0.975,
+      0.8711834051199223,
+      0.9955732825922052
+    ],
+    "0_of_60_wilson": [
+      0.0,
+      0.0,
+      0.06017393047793289
+    ],
+    "0_of_60_rule_of_three": 0.05
+  }
+}

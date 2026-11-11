@@ -1,0 +1,7 @@
+database,raw_records,duplicates,unique_records,include_core,include_background,exclude
+ACM Digital Library,2233,1495,738,65,247,426
+IEEE Xplore,626,260,366,144,144,78
+Scopus,2296,1132,1164,318,506,340
+Semantic Scholar,38,20,18,14,2,2
+USENIX Security/SOUPS,8,8,0,0,0,0
+Web of Science Core Collection,1311,1214,97,11,32,54

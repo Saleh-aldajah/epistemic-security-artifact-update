@@ -1,0 +1,981 @@
+@book{anderson2020security,
+  author = {Anderson, Ross J.},
+  title = {Security Engineering: A Guide to Building Dependable Distributed Systems},
+  edition = {3},
+  publisher = {Wiley},
+  year = {2020}
+}
+
+@book{bishop2003computer,
+  author = {Bishop, Matt},
+  title = {Computer Security: Art and Science},
+  publisher = {Addison-Wesley},
+  year = {2003}
+}
+
+@misc{nist_zta_2020,
+  author = {{National Institute of Standards and Technology}},
+  title = {{Zero Trust Architecture}},
+  howpublished = {NIST Special Publication 800-207},
+  year = {2020},
+  doi = {10.6028/NIST.SP.800-207},
+  url = {https://doi.org/10.6028/NIST.SP.800-207}
+}
+
+@misc{kindervag2010zerotrust,
+  author = {Kindervag, John},
+  title = {No More Chewy Centers: Introducing the Zero Trust Model of Information Security},
+  howpublished = {Forrester Research Report},
+  year = {2010}
+}
+
+@misc{nist_ai_rmf_2023,
+  author = {{National Institute of Standards and Technology}},
+  title = {{Artificial Intelligence Risk Management Framework (AI RMF 1.0)}},
+  howpublished = {NIST AI 100-1},
+  year = {2023},
+  doi = {10.6028/NIST.AI.100-1},
+  url = {https://doi.org/10.6028/NIST.AI.100-1}
+}
+
+@misc{nist_gai_profile_2024,
+  author = {{National Institute of Standards and Technology}},
+  title = {{Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile}},
+  howpublished = {NIST AI 600-1},
+  year = {2024},
+  doi = {10.6028/NIST.AI.600-1},
+  url = {https://doi.org/10.6028/NIST.AI.600-1}
+}
+
+@misc{nist_aml_taxonomy_2024,
+  author = {{National Institute of Standards and Technology}},
+  title = {{Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and Mitigations}},
+  howpublished = {NIST AI 100-2e2025},
+  year = {2025},
+  doi = {10.6028/NIST.AI.100-2e2025},
+  url = {https://doi.org/10.6028/NIST.AI.100-2e2025}
+}
+
+@misc{nist_ci_profile_2026,
+  author = {{National Institute of Standards and Technology}},
+  title = {{Concept Note: AI RMF Profile for Trustworthy AI in Critical Infrastructure}},
+  howpublished = {NIST concept note},
+  year = {2026},
+  url = {https://www.nist.gov/programs-projects/concept-note-ai-rmf-profile-trustworthy-ai-critical-infrastructure}
+}
+
+@misc{iso42001_2023,
+  author = {{International Organization for Standardization}},
+  title = {{ISO/IEC 42001:2023 Information technology -- Artificial intelligence -- Management system}},
+  year = {2023},
+  url = {https://www.iso.org/standard/81230.html}
+}
+
+@misc{iso23894_2023,
+  author = {{International Organization for Standardization}},
+  title = {{ISO/IEC 23894:2023 Information technology -- Artificial intelligence -- Guidance on risk management}},
+  year = {2023},
+  url = {https://www.iso.org/standard/77304.html}
+}
+
+@misc{owasp_llm_top10_2025,
+  author = {{OWASP Foundation}},
+  title = {{OWASP Top 10 for Large Language Model Applications}},
+  year = {2025},
+  url = {https://genai.owasp.org/llm-top-10/}
+}
+
+@misc{owasp_agentic_top10_2026,
+  author = {{OWASP Foundation}},
+  title = {{OWASP Top 10 for Agentic Applications 2026}},
+  year = {2026},
+  url = {https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/}
+}
+
+@misc{cisa_agentic_2026,
+  author = {{Cybersecurity and Infrastructure Security Agency and partners}},
+  title = {{Careful Adoption of Agentic AI Services}},
+  year = {2026},
+  url = {https://www.cisa.gov/resources-tools/resources/careful-adoption-agentic-ai-services}
+}
+
+@misc{cisa_ai_ot_2025,
+  author = {{Cybersecurity and Infrastructure Security Agency and partners}},
+  title = {{Principles for the Secure Integration of Artificial Intelligence in Operational Technology}},
+  year = {2025},
+  url = {https://www.cisa.gov/news-events/news/new-joint-guide-advances-secure-integration-artificial-intelligence-operational-technology}
+}
+
+@misc{mitre_atlas_2025,
+  author = {{MITRE}},
+  title = {{ATLAS: Adversarial Threat Landscape for Artificial-Intelligence Systems}},
+  year = {2025},
+  url = {https://atlas.mitre.org/}
+}
+
+@inproceedings{goodfellow2015adversarial,
+  author = {Goodfellow, Ian J. and Shlens, Jonathon and Szegedy, Christian},
+  title = {Explaining and Harnessing Adversarial Examples},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year = {2015},
+  url = {https://arxiv.org/abs/1412.6572}
+}
+
+@inproceedings{papernot2017blackbox,
+  author = {Papernot, Nicolas and McDaniel, Patrick and Goodfellow, Ian and Jha, Somesh and Celik, Z. Berkay and Swami, Ananthram},
+  title = {Practical Black-Box Attacks against Machine Learning},
+  booktitle = {Proceedings of the ACM on Asia Conference on Computer and Communications Security},
+  year = {2017},
+  pages = {506--519},
+  doi = {10.1145/3052973.3053009}
+}
+
+@article{biggio2013evasion,
+  author = {Biggio, Battista and Corona, Igino and Maiorca, Davide and Nelson, Blaine and Srndic, Nedim and Laskov, Pavel and Giacinto, Giorgio and Roli, Fabio},
+  title = {Evasion Attacks against Machine Learning at Test Time},
+  journal = {Machine Learning and Knowledge Discovery in Databases},
+  year = {2013},
+  pages = {387--402}
+}
+
+@article{carlini2017towards,
+  author = {Carlini, Nicholas and Wagner, David},
+  title = {Towards Evaluating the Robustness of Neural Networks},
+  journal = {IEEE Symposium on Security and Privacy},
+  year = {2017},
+  pages = {39--57},
+  doi = {10.1109/SP.2017.49}
+}
+
+@misc{greshake2023indirect,
+  author = {Greshake, Kai and Abdelnabi, Sahar and Mishra, Shailesh and Endres, Christoph and Holz, Thorsten and Fritz, Mario},
+  title = {More than You've Asked For: A Comprehensive Analysis of Novel Prompt Injection Threats to Application-Integrated Large Language Models},
+  year = {2023},
+  eprint = {2302.12173},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2302.12173}
+}
+
+@misc{liu2023houyi,
+  author = {Liu, Yi and Deng, Gelei and Xu, Zhengzi and Li, Yuekang and Zheng, Yaowen and Zhang, Ying and Zhao, Lida and Zhang, Tianwei and Wang, Kailong and Liu, Yang},
+  title = {Prompt Injection Attack against LLM-Integrated Applications},
+  year = {2023},
+  eprint = {2306.05499},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2306.05499}
+}
+
+@inproceedings{zhan2024injecagent,
+  author = {Zhan, Qiusi and Liang, Zhicheng and Ying, Zifan and Kang, Daniel},
+  title = {InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated Large Language Model Agents},
+  booktitle = {Findings of the Association for Computational Linguistics},
+  year = {2024},
+  url = {https://arxiv.org/abs/2403.02691}
+}
+
+@misc{mcpthreat2025,
+  author = {Hou, Xinyi and Zhao, Yanjie and Wang, Yue and others},
+  title = {Model Context Protocol (MCP): Landscape, Security Threats, and Future Research Directions},
+  year = {2025},
+  eprint = {2503.23278},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2503.23278}
+}
+
+@misc{agentsecuritybench2025,
+  author = {Zhang, Andy K. and Perry, Neil and Dulepet, Rithvik and Ji, Jerry and others},
+  title = {Agent Security Bench: Formalizing and Benchmarking Attacks and Defenses in LLM-Based Agents},
+  year = {2025},
+  eprint = {2410.02644},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2410.02644}
+}
+
+@misc{cheng2024agentsurvey,
+  author = {Cheng, Yuheng and Zhang, Ceyao and Zhang, Zhi and Meng, Xiangrui and Hong, Sirui and Li, Wenhao and Wang, Zihao and Wang, Zhaoqing and Yin, Fanchao and Zhao, Jun},
+  title = {Exploring Large Language Model based Intelligent Agents: Definitions, Methods, and Prospects},
+  year = {2024},
+  eprint = {2401.03428},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2401.03428}
+}
+
+@inproceedings{chen2024poisonedrag,
+  author = {Chen, Jiawei and Lin, Hongyu and Han, Xianpei and Sun, Le},
+  title = {PoisonedRAG: Knowledge Poisoning Attacks to Retrieval-Augmented Generation of Large Language Models},
+  booktitle = {USENIX Security Symposium},
+  year = {2025},
+  url = {https://arxiv.org/abs/2402.07867}
+}
+
+@inproceedings{zou2024oneshot,
+  author = {Zou, Wei and Geng, Yixuan and Wang, Bing and Zhang, Yue},
+  title = {One-Shot Dominance: A Simple Attack on Retrieval-Augmented Generation},
+  booktitle = {Proceedings of the Conference on Empirical Methods in Natural Language Processing},
+  year = {2025}
+}
+
+@article{ji2023survey,
+  author = {Ji, Ziwei and Lee, Nayeon and Frieske, Rita and Yu, Tiezheng and Su, Dan and Xu, Yan and Ishii, Etsuko and Bang, Ye Jin and Chen, Andrea Madotto and Fung, Pascale},
+  title = {Survey of Hallucination in Natural Language Generation},
+  journal = {ACM Computing Surveys},
+  volume = {55},
+  number = {12},
+  year = {2023},
+  pages = {1--38},
+  doi = {10.1145/3571730}
+}
+
+@article{huang2025survey,
+  author = {Huang, Lei and Yu, Weijiang and Ma, Weitao and Zhong, Weihong and Feng, Zhangyin and Wang, Haotian and Chen, Qianglong and Peng, Weihua and Feng, Xiaocheng and Qin, Bing and Liu, Ting},
+  title = {A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions},
+  journal = {ACM Transactions on Information Systems},
+  year = {2025},
+  note = {To appear},
+  url = {https://arxiv.org/abs/2311.05232}
+}
+
+@misc{gao2024ragsurvey,
+  author = {Gao, Yunfan and Xiong, Yun and Gao, Xinyu and Jia, Kangxiang and Pan, Jinliu and Bi, Yuxi and Dai, Yi and Sun, Jiawei and Wang, Haofen},
+  title = {Retrieval-Augmented Generation for Large Language Models: A Survey},
+  year = {2024},
+  eprint = {2312.10997},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2312.10997}
+}
+
+@article{guo2017calibration,
+  author = {Guo, Chuan and Pleiss, Geoff and Sun, Yu and Weinberger, Kilian Q.},
+  title = {On Calibration of Modern Neural Networks},
+  journal = {Proceedings of the International Conference on Machine Learning},
+  year = {2017},
+  pages = {1321--1330}
+}
+
+@book{hutchins1995cognition,
+  author = {Hutchins, Edwin},
+  title = {Cognition in the Wild},
+  publisher = {MIT Press},
+  year = {1995}
+}
+
+@article{endsley1995situation,
+  author = {Endsley, Mica R.},
+  title = {Toward a Theory of Situation Awareness in Dynamic Systems},
+  journal = {Human Factors},
+  volume = {37},
+  number = {1},
+  pages = {32--64},
+  year = {1995},
+  doi = {10.1518/001872095779049543}
+}
+
+@article{endsley1995outofloop,
+  author = {Endsley, Mica R. and Kiris, Esin O.},
+  title = {The Out-of-the-Loop Performance Problem and Level of Control in Automation},
+  journal = {Human Factors},
+  volume = {37},
+  number = {2},
+  pages = {381--394},
+  year = {1995},
+  doi = {10.1518/001872095779064555}
+}
+
+@article{endsley2017fromhere,
+  author = {Endsley, Mica R.},
+  title = {From Here to Autonomy: Lessons Learned from Human-Automation Research},
+  journal = {Human Factors},
+  volume = {59},
+  number = {1},
+  pages = {5--27},
+  year = {2017},
+  doi = {10.1177/0018720816681350}
+}
+
+@article{parasuraman1997humans,
+  author = {Parasuraman, Raja and Riley, Victor},
+  title = {Humans and Automation: Use, Misuse, Disuse, Abuse},
+  journal = {Human Factors},
+  volume = {39},
+  number = {2},
+  pages = {230--253},
+  year = {1997},
+  doi = {10.1518/001872097778543886}
+}
+
+@article{parasuraman2000model,
+  author = {Parasuraman, Raja and Sheridan, Thomas B. and Wickens, Christopher D.},
+  title = {A Model for Types and Levels of Human Interaction with Automation},
+  journal = {IEEE Transactions on Systems, Man, and Cybernetics -- Part A: Systems and Humans},
+  volume = {30},
+  number = {3},
+  pages = {286--297},
+  year = {2000},
+  doi = {10.1109/3468.844354}
+}
+
+@article{lee2004trust,
+  author = {Lee, John D. and See, Katrina A.},
+  title = {Trust in Automation: Designing for Appropriate Reliance},
+  journal = {Human Factors},
+  volume = {46},
+  number = {1},
+  pages = {50--80},
+  year = {2004},
+  doi = {10.1518/hfes.46.1.50_30392}
+}
+
+@inproceedings{bucinca2021cognitive,
+  author = {Bu\c{c}inca, Zana and Malaya, Maja Barbara and Gajos, Krzysztof Z.},
+  title = {To Trust or to Think: Cognitive Forcing Functions Can Reduce Overreliance on AI in AI-Assisted Decision-Making},
+  booktitle = {Proceedings of the ACM on Human-Computer Interaction},
+  volume = {5},
+  number = {CSCW1},
+  year = {2021},
+  doi = {10.1145/3449287}
+}
+
+@article{gonzalez2026humanai,
+  author = {Gonzalez, Cleotilde and Donahue, Kate and Goldstein, Daniel G. and Heidari, Hoda and Jalali, Mohammad S. and Schelble, Beau and Singh, Aarti and Woolley, Anita Williams},
+  title = {Toward a Science of Human--AI Teaming for Decision Making: A Complementarity Framework},
+  journal = {PNAS Nexus},
+  volume = {5},
+  number = {3},
+  year = {2026},
+  doi = {10.1093/pnasnexus/pgag030}
+}
+
+@misc{corsi2023epistemicsecurity,
+  author = {Corsi, Giulio},
+  title = {Generative Artificial Intelligence, Disinformation and Misinformation: Framing Information Disorders as Epistemic Security},
+  howpublished = {Presentation at the IAEA General Conference Senior Safety and Security Regulators' Meeting},
+  year = {2023},
+  url = {https://www.iaea.org/sites/default/files/23/10/ii-2-_corsi_iaea_final_got_gc_app.pdf}
+}
+
+@misc{seger2022epistemicsecurity,
+  author = {Seger, Elizabeth},
+  title = {Epistemic Security},
+  year = {2022},
+  url = {https://elizabethseger.com/epistemic-security/}
+}
+
+@article{starbird2019disinformation,
+  author = {Starbird, Kate},
+  title = {Disinformation's Spread: Bots, Trolls and All of Us},
+  journal = {Nature},
+  volume = {571},
+  pages = {449},
+  year = {2019},
+  doi = {10.1038/d41586-019-02235-x}
+}
+
+@misc{wardle2017informationdisorder,
+  author = {Wardle, Claire and Derakhshan, Hossein},
+  title = {Information Disorder: Toward an Interdisciplinary Framework for Research and Policy Making},
+  howpublished = {Council of Europe Report DGI(2017)09},
+  year = {2017},
+  url = {https://rm.coe.int/information-disorder-toward-an-interdisciplinary-framework-for-researc/168076277c}
+}
+
+@misc{w3c_prov_2013,
+  author = {{World Wide Web Consortium}},
+  title = {{PROV-O: The PROV Ontology}},
+  howpublished = {W3C Recommendation},
+  year = {2013},
+  url = {https://www.w3.org/TR/prov-o/}
+}
+
+@inproceedings{intoto2019,
+  author = {Torres-Arias, Santiago and Afzali, Hammad and Kuppusamy, Trishank Karthik and Curtmola, Reza and Cappos, Justin},
+  title = {in-toto: Providing Farm-to-Table Guarantees for Bits and Bytes},
+  booktitle = {USENIX Security Symposium},
+  year = {2019},
+  pages = {1393--1410},
+  url = {https://www.usenix.org/conference/usenixsecurity19/presentation/torres-arias}
+}
+
+@misc{slsa_2026,
+  author = {{Supply-chain Levels for Software Artifacts}},
+  title = {{SLSA: Supply-chain Levels for Software Artifacts}},
+  year = {2026},
+  url = {https://slsa.dev/}
+}
+
+@misc{c2pa_spec_2024,
+  author = {{Coalition for Content Provenance and Authenticity}},
+  title = {{C2PA Technical Specification}},
+  year = {2024},
+  url = {https://c2pa.org/specifications/}
+}
+
+@article{merkle1987digital,
+  author = {Merkle, Ralph C.},
+  title = {A Digital Signature Based on a Conventional Encryption Function},
+  journal = {Advances in Cryptology -- CRYPTO '87},
+  year = {1987},
+  pages = {369--378}
+}
+
+@misc{laurie2013certificate,
+  author = {Laurie, Ben and Langley, Adam and Kasper, Emilia},
+  title = {Certificate Transparency},
+  howpublished = {RFC 6962},
+  year = {2013},
+  doi = {10.17487/RFC6962},
+  url = {https://www.rfc-editor.org/rfc/rfc6962}
+}
+
+@inproceedings{goldwasser1985knowledge,
+  author = {Goldwasser, Shafi and Micali, Silvio and Rackoff, Charles},
+  title = {The Knowledge Complexity of Interactive Proof Systems},
+  booktitle = {Proceedings of the Seventeenth Annual ACM Symposium on Theory of Computing},
+  year = {1985},
+  pages = {291--304},
+  doi = {10.1145/22145.22178}
+}
+
+@misc{benet2024zkmlsurvey,
+  author = {Benet, Marta and Burgess, Kevin and Morais, Eduardo and Rotaru, Dragos},
+  title = {SoK: Zero-Knowledge Machine Learning},
+  year = {2024},
+  eprint = {2404.16109},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2404.16109}
+}
+
+@inproceedings{zhang2020veriml,
+  author = {Zhang, Jie and Fang, Chen and Shah, Nisarg and Zhang, Dawn Song},
+  title = {VeriML: Enabling Integrity Assurances and Fair Payments for Machine Learning as a Service},
+  booktitle = {IEEE Symposium on Security and Privacy},
+  year = {2020},
+  pages = {713--730},
+  doi = {10.1109/SP40000.2020.00042}
+}
+
+@book{quinonero2008datasetshift,
+  editor = {Qui\~{n}onero-Candela, Joaquin and Sugiyama, Masashi and Schwaighofer, Anton and Lawrence, Neil D.},
+  title = {Dataset Shift in Machine Learning},
+  publisher = {MIT Press},
+  year = {2009}
+}
+
+@article{lu2019learning,
+  author = {Lu, Jie and Liu, Anjin and Dong, Fan and Gu, Feng and Gama, Jo\~{a}o and Zhang, Guangquan},
+  title = {Learning under Concept Drift: A Review},
+  journal = {IEEE Transactions on Knowledge and Data Engineering},
+  volume = {31},
+  number = {12},
+  pages = {2346--2363},
+  year = {2019},
+  doi = {10.1109/TKDE.2018.2876857}
+}
+
+@article{moreno2023data,
+  author = {Moreno-Torres, Jose G. and Raeder, Troy and Alaiz-Rodr\'{i}guez, Roc\'{i}o and Chawla, Nitesh V. and Herrera, Francisco},
+  title = {A Unifying View on Dataset Shift in Classification},
+  journal = {Pattern Recognition},
+  volume = {45},
+  number = {1},
+  pages = {521--530},
+  year = {2012},
+  doi = {10.1016/j.patcog.2011.06.019}
+}
+
+@article{mitchell2019modelcards,
+  author = {Mitchell, Margaret and Wu, Simone and Zaldivar, Andrew and Barnes, Parker and Vasserman, Lucy and Hutchinson, Ben and Spitzer, Elena and Raji, Inioluwa Deborah and Gebru, Timnit},
+  title = {Model Cards for Model Reporting},
+  journal = {Proceedings of the Conference on Fairness, Accountability, and Transparency},
+  year = {2019},
+  pages = {220--229},
+  doi = {10.1145/3287560.3287596}
+}
+
+@article{gebru2021datasheets,
+  author = {Gebru, Timnit and Morgenstern, Jamie and Vecchione, Briana and Vaughan, Jennifer Wortman and Wallach, Hanna and Daum\'{e} III, Hal and Crawford, Kate},
+  title = {Datasheets for Datasets},
+  journal = {Communications of the ACM},
+  volume = {64},
+  number = {12},
+  pages = {86--92},
+  year = {2021},
+  doi = {10.1145/3458723}
+}
+
+@inproceedings{raji2020closing,
+  author = {Raji, Inioluwa Deborah and Smart, Andrew and White, Rebecca N. and Mitchell, Margaret and Gebru, Timnit and Hutchinson, Ben and Smith-Loud, Jamila and Theron, Daniel and Barnes, Parker},
+  title = {Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing},
+  booktitle = {Proceedings of the Conference on Fairness, Accountability, and Transparency},
+  year = {2020},
+  pages = {33--44},
+  doi = {10.1145/3351095.3372873}
+}
+
+@misc{kitchenham2007slr,
+  author = {Kitchenham, Barbara and Charters, Stuart},
+  title = {Guidelines for Performing Systematic Literature Reviews in Software Engineering},
+  howpublished = {EBSE Technical Report EBSE-2007-01},
+  year = {2007}
+}
+
+@article{webster2002analyzing,
+  author = {Webster, Jane and Watson, Richard T.},
+  title = {Analyzing the Past to Prepare for the Future: Writing a Literature Review},
+  journal = {MIS Quarterly},
+  volume = {26},
+  number = {2},
+  pages = {xiii--xxiii},
+  year = {2002}
+}
+
+@misc{sok_oakland,
+  author = {{IEEE Symposium on Security and Privacy}},
+  title = {Systematization of Knowledge Papers},
+  year = {2026},
+  url = {https://www.ieee-security.org/TC/SP-Index.html}
+}
+
+@misc{bhatt2023cyberseceval,
+  author = {Bhatt, Manish and Chennabasappa, Sathyanarayanan and Nikolaidis, Christos and others},
+  title = {CyberSecEval: A Benchmark for Evaluating the Cybersecurity Risks of Large Language Models},
+  year = {2023},
+  eprint = {2312.04724},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2312.04724}
+}
+
+@misc{liu2023agentbench,
+  author = {Liu, Xiao and Yu, Hao and Zhang, Hanchen and Xu, Yifan and Lei, Xuanyu and Lai, Hanyu and Gu, Yu and Ding, Hangliang and Men, Kaiwen and Yang, Kejuan and Zhang, Shudan and Deng, Xiang and Zeng, Aohan and Du, Zhengxiao and Zhang, Chenhui and Shen, Sheng and Zhang, Tianjun and Su, Yu and Sun, Huan and Huang, Minlie and Dong, Yuxiao and Tang, Jie},
+  title = {AgentBench: Evaluating LLMs as Agents},
+  year = {2023},
+  eprint = {2308.03688},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2308.03688}
+}
+
+@misc{li2023soc_hai,
+  author = {Li, Tianshi and Muller, Michael and Chilton, Lydia and others},
+  title = {Human--AI Collaboration in Security Operations Centers: Opportunities and Challenges},
+  year = {2023},
+  note = {Workshop and preprint literature on SOC analyst--AI collaboration}
+}
+
+@misc{alshamrani2024augmented_soc,
+  author = {Alshamrani, Adel and Myneni, Sandeep and Chowdhary, Ankur and Huang, Dijiang},
+  title = {A Survey on Augmented Intelligence for Cybersecurity},
+  year = {2024},
+  eprint = {2402.06948},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2402.06948}
+}
+
+@misc{openai_preparedness_2023,
+  author = {{OpenAI}},
+  title = {Preparedness Framework},
+  year = {2023},
+  url = {https://openai.com/safety/preparedness/}
+}
+
+@misc{anthropic_rsp_2025,
+  author = {{Anthropic}},
+  title = {Responsible Scaling Policy},
+  year = {2025},
+  url = {https://www.anthropic.com/responsible-scaling-policy}
+}
+
+@article{amodei2016concrete,
+  author = {Amodei, Dario and Olah, Chris and Steinhardt, Jacob and Christiano, Paul and Schulman, John and Man\'{e}, Dan},
+  title = {Concrete Problems in AI Safety},
+  journal = {arXiv preprint arXiv:1606.06565},
+  year = {2016}
+}
+
+@article{weidinger2022taxonomy,
+  author = {Weidinger, Laura and Mellor, John and Rauh, Maribeth and Griffin, Conor and Uesato, Jonathan and Huang, Po-Sen and Cheng, Myra and Glaese, Amelia and Balle, Borja and Kasirzadeh, Atoosa and Kenton, Zachary and Brown, Sasha and Hawkins, Will and Stepleton, Tom and Biles, Chris and Birhane, Abeba and Haas, Julia and Rimell, Laura and Hendricks, Lisa Anne and Isaac, William and Legassick, Sophie and Irving, Geoffrey and Gabriel, Iason},
+  title = {Taxonomy of Risks Posed by Language Models},
+  journal = {FAccT},
+  year = {2022},
+  pages = {214--229},
+  doi = {10.1145/3531146.3533088}
+}
+
+@article{bommasani2021foundation,
+  author = {Bommasani, Rishi and Hudson, Drew A. and Adeli, Ehsan and Altman, Russ and Arora, Simran and von Arx, Sydney and Bernstein, Michael S. and Bohg, Jeannette and Bosselut, Antoine and Brunskill, Emma and others},
+  title = {On the Opportunities and Risks of Foundation Models},
+  journal = {arXiv preprint arXiv:2108.07258},
+  year = {2021}
+}
+
+@inproceedings{hendrycks2021unsolved,
+  author = {Hendrycks, Dan and Carlini, Nicholas and Schulman, John and Steinhardt, Jacob},
+  title = {Unsolved Problems in ML Safety},
+  booktitle = {arXiv preprint arXiv:2109.13916},
+  year = {2021}
+}
+
+@article{sambasivan2021everyone,
+  author = {Sambasivan, Nithya and Kapania, Shivani and Highfill, Hannah and Akrong, Diana and Paritosh, Praveen and Aroyo, Lora M.},
+  title = {Everyone Wants to Do the Model Work, Not the Data Work: Data Cascades in High-Stakes AI},
+  journal = {Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems},
+  year = {2021},
+  doi = {10.1145/3411764.3445518}
+}
+
+@article{shneiderman2020human,
+  author = {Shneiderman, Ben},
+  title = {Human-Centered Artificial Intelligence: Reliable, Safe and Trustworthy},
+  journal = {International Journal of Human--Computer Interaction},
+  volume = {36},
+  number = {6},
+  pages = {495--504},
+  year = {2020},
+  doi = {10.1080/10447318.2020.1741118}
+}
+
+@article{saltzer1975protection,
+  author = {Saltzer, Jerome H. and Schroeder, Michael D.},
+  title = {The Protection of Information in Computer Systems},
+  journal = {Proceedings of the IEEE},
+  volume = {63},
+  number = {9},
+  pages = {1278--1308},
+  year = {1975},
+  doi = {10.1109/PROC.1975.9939}
+}
+
+@inproceedings{lampson1971protection,
+  author = {Lampson, Butler W.},
+  title = {Protection},
+  booktitle = {Proceedings of the Fifth Princeton Symposium on Information Sciences and Systems},
+  year = {1971},
+  pages = {437--443}
+}
+
+@book{shostack2014threat,
+  author = {Shostack, Adam},
+  title = {Threat Modeling: Designing for Security},
+  publisher = {Wiley},
+  year = {2014}
+}
+
+@misc{nist_sp800_53_2020,
+  author = {{National Institute of Standards and Technology}},
+  title = {Security and Privacy Controls for Information Systems and Organizations},
+  howpublished = {NIST Special Publication 800-53 Revision 5},
+  year = {2020},
+  doi = {10.6028/NIST.SP.800-53r5}
+}
+
+@misc{nist_sp800_160_2022,
+  author = {{National Institute of Standards and Technology}},
+  title = {Developing Cyber-Resilient Systems: A Systems Security Engineering Approach},
+  howpublished = {NIST Special Publication 800-160 Volume 2 Revision 1},
+  year = {2022},
+  doi = {10.6028/NIST.SP.800-160v2r1}
+}
+
+@misc{eu_ai_act_2024,
+  author = {{European Parliament and Council of the European Union}},
+  title = {Regulation (EU) 2024/1689 Laying Down Harmonised Rules on Artificial Intelligence},
+  year = {2024},
+  url = {https://eur-lex.europa.eu/eli/reg/2024/1689/oj}
+}
+
+@misc{cisa_secure_ai_2023,
+  author = {{Cybersecurity and Infrastructure Security Agency and partners}},
+  title = {Guidelines for Secure AI System Development},
+  year = {2023},
+  url = {https://www.cisa.gov/resources-tools/resources/guidelines-secure-ai-system-development}
+}
+
+@misc{hleg_trustworthy_ai_2019,
+  author = {{High-Level Expert Group on Artificial Intelligence}},
+  title = {Ethics Guidelines for Trustworthy AI},
+  year = {2019},
+  url = {https://digital-strategy.ec.europa.eu/en/library/ethics-guidelines-trustworthy-ai}
+}
+
+@inproceedings{szegedy2014intriguing,
+  author = {Szegedy, Christian and Zaremba, Wojciech and Sutskever, Ilya and Bruna, Joan and Erhan, Dumitru and Goodfellow, Ian and Fergus, Rob},
+  title = {Intriguing Properties of Neural Networks},
+  booktitle = {International Conference on Learning Representations},
+  year = {2014},
+  url = {https://arxiv.org/abs/1312.6199}
+}
+
+@inproceedings{madry2018towards,
+  author = {Madry, Aleksander and Makelov, Aleksandar and Schmidt, Ludwig and Tsipras, Dimitris and Vladu, Adrian},
+  title = {Towards Deep Learning Models Resistant to Adversarial Attacks},
+  booktitle = {International Conference on Learning Representations},
+  year = {2018},
+  url = {https://arxiv.org/abs/1706.06083}
+}
+
+@article{biggio2018wild,
+  author = {Biggio, Battista and Roli, Fabio},
+  title = {Wild Patterns: Ten Years After the Rise of Adversarial Machine Learning},
+  journal = {Pattern Recognition},
+  volume = {84},
+  pages = {317--331},
+  year = {2018},
+  doi = {10.1016/j.patcog.2018.07.023}
+}
+
+@inproceedings{steinhardt2017certified,
+  author = {Steinhardt, Jacob and Koh, Pang Wei and Liang, Percy},
+  title = {Certified Defenses for Data Poisoning Attacks},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year = {2017}
+}
+
+@inproceedings{jagielski2018manipulating,
+  author = {Jagielski, Matthew and Oprea, Alina and Biggio, Battista and Liu, Chang and Nita-Rotaru, Cristina and Li, Bo},
+  title = {Manipulating Machine Learning: Poisoning Attacks and Countermeasures for Regression Learning},
+  booktitle = {IEEE Symposium on Security and Privacy},
+  year = {2018},
+  pages = {19--35},
+  doi = {10.1109/SP.2018.00057}
+}
+
+@inproceedings{shafahi2018poison,
+  author = {Shafahi, Ali and Huang, W. Ronny and Najibi, Mahyar and Suciu, Octavian and Studer, Christoph and Dumitras, Tudor and Goldstein, Tom},
+  title = {Poison Frogs! Targeted Clean-Label Poisoning Attacks on Neural Networks},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year = {2018}
+}
+
+@inproceedings{koh2017influence,
+  author = {Koh, Pang Wei and Liang, Percy},
+  title = {Understanding Black-box Predictions via Influence Functions},
+  booktitle = {International Conference on Machine Learning},
+  year = {2017},
+  pages = {1885--1894}
+}
+
+@inproceedings{tramer2016stealing,
+  author = {Tram\`{e}r, Florian and Zhang, Fan and Juels, Ari and Reiter, Michael K. and Ristenpart, Thomas},
+  title = {Stealing Machine Learning Models via Prediction APIs},
+  booktitle = {USENIX Security Symposium},
+  year = {2016},
+  pages = {601--618}
+}
+
+@inproceedings{carlini2021extracting,
+  author = {Carlini, Nicholas and Tramer, Florian and Wallace, Eric and Jagielski, Matthew and Herbert-Voss, Ariel and Lee, Katherine and Roberts, Adam and Brown, Tom and Song, Dawn and Erlingsson, Ulfar and Oprea, Alina and Raffel, Colin},
+  title = {Extracting Training Data from Large Language Models},
+  booktitle = {USENIX Security Symposium},
+  year = {2021},
+  pages = {2633--2650}
+}
+
+@misc{perez2022ignore,
+  author = {Perez, F{\'e}lix and Ribeiro, Ian},
+  title = {Ignore Previous Prompt: Attack Techniques for Language Models},
+  year = {2022},
+  url = {https://arxiv.org/abs/2211.09527}
+}
+
+@inproceedings{zou2023universal,
+  author = {Zou, Andy and Wang, Zifan and Kolter, J. Zico and Fredrikson, Matt},
+  title = {Universal and Transferable Adversarial Attacks on Aligned Language Models},
+  booktitle = {arXiv preprint arXiv:2307.15043},
+  year = {2023}
+}
+
+@misc{wei2023jailbroken,
+  author = {Wei, Alexander and Haghtalab, Nika and Steinhardt, Jacob},
+  title = {Jailbroken: How Does LLM Safety Training Fail?},
+  year = {2023},
+  eprint = {2307.02483},
+  archivePrefix = {arXiv}
+}
+
+@misc{yao2022react,
+  author = {Yao, Shunyu and Zhao, Jeffrey and Yu, Dian and Du, Nan and Shafran, Izhak and Narasimhan, Karthik and Cao, Yuan},
+  title = {ReAct: Synergizing Reasoning and Acting in Language Models},
+  year = {2022},
+  eprint = {2210.03629},
+  archivePrefix = {arXiv}
+}
+
+@inproceedings{schick2023toolformer,
+  author = {Schick, Timo and Dwivedi-Yu, Jane and Dess\`{i}, Roberto and Raileanu, Roberta and Lomeli, Maria and Zettlemoyer, Luke and Cancedda, Nicola and Scialom, Thomas},
+  title = {Toolformer: Language Models Can Teach Themselves to Use Tools},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year = {2023}
+}
+
+@inproceedings{lewis2020rag,
+  author = {Lewis, Patrick and Perez, Ethan and Piktus, Aleksandra and Petroni, Fabio and Karpukhin, Vladimir and Goyal, Naman and K\"{u}ttler, Heinrich and Lewis, Mike and Yih, Wen-tau and Rockt\"{a}schel, Tim and Riedel, Sebastian and Kiela, Douwe},
+  title = {Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year = {2020}
+}
+
+@inproceedings{karpukhin2020dpr,
+  author = {Karpukhin, Vladimir and O\u{g}uz, Barlas and Min, Sewon and Lewis, Patrick and Wu, Ledell and Edunov, Sergey and Chen, Danqi and Yih, Wen-tau},
+  title = {Dense Passage Retrieval for Open-Domain Question Answering},
+  booktitle = {Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing},
+  year = {2020},
+  pages = {6769--6781}
+}
+
+@misc{nakano2021webgpt,
+  author = {Nakano, Reiichiro and Hilton, Jacob and Balaji, Suchir and Wu, Jeff and Ouyang, Long and Kim, Christina and Hesse, Christopher and Jain, Shantanu and Kosaraju, Vineet and Saunders, William and Jiang, Xu and Cobbe, Karl and Eloundou, Tyna and Krueger, Gretchen and Button, Kevin and Knight, Matthew and Chess, Benjamin and Schulman, John},
+  title = {WebGPT: Browser-Assisted Question-Answering with Human Feedback},
+  year = {2021},
+  eprint = {2112.09332},
+  archivePrefix = {arXiv}
+}
+
+@inproceedings{park2023generativeagents,
+  author = {Park, Joon Sung and O'Brien, Joseph C. and Cai, Carrie J. and Morris, Meredith Ringel and Liang, Percy and Bernstein, Michael S.},
+  title = {Generative Agents: Interactive Simulacra of Human Behavior},
+  booktitle = {Proceedings of the ACM Symposium on User Interface Software and Technology},
+  year = {2023},
+  doi = {10.1145/3586183.3606763}
+}
+
+@inproceedings{maynez2020faithfulness,
+  author = {Maynez, Joshua and Narayan, Shashi and Bohnet, Bernd and McDonald, Ryan},
+  title = {On Faithfulness and Factuality in Abstractive Summarization},
+  booktitle = {Proceedings of the Annual Meeting of the Association for Computational Linguistics},
+  year = {2020},
+  pages = {1906--1919}
+}
+
+@inproceedings{kryscinski2020evaluating,
+  author = {Kryscinski, Wojciech and McCann, Bryan and Xiong, Caiming and Socher, Richard},
+  title = {Evaluating the Factual Consistency of Abstractive Text Summarization},
+  booktitle = {Proceedings of the Conference on Empirical Methods in Natural Language Processing},
+  year = {2020},
+  pages = {9332--9346}
+}
+
+@inproceedings{min2023factscore,
+  author = {Min, Sewon and Krishna, Kalpesh and Lyu, Xinxi and Lewis, Mike and Yih, Wen-tau and Koh, Pang Wei and Iyyer, Mohit and Zettlemoyer, Luke and Hajishirzi, Hannaneh},
+  title = {FActScore: Fine-Grained Atomic Evaluation of Factual Precision in Long Form Text Generation},
+  booktitle = {Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing},
+  year = {2023}
+}
+
+@inproceedings{lin2022truthfulqa,
+  author = {Lin, Stephanie and Hilton, Jacob and Evans, Owain},
+  title = {TruthfulQA: Measuring How Models Mimic Human Falsehoods},
+  booktitle = {Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics},
+  year = {2022},
+  pages = {3214--3252}
+}
+
+@inproceedings{thorne2018fever,
+  author = {Thorne, James and Vlachos, Andreas and Christodoulopoulos, Christos and Mittal, Arpit},
+  title = {FEVER: A Large-scale Dataset for Fact Extraction and VERification},
+  booktitle = {Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics},
+  year = {2018},
+  pages = {809--819}
+}
+
+@inproceedings{ribeiro2016why,
+  author = {Ribeiro, Marco Tulio and Singh, Sameer and Guestrin, Carlos},
+  title = {``Why Should I Trust You?'': Explaining the Predictions of Any Classifier},
+  booktitle = {Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+  year = {2016},
+  pages = {1135--1144},
+  doi = {10.1145/2939672.2939778}
+}
+
+@inproceedings{lundberg2017shap,
+  author = {Lundberg, Scott M. and Lee, Su-In},
+  title = {A Unified Approach to Interpreting Model Predictions},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year = {2017}
+}
+
+@misc{doshivelez2017towards,
+  author = {Doshi-Velez, Finale and Kim, Been},
+  title = {Towards a Rigorous Science of Interpretable Machine Learning},
+  year = {2017},
+  eprint = {1702.08608},
+  archivePrefix = {arXiv}
+}
+
+@inproceedings{jacovi2020faithful,
+  author = {Jacovi, Alon and Goldberg, Yoav},
+  title = {Towards Faithfully Interpretable NLP Systems: How Should We Define and Evaluate Faithfulness?},
+  booktitle = {Proceedings of the Annual Meeting of the Association for Computational Linguistics},
+  year = {2020},
+  pages = {4198--4205}
+}
+
+@article{kroll2017accountable,
+  author = {Kroll, Joshua A. and Huey, Joanna and Barocas, Solon and Felten, Edward W. and Reidenberg, Joel R. and Robinson, David G. and Yu, Harlan},
+  title = {Accountable Algorithms},
+  journal = {University of Pennsylvania Law Review},
+  volume = {165},
+  pages = {633--705},
+  year = {2017}
+}
+
+@inproceedings{selbst2019fairness,
+  author = {Selbst, Andrew D. and Boyd, Danah and Friedler, Sorelle A. and Venkatasubramanian, Suresh and Vertesi, Janet},
+  title = {Fairness and Abstraction in Sociotechnical Systems},
+  booktitle = {Proceedings of the Conference on Fairness, Accountability, and Transparency},
+  year = {2019},
+  pages = {59--68},
+  doi = {10.1145/3287560.3287598}
+}
+
+@book{woods2006joint,
+  author = {Woods, David D. and Hollnagel, Erik},
+  title = {Joint Cognitive Systems: Patterns in Cognitive Systems Engineering},
+  publisher = {CRC Press},
+  year = {2006}
+}
+
+@book{hollnagel2005joint,
+  author = {Hollnagel, Erik and Woods, David D.},
+  title = {Joint Cognitive Systems: Foundations of Cognitive Systems Engineering},
+  publisher = {CRC Press},
+  year = {2005}
+}
+
+@article{wickens2008multiple,
+  author = {Wickens, Christopher D.},
+  title = {Multiple Resources and Mental Workload},
+  journal = {Human Factors},
+  volume = {50},
+  number = {3},
+  pages = {449--455},
+  year = {2008},
+  doi = {10.1518/001872008X288394}
+}
+
+@inproceedings{schelter2018automating,
+  author = {Schelter, Sebastian and Biessmann, Felix and Januschowski, Tim and Salinas, David and Seufert, Stephan and Szarvas, Gyuri},
+  title = {On Challenges in Machine Learning Model Management},
+  booktitle = {IEEE Data Engineering Bulletin},
+  year = {2018}
+}
+
+@inproceedings{breck2017mltest,
+  author = {Breck, Eric and Cai, Shanqing and Nielsen, Eric and Salib, Michael and Sculley, D.},
+  title = {The ML Test Score: A Rubric for ML Production Readiness and Technical Debt Reduction},
+  booktitle = {IEEE International Conference on Big Data},
+  year = {2017},
+  pages = {1123--1132}
+}
+
+@inproceedings{sculley2015hidden,
+  author = {Sculley, D. and Holt, Gary and Golovin, Daniel and Davydov, Eugene and Phillips, Todd and Ebner, Dietmar and Chaudhary, Vinay and Young, Michael and Crespo, Jean-Francois and Dennison, Dan},
+  title = {Hidden Technical Debt in Machine Learning Systems},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year = {2015}
+}
+
+@inproceedings{amershi2019software,
+  author = {Amershi, Saleema and Begel, Andrew and Bird, Christian and DeLine, Robert and Gall, Harald and Kamar, Ece and Nagappan, Nachiappan and Nushi, Besmira and Zimmermann, Thomas},
+  title = {Software Engineering for Machine Learning: A Case Study},
+  booktitle = {IEEE/ACM International Conference on Software Engineering: Software Engineering in Practice},
+  year = {2019},
+  pages = {291--300}
+}

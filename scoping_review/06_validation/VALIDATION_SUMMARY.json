@@ -1,0 +1,54 @@
+{
+  "release": "v8.0.0",
+  "generated_utc": "2026-07-13T04:50:28.374214+00:00",
+  "counts": {
+    "identified": 6512,
+    "duplicates": 4129,
+    "unique_screened": 2383,
+    "include_core": 552,
+    "include_background": 931,
+    "exclude": 900,
+    "unresolved": 0,
+    "foundational_separate": 118
+  },
+  "executed_queries": 17,
+  "prepared_not_executed_queries": 13,
+  "metadata_missing": {
+    "title": 0,
+    "authors": 11,
+    "year": 0,
+    "venue": 8,
+    "doi": 26,
+    "url": 1298,
+    "abstract": 17
+  },
+  "duplicate_mapping": {
+    "original_public_mapped": 4114,
+    "repaired": 15,
+    "unresolved": 0
+  },
+  "hash_validation": [
+    {
+      "field": "title_sha256",
+      "records_checked": 6512,
+      "matches": 6390,
+      "mismatches": 122,
+      "interpretation": "Recomputed from retained P3-screening.csv using the published NFKC/lowercase/whitespace-collapse specification."
+    },
+    {
+      "field": "abstract_sha256",
+      "records_checked": 6512,
+      "matches": 5563,
+      "mismatches": 949,
+      "interpretation": "Mismatch indicates the released public fingerprint does not align to the retained source-text snapshot under the published specification; it does not alter screening counts."
+    },
+    {
+      "field": "bibliographic_fingerprint_sha256",
+      "records_checked": 6512,
+      "matches": 5517,
+      "mismatches": 995,
+      "interpretation": "Both released and recomputed values are retained for audit; use recomputed values to align this private full-text package."
+    }
+  ],
+  "scope": "PRISMA-ScR-aligned title/abstract evidence map; no completed full-text eligibility or human double-screening"
+}

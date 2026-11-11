@@ -1,0 +1,18 @@
+executed_query_id,database,query_type,manifest_records_identified,observed_records_in_full_ledger,count_match,duplicates_removed,unique_records,include_core,include_background,exclude,uncertain_original,records_file
+P3-ACM-broad,ACM Digital Library,broad,745,745,yes,745,0,0,0,0,0,05_records_by_executed_query/P3-ACM-broad__745_records.csv
+P3-ACM-focused,ACM Digital Library,focused,745,745,yes,11,734,65,247,422,2,05_records_by_executed_query/P3-ACM-focused__745_records.csv
+P3-ACM-survey,ACM Digital Library,survey,743,743,yes,739,4,0,0,4,0,05_records_by_executed_query/P3-ACM-survey__743_records.csv
+P3-IEEE-broad,IEEE Xplore,broad,366,366,yes,225,141,37,56,48,0,05_records_by_executed_query/P3-IEEE-broad__366_records.csv
+P3-IEEE-focused,IEEE Xplore,focused,191,191,yes,0,191,91,73,27,0,05_records_by_executed_query/P3-IEEE-focused__191_records.csv
+P3-IEEE-survey,IEEE Xplore,survey,69,69,yes,35,34,16,15,3,0,05_records_by_executed_query/P3-IEEE-survey__69_records.csv
+P3-SCOPUS-broad,Scopus,broad,1523,1523,yes,360,1163,318,505,340,0,05_records_by_executed_query/P3-SCOPUS-broad__1523_records.csv
+P3-SCOPUS-focused,Scopus,focused,561,561,yes,560,1,0,1,0,0,05_records_by_executed_query/P3-SCOPUS-focused__561_records.csv
+P3-SCOPUS-survey,Scopus,survey,212,212,yes,212,0,0,0,0,0,05_records_by_executed_query/P3-SCOPUS-survey__212_records.csv
+P3-SEMANTIC-broad,Semantic Scholar,broad,18,18,yes,5,13,9,2,2,0,05_records_by_executed_query/P3-SEMANTIC-broad__18_records.csv
+P3-SEMANTIC-focused,Semantic Scholar,focused,10,10,yes,5,5,5,0,0,0,05_records_by_executed_query/P3-SEMANTIC-focused__10_records.csv
+P3-SEMANTIC-survey,Semantic Scholar,survey,10,10,yes,10,0,0,0,0,0,05_records_by_executed_query/P3-SEMANTIC-survey__10_records.csv
+P3-USENIX-broad,USENIX Security/SOUPS,broad,4,4,yes,4,0,0,0,0,0,05_records_by_executed_query/P3-USENIX-broad__4_records.csv
+P3-USENIX-focused,USENIX Security/SOUPS,focused,4,4,yes,4,0,0,0,0,0,05_records_by_executed_query/P3-USENIX-focused__4_records.csv
+P3-WEB-broad,Web of Science Core Collection,broad,902,902,yes,805,97,11,32,54,0,05_records_by_executed_query/P3-WEB-broad__902_records.csv
+P3-WEB-focused,Web of Science Core Collection,focused,282,282,yes,282,0,0,0,0,0,05_records_by_executed_query/P3-WEB-focused__282_records.csv
+P3-WEB-survey,Web of Science Core Collection,survey,127,127,yes,127,0,0,0,0,0,05_records_by_executed_query/P3-WEB-survey__127_records.csv

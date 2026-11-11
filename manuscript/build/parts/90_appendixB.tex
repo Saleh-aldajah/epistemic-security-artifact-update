@@ -1,0 +1,83 @@
+\begin{definition}[Mechanism realization]
+\label{def:mech}
+For each charting class $K$ with a machine-fired primary $j(K) \in
+\{1, 2, 3\}$ (the nine machine-fired rows of Table~\ref{tab:crosswalk}:
+eight full classes plus the anchor-extension boundary case), the trace
+predicate $\mathrm{Mech}_K(\sigma)$ holds iff $\sigma$ has a prefix
+$\sigma[..k]$ whose final event $\epsilon_k$ satisfies the row's
+condition, stated in the vocabulary of Appendix~\ref{app:proofs}(a):
+\emph{hallucination} ($j{=}1$), a protected $\ev{act}(a)$ with some
+$b \in \support(a)$ whose closure has a maximal derivation path
+terminating in no evidence atom (Def.~\ref{def:i1}(i)), so
+$\cert(b) = \mathrm{bad}$; \emph{provenance/identity tampering}
+($j{=}1$), a terminal root of the support closure that fails $\att$
+(Def.~\ref{def:evidence}); \emph{retrieval/knowledge poisoning}
+($j{=}1$), a terminal root with $\neg\att(e)$ or $\ell(e)
+\not\sqsupseteq \lmin$; \emph{drift/staleness} ($j{=}1$, partial), a
+terminal root whose validity window has lapsed at action time, so
+$\neg\mathrm{WindowValid}(b)$; \emph{prompt injection} ($j{=}2$), an
+$\ev{upd}(b', X, \ell_{\mathrm{prop}})$ with $\ell_{\mathrm{prop}}
+\not\sqsubseteq \meet_{x \in X} \ell(x)$ or an $\ev{end}(b, \ell',
+\rho)$ with $\ell' \sqsupset \ell(b)$ and ($\rho \notin \pi$ or
+$\neg\mathsf{Authorized}$), the affected belief depending on
+untrusted-channel content; \emph{confidence/trust manipulation}
+($j{=}2$), an endorsement attempt citing no authorized rule;
+\emph{tool/agent hijacking} ($j{=}2$, partial), a label-raising
+$\ev{upd}$ or $\ev{end}$ without authorized endorsement on a belief
+depending on tool-result content; \emph{misinformation} ($j{=}3$), a
+protected $\ev{act}(a)$ with $S(\support(a), \lreq(c(a))) < \tc$ once
+non-qualifying evidence is excluded by A1; \emph{retrieval boundary
+case} ($j{=}3$), the same deficit arising from selection starving
+qualifying support from an intact substrate. The declared out-of-scope
+row and the control row carry no predicate.
+\end{definition}
+
+\begin{proof}[Proof of Theorem~\ref{thm:crosswalk}]
+Let $\mathrm{Mech}_K(\sigma)$ hold with witness prefix $\sigma[..k]$.
+The four $j{=}1$ clauses are exactly the bad-certificate or
+lapsed-window disjuncts of $\mathit{viol}_1$; the three $j{=}2$
+clauses are label raises without an authorized endorsement, exactly
+$\mathit{viol}_2$; and the two $j{=}3$ clauses are the qualifying-score
+deficit $\mathit{viol}_3$, with A1 explaining which atoms contribute.
+Thus $\mathit{viol}_{j(K)}(\sigma[..k])$ holds. These predicates are
+prefix-persistent, so a first firing index $k^{*}\le k$ exists.
+Assumption~\ref{asm:mediation} makes that event mediated,
+Assumption~\ref{asm:recorded} makes the recorded prefix state trusted,
+and Algorithm~\ref{alg:monitor} suppresses precisely the firing event;
+it therefore blocks at or before $\epsilon_k$. Conversely, a control
+instance fires no predicate. Since the algorithm blocks only on a
+predicate and blocking loses nothing legal
+(Appendix~\ref{app:proofs}(c)), every control event is admitted. The
+10/10 attack and 3/3 honest reference-suite outcomes
+(Appendix~\ref{app:refsem}) validate realization of the predicates;
+they are empirical checks, not premises of this trace-level proof.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:ratgap}]
+\emph{(i) Existence.} Take an honestly admitted class-$c_0$ action with
+support $S_0$: its roots are attested and fresh and
+$S(S_0,\lreq(c_0))\ge\tc$. The adversary places $d_{\mathrm{inj}}$ on
+an untrusted channel. The compromised model selects any
+$a^{*}\in A_{\bindpol}(S_0)$ from that injection but commits the genuine
+$S_0$, with no label raise or endorsement. At the action prefix, all
+certificates and windows are valid ($\neg\mathit{viol}_1$), labels
+satisfy the meet ($\neg\mathit{viol}_2$), the score passes
+($\neg\mathit{viol}_3$), and every bound slot is named at the required
+label ($\neg\mathit{viol}_4$). A sound truncation monitor must admit
+this legal event although injection caused the selection. Because the
+certificates, score, and binding test read only genuine attestation,
+labels, weights, and recorded values, finer provenance granularity
+changes none of them.
+
+\emph{(ii) Necessity.} Suppose a single-trace detector $D$ soundly
+blocks this strategy. Let $\delta_1$ remove the plant. Construct an
+honest $S^{+}$ that commits $a^{*}$ both with and without the plant,
+and a laundering $S^{-}$ that emits the identical observed stream on
+$(q,d)$ but commits $a^{-}\ne a^{*}$ after removal. Both observed
+streams satisfy \Ione--\Ifour, so $D$ must issue the same verdict for
+indistinguishable systems: blocking is unsound for $S^{+}$, admitting
+for $S^{-}$. This is the $S^{\pm}$ construction of
+Prop.~\ref{prop:hyper}; detection therefore requires a pair-witnessing
+differential harness or the decision-local gate, not a refined
+single-trace admission rule.
+\end{proof}

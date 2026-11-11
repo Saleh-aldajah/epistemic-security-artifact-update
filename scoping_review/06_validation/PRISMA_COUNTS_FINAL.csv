@@ -1,0 +1,9 @@
+stage,count,definition
+records_identified_databases,6512,All exported records before deduplication
+duplicates_removed,4129,DOI/title duplicates marked in the retained identification ledger
+records_screened,2383,Unique records screened at title/abstract level
+records_excluded,900,Excluded from the scoping evidence map
+records_retained_background,931,Contextual records retained but excluded from core frequency counts
+records_included_core_map,552,Core records charted at title/abstract level
+uncertain_after_adjudication,0,Unresolved records after record-level adjudication
+foundational_seed_sources_separate,118,"Backward-snowballed standards/foundational sources, reported separately from map frequencies"

@@ -1,0 +1,115 @@
+record_key,Token,Eligibility,Primary Attack Class
+,REC0066,include-core,provenance or identity tampering
+,REC0050,include-background,no adversarial mechanism (control/evaluation)
+,REC0104,include-core,prompt injection & jailbreak
+,REC0097,include-background,no adversarial mechanism (control/evaluation)
+,REC0055,include-core,retrieval & knowledge poisoning
+,REC0059,include-core,no adversarial mechanism (control/evaluation)
+,REC0095,include-core,hallucination & factuality failure
+,REC0090,include-core,retrieval & knowledge poisoning
+,REC0096,include-core,prompt injection & jailbreak
+,REC0064,include-core,hallucination & factuality failure
+,REC0041,exclude,n/a
+,REC0113,include-background,prompt injection & jailbreak
+,REC0083,include-core,misinformation & disinformation
+,REC0025,include-core,hallucination & factuality failure
+,REC0035,include-core,hallucination & factuality failure
+,REC0070,exclude,n/a
+,REC0003,include-core,misinformation & disinformation
+,REC0100,include-core,prompt injection & jailbreak
+,REC0013,include-core,misinformation & disinformation
+,REC0110,include-core,hallucination & factuality failure
+,REC0087,include-core,retrieval & knowledge poisoning
+,REC0089,include-core,retrieval & knowledge poisoning
+,REC0092,exclude,n/a
+,REC0102,exclude,n/a
+,REC0005,include-core,misinformation & disinformation
+,REC0040,include-core,prompt injection & jailbreak
+,REC0029,include-core,hallucination & factuality failure
+,REC0014,include-core,hallucination & factuality failure
+,REC0060,include-core,misinformation & disinformation
+,REC0027,include-core,data or model poisoning/backdoor
+,REC0105,exclude,n/a
+,REC0008,include-background,misinformation & disinformation
+,REC0046,exclude,n/a
+,REC0084,exclude,n/a
+,REC0051,include-core,hallucination & factuality failure
+,REC0099,include-core,prompt injection & jailbreak
+,REC0024,include-core,misinformation & disinformation
+,REC0010,include-core,misinformation & disinformation
+,REC0057,include-core,retrieval & knowledge poisoning
+,REC0112,include-background,prompt injection & jailbreak
+,REC0016,include-core,data or model poisoning/backdoor
+,REC0011,exclude,n/a
+,REC0049,include-core,prompt injection & jailbreak
+,REC0114,include-core,hallucination & factuality failure
+,REC0018,include-core,misinformation & disinformation
+,REC0076,include-core,no adversarial mechanism (control/evaluation)
+,REC0073,include-core,misinformation & disinformation
+,REC0004,include-background,no adversarial mechanism (control/evaluation)
+,REC0022,include-core,data or model poisoning/backdoor
+,REC0062,include-core,hallucination & factuality failure
+,REC0043,include-core,prompt injection & jailbreak
+,REC0001,include-core,misinformation & disinformation
+,REC0085,exclude,n/a
+,REC0109,include-core,hallucination & factuality failure
+,REC0009,include-core,hallucination & factuality failure
+,REC0086,include-core,hallucination & factuality failure
+,REC0111,include-core,prompt injection & jailbreak
+,REC0078,include-background,no adversarial mechanism (control/evaluation)
+,REC0030,include-core,data or model poisoning/backdoor
+,REC0072,exclude,n/a
+,REC0093,exclude,n/a
+,REC0023,include-core,hallucination & factuality failure
+,REC0006,include-core,data or model poisoning/backdoor
+,REC0026,include-core,hallucination & factuality failure
+,REC0074,include-background,misinformation & disinformation
+,REC0032,include-core,hallucination & factuality failure
+,REC0052,include-core,retrieval & knowledge poisoning
+,REC0075,include-core,prompt injection & jailbreak
+,REC0108,include-core,hallucination & factuality failure
+,REC0094,exclude,n/a
+,REC0067,exclude,n/a
+,REC0082,include-core,hallucination & factuality failure
+,REC0056,include-core,no adversarial mechanism (control/evaluation)
+,REC0088,include-core,hallucination & factuality failure
+,REC0080,exclude,n/a
+,REC0071,include-core,hallucination & factuality failure
+,REC0034,exclude,n/a
+,REC0053,include-core,prompt injection & jailbreak
+,REC0044,include-core,misinformation & disinformation
+,REC0012,include-core,misinformation & disinformation
+,REC0063,include-background,prompt injection & jailbreak
+,REC0054,include-core,prompt injection & jailbreak
+,REC0019,include-core,retrieval & knowledge poisoning
+,REC0037,include-core,misinformation & disinformation
+,REC0038,include-core,prompt injection & jailbreak
+,REC0002,include-core,prompt injection & jailbreak
+,REC0042,include-core,prompt injection & jailbreak
+,REC0039,include-background,no adversarial mechanism (control/evaluation)
+,REC0048,include-core,hallucination & factuality failure
+,REC0081,exclude,n/a
+,REC0068,exclude,n/a
+,REC0077,include-core,data or model poisoning/backdoor
+,REC0107,include-core,prompt injection & jailbreak
+,REC0065,include-core,hallucination & factuality failure
+,REC0069,include-core,prompt injection & jailbreak
+,REC0017,include-core,prompt injection & jailbreak
+,REC0033,include-core,retrieval & knowledge poisoning
+,REC0098,include-background,prompt injection & jailbreak
+,REC0106,include-core,hallucination & factuality failure
+,REC0015,include-background,misinformation & disinformation
+,REC0091,include-core,prompt injection & jailbreak
+,REC0047,include-core,prompt injection & jailbreak
+,REC0036,include-core,retrieval & knowledge poisoning
+,REC0079,include-core,data or model poisoning/backdoor
+,REC0031,exclude,n/a
+,REC0061,include-core,hallucination & factuality failure
+,REC0058,exclude,n/a
+,REC0045,include-background,hallucination & factuality failure
+,REC0103,include-background,no adversarial mechanism (control/evaluation)
+,REC0028,include-core,hallucination & factuality failure
+,REC0021,include-background,no adversarial mechanism (control/evaluation)
+,REC0020,exclude,n/a
+,REC0101,include-core,hallucination & factuality failure
+,REC0007,include-core,no adversarial mechanism (control/evaluation)

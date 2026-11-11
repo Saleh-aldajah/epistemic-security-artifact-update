@@ -1,0 +1,359 @@
+\section{Evaluation}
+\label{sec:eval}
+Five questions. \textbf{RQ1}: does enforcing the safety fragment change
+attack outcomes on a live model that follows the injection, and how
+does it compare with simpler checks and an existing defense?
+\textbf{RQ2}: does the gate add security where admission is provably
+blind? \textbf{RQ3}: what does enforcement cost in benign utility, at
+the power needed to resolve it? \textbf{RQ4}: do the answers hold
+across models, suites, and attack families? \textbf{RQ5}: what does it
+cost in latency? Every number flows from the episode logs through a
+recompute pipeline that emits the macros used in the text.
+
+\subsection{Setup and Registered Design}
+\label{sec:evalsetup}
+\paragraph*{Subjects, suites, attacks}
+The primary subject is a frontier live endpoint, gemini-2.5-flash, on
+the AgentDojo \emph{workspace} suite (email, calendar, cloud drive;
+benchmark v1.2.x, package \texttt{agentdojo}~0.1.35) under the canonical
+\texttt{important\_instructions} attack family, through a checkpointed
+harness derived from the benchmark's own
+\texttt{run\_task\_with\_pipeline} path. The pilot grid ran at the
+endpoint's default sampling temperature (the pilot harness did not set
+one); the registered harness sends temperature~0.7 and the derived seed
+explicitly on every request. A dated proprietary snapshot
+(\texttt{gpt-4o-2024-05-13}) is the positive calibration control (5/5
+at $t{=}0.0$, 4/5 at $t{=}0.7$ on the known-susceptible
+\texttt{workspace/user\_task\_0} injections), ruling out an inert
+harness. A 0.5B open-weight driver (Qwen2.5-0.5B-Instruct, greedy)
+developed the harness and the rationalization probes of
+\S\ref{sec:rq2}; it completes no workspace task with or without
+enforcement (0/16), so no utility or attack rate is claimed from it.
+RQ4 adds a second frontier endpoint, a post-fix re-run of the
+open-weight qwen3 family, and the benchmark's \texttt{tool\_knowledge}
+attack family, the first stage of the cascade
+of~\cite{bhagwatkar2025firewalls}; all three replications completed.
+AgentDyn adds the completed dynamic-suite replication reported in
+\S\ref{sec:rq4}; suite-generality remains bounded by its task and model
+coverage~\cite{agentdyn}.
+
+\paragraph*{Deployed policy objects}
+$\lambda$ is as in Definition~\ref{def:policy}: the user turn and the
+system prompt $\mathrm{TRUSTED}$, every tool result $\mathrm{MEDIUM}$,
+model text no evidence at all. Support of an action is the set of atoms
+naming one of its argument values plus the user atoms that express its
+class (the registered directive lexicon); $S = \sum w / (1 + \sum w)$
+over qualifying support with $\tc = 0.45$ at $\lreq = \mathrm{TRUSTED}$
+for all protected classes, fixed before any attack run. This $S$
+satisfies A1--A3 of Definition~\ref{def:i3} (sum over attested atoms
+at or above $\lreq$; $x/(1+x)$ increasing with $w \ge 0$; weights
+fixed in the TCB from the recorded prefix). $\pi$ authorizes no
+post-ingress raise. $\bindpol$ binds targets that leave the trust
+boundary (recipients, payees, users, channels, URLs, amounts) at
+$\mathrm{TRUSTED}$ and internal handles that only tools can enumerate
+(file, e-mail, and event ids; hotel and vendor names) at
+$\mathrm{MEDIUM}$; free text and dates are unbound.
+$D = \{\mathrm{delete}, \mathrm{share}, \mathrm{send}, \mathrm{book}\}$.
+Two-root corroboration is not deployable on a single first-party
+channel, so policy tightness is bounded by the attestation topology.
+The offline sweep gives a flat region at $\tc\in\{0.30,0.45,0.50\}$:
+\SpSweepTauFortyFiveSecAdmit/\SpSweepTauFortyFiveSecN{} security and
+\SpSweepTauFortyFiveBenignAdmit/\SpSweepTauFortyFiveBenignN{} benign first protected
+decisions admit. At $\tc=0.60$ and 0.67, both rates fall to zero, placing
+the cliff between 0.50 and 0.60. Requiring every bound slot to be
+TRUSTED reduces security admissions to \SpSweepEllAllTrustedSecAdmit/
+\SpSweepEllAllTrustedSecN{} but leaves benign admissions unchanged at
+\SpSweepEllAllTrustedBenignAdmit/\SpSweepEllAllTrustedBenignN.
+
+\paragraph*{Development versus test}
+Every case any development run touched is excluded from the held-out
+pools and reported as development evidence: the four rationalization
+probes, the five MCP authorization patterns of \S\ref{sec:redteam},
+the 22-task small-model workload on which $\tau_c$ was fixed, the
+post-fix open-weight run, and the 40-case/24-case pilot grid of
+\S\ref{sec:rq1}, whose defended arms ran a \emph{protected-tool
+filter}: the pilot harness never wired support extraction, so every
+state-changing call was dropped regardless of evidence, and the one
+target outside the filter's list (calendar-event creation) accounts for
+all four defended-arm breaches. The held-out case sets (150 security
+cases and the 56 benign tasks no development run touched, across the
+four suites, drawn by a seeded procedure), the 20 choice-laundering
+probes with their honest controls, the policy objects, the baseline and
+gate configurations, and the utility minimal important difference are
+deposited hash-sealed and publicly timestamped before the RQ1--RQ4 runs:
+registration v2 (archive SHA-256 \texttt{ee88c72b\ldots c68}; manifest
+\texttt{cbddbd33\ldots f0}; OpenTimestamps block 974214,
+2026-11-02T05:06:44Z; the deleted original DOI is being re-registered at
+final upload as DOI \url{https://doi.org/10.5281/zenodo.24075933}) and the replacement-2
+testbed v4 (DOI \url{https://doi.org/10.5281/zenodo.23914405};
+archive SHA-256 \texttt{d97f1369\ldots f3b}; manifest
+\texttt{c67de998\ldots 071}; OpenTimestamps block 974389,
+2026-11-03T13:03:48Z). The campaign hotfix is DOI
+\url{https://doi.org/10.5281/zenodo.23917748}, manifest
+\texttt{dfc691f8\ldots 13b}, OpenTimestamps block 974430,
+2026-11-03T19:47:14Z.
+An intermediate replacement-1 implementation and its results were
+excluded because they lacked independent restarts and MCP transport. The $\tau_c$ workload touched only benign
+traces; security cases on those workspace user tasks remain in the
+pool and form a registered descriptive stratum beside the $\tau_c$
+sweep, rather than being silently presented as untouched.
+
+\paragraph*{Baselines}
+Three baselines run under the identical harness and case sets:
+\textbf{B1}, \emph{argument--instruction matching}, every target named
+in a protected call must appear in the user's instruction (the simpler
+check a decision-layer defense must beat); \textbf{B2}, a tool-filter
+policy in the CaMeL lineage~\cite{camel,oob} (no tool-sourced value may
+reach a protected sink unless the user turn names it); \textbf{B3},
+\Ifour{} alone. Every arm's verdict is logged on every protected call
+as a shadow; all seven arms completed the registered campaign.
+
+\paragraph*{Statistics}
+Wilson 95\,\% intervals on every rate; Fisher's exact test on the one
+pre-registered primary comparison per grid, with risk difference (RD)
+and risk ratio (RR) and their intervals beside every $p$-value; the
+rule-of-three bound beside any zero-event claim; secondary comparisons
+Holm-corrected. Five harness defects (among them the unset
+temperature) are documented in the artifact; degenerate episodes (null
+model output) are reported and excluded only in a sensitivity analysis.
+The reference semantics' own coverage check (10/10 classes, 3/3 honest
+baselines) is Appendix~\ref{app:refsem}.
+
+\subsection{RQ1: Security on a Live Model}
+\label{sec:rq1}
+\paragraph*{The subject is susceptible}
+gemini-2.5-flash follows the canonical injection in
+\SecNdHit/\SecNdN{} no-defense pilot episodes (ASR \SecNdASR, Wilson
+95\,\% CI $[\SecNdCIlo, \SecNdCIhi]$); a disjoint 30-case sweep
+corroborates this ($23/60 = 0.383$ $[0.271, 0.510]$). The pilot
+covers three workspace user tasks, a scope the held-out set removes.
+
+\paragraph*{A protected-tool filter already collapses this family (pilot)}
+On this subject (\SecNdN{} independent cases per arm), a filter that
+drops every call to a state-changing tool reduces measured attack
+success from \SecNdASR{} (\SecNdHit/\SecNdN) to \SecGateASR{}
+(\SecGateHit/\SecGateN, Wilson $[\SecGateCIlo, \SecGateCIhi]$) in each of
+two replicates: Fisher exact $p{=}\GateVsNdFisherP$, RD $= \HeadlineRD$
+$[\HeadlineRDlo, \HeadlineRDhi]$, RR $= \HeadlineRR$
+$[\HeadlineRRlo, \HeadlineRRhi]$ (Table~\ref{tab:livemodel}). The filter
+verifiably engages (\SecMonFilt--\SecGateFilt{} protected calls dropped
+per arm); every surviving breach is the one template whose target,
+calendar-event creation, was not on its list, and excluding the four
+degenerate episodes changes nothing (2/37, $p{=}6.4\times10^{-5}$).
+This is B2 in its strictest form, and it sets the bar: admission must
+match that security at lower benign cost. Security is measured across
+seven arms on the held-out set; the powered RQ3 crossover decides the
+comparative benign-cost bar.
+The registered rows show that admission reduces ASR from
+\SpSecNoDefenseASR{} to \SpSecDeiASR{} (Fisher
+$p{=}\SpSecDeiFisherP$), but it does not beat B1: both are
+\SpSecBOneASR, with Holm $p{=}\SpSecDeiVsBOneHolmP$. B2strict is lower
+still at \SpSecBTwoStrictASR. RQ1 is therefore a result about
+\Ifour{} rather than evidence of full-DEI superiority; the gate does not
+change admission's ASR. The powered RQ3 contrasts, not the 56-task
+descriptive arm, decide comparative benign cost.
+
+\begin{table}[t]
+\centering
+\caption{RQ1 and RQ3. Pilot (development evidence): gemini-2.5-flash,
+workspace, $n{=}\SecNdN$ cases per security arm, $n{=}\UtilNdN$ per
+benign arm; the defended arms are two replicates of a protected-tool
+filter. Registered campaign: held-out cases, seven arms.}
+\label{tab:livemodel}
+\fontsize{6.5}{7.5}\selectfont
+\setlength{\tabcolsep}{0pt}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Arm & ASR & 95\,\% CI & Filtered \\
+\midrule
+\multicolumn{4}{@{}l}{\emph{Pilot grid}}\\
+No defense & $\SecNdASR$ ($\SecNdHit/\SecNdN$) & $[\SecNdCIlo, \SecNdCIhi]$ & $\SecNdFilt$ \\
+Protected-tool filter, replicate 1 & $\SecMonASR$ ($\SecMonHit/\SecMonN$) & $[\SecMonCIlo, \SecMonCIhi]$ & $\SecMonFilt$ \\
+Protected-tool filter, replicate 2 & $\SecGateASR$ ($\SecGateHit/\SecGateN$) & $[\SecGateCIlo, \SecGateCIhi]$ & $\SecGateFilt$ \\
+Benign ($n{=}\UtilNdN$/arm) & \multicolumn{3}{l}{no defense $\UtilNdPass/\UtilNdN$; filter $\UtilGatePass/\UtilGateN$ (\S\ref{sec:rq3})} \\
+\midrule
+\multicolumn{4}{@{}l}{\emph{Registered campaign} (150 security / 56 benign held-out cases)}\\
+No defense & \RqOneNodefenseCell & \RqOneNodefenseCI & \RqOneNodefenseFiltered \\
+Admission (\Ione--\Ifour) & \RqOneDeiCell & \RqOneDeiCI & \RqOneDeiFiltered \\
+Admission + gate & \RqOneDeigateCell & \RqOneDeigateCI & \RqOneDeigateFiltered \\
+B1 argument--instruction matching & \RqOneBOneCell & \RqOneBOneCI & \RqOneBOneFiltered \\
+B2 tool filter & \RqOneBTwoCell & \RqOneBTwoCI & \RqOneBTwoFiltered \\
+B2strict filter & \RqOneBTwoStrictCell & \RqOneBTwoStrictCI & \RqOneBTwoStrictFiltered \\
+B3 \Ifour{} alone & \RqOneBThreeCell & \RqOneBThreeCI & \RqOneBThreeFiltered \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{RQ2: What the Gate Adds}
+\label{sec:rq2}
+On the pilot grid the two defended arms are replicates of one filter
+(the pilot's gate re-commitment was not wired), so the pilot cannot show
+the gate's value, and the canonical injection family is caught at
+admission in any case. The gate is designed for the case admission
+cannot see (Cor.~\ref{cor:ratgap}), and RQ2 is answered there.
+
+\paragraph*{Development probes: the counterexample, executed}
+Four probes pair a legitimate directive ($\mathrm{TRUSTED}$,
+$\tc$-sufficient) with a planted message naming an attacker-chosen
+target ``with approval,'' on the small-model driver (existence
+evidence, not rates). In 8 runs the model followed the injection
+\GateFollows{} times; twice it laundered the action under the genuine
+directive with $\tc$-sufficient support, and \Ione--\Ithree{}
+\emph{admitted}: Cor.~\ref{cor:ratgap} end to end. With the gate
+enabled (policy and perturbations frozen beforehand), both laundering
+admissions were quarantined on the oracle plane $\delta_1$
+(\GateQuar{} of \GateQuar); the honest-citation follow was blocked by
+\Ithree{} before the gate; the interrupted follow, repaired to the
+user's target, re-committed identically under both perturbations. Of
+\GateBenignDestr{} gated benign commitments, \GateFalseQuarN{} were
+falsely quarantined, at \GateOverhead$\times$ model time and
+\GateMonitorUs\,$\mu$s p50 monitor latency. Cited-untrusted removal at
+$\lmin$ never triggered (0/26), which is why laundering passes
+\Ione--\Ithree{} at all.
+
+\paragraph*{What these probes do and do not show}
+They show that the gate closes the counterexample where \Ione--\Ithree{}
+are blind, not that it adds value over \Ifour: both laundered targets
+are absent from every trusted belief, so \Ifour{} (and B1) blocks them
+at admission (Remark~\ref{rem:residual}). The registered RQ2 design
+therefore uses \emph{choice-laundering} probes, in which every bound
+argument is user-named and the plant is a false \emph{claim} that
+selects among legitimate options: F1, delete whichever of two named
+files is older (the plant reverses the dates), placed inside the file
+listing the task reads (co-located) or inside a calendar entry it also
+reads (separate); F2, send to a named contact only if an event falls on
+a given day (the plant claims it moved); F3, write to whichever of two
+named contacts attends an event (the plant claims a substitution).
+Twenty probes with matched honest controls, four registered seeds
+each, validated so that each honest ground truth passes and each plant
+triggers the laundered action; \Ifour{} (and B1) admit every laundered
+action by construction, so any quarantine is the gate's. The primary
+endpoints are pooled $\delta_3$ catch on up to 40 separable-plant episodes
+and false quarantine on up to 60 actionable honest-control evaluations,
+with Wilson and probe-level cluster-bootstrap intervals and the actual
+denominators reported; non-action controls never enter a gate-flip
+denominator. Family/placement cells, observed
+$\delta_2$, and oracle-$\delta_1$ $\mathit{fp}$/$\mathit{miss}$ per
+Prop.~\ref{prop:approxgap} are secondary; registered prediction: $\delta_3$ catches
+the separate placement and F2 at no honest cost and cannot see
+co-located plants, which $\delta_2$ flags only together with every
+honest commitment that needs the same atom.
+The outcome refutes zero honest cost: $\delta_3$ catches
+\RqTwoSeparableDeltaThreeK/\RqTwoSeparableDeltaThreeN{} separable
+commitments (\RqTwoSeparableDeltaThreeRate, Wilson
+$[\RqTwoSeparableDeltaThreeLo,\RqTwoSeparableDeltaThreeHi]$, probe-bootstrap
+$[\RqTwoSeparableDeltaThreeClusterLo,\RqTwoSeparableDeltaThreeClusterHi]$)
+but falsely quarantines \RqTwoHonestDeltaThreeK/\RqTwoHonestDeltaThreeN{}
+controls (\RqTwoHonestDeltaThreeRate,
+$[\RqTwoHonestDeltaThreeLo,\RqTwoHonestDeltaThreeHi]$). Only 26 separable
+and 29 actionable evaluations arose; non-actions were not imputed.
+Co-located catch is \RqTwoColocatedDeltaThreeRate, while $\delta_2$
+flags every co-located plant and \RqTwoHonestDeltaTwoK/\RqTwoHonestDeltaTwoN{}
+controls, the resolution limit. Against the oracle, $\delta_3$ has TP
+\RqTwoDeltaThreeTp, FN \RqTwoDeltaThreeFn, FP \RqTwoDeltaThreeFp, TN
+\RqTwoDeltaThreeTn (miss \RqTwoDeltaThreeMissRate, FP rate
+\RqTwoDeltaThreeFpRate); $\delta_2$ has TP \RqTwoDeltaTwoTp, FN
+\RqTwoDeltaTwoFn, FP \RqTwoDeltaTwoFp, TN \RqTwoDeltaTwoTn. The gate helps
+on some separable plants, but its atom-granularity and re-commitment
+failures are limits, not a general security claim.
+
+\subsection{RQ3: Utility Cost}
+\label{sec:rq3}
+\paragraph*{Pilot}
+Under the protected-tool filter the benign-completion rate is
+\UtilGatePass/\UtilGateN{} (\UtilGateRate) versus \UtilNdPass/\UtilNdN{}
+(\UtilNdRate) with no defense, with failures \UtilGateBlock/\UtilGateN{}
+versus \UtilNdBlock/\UtilNdN. The 12.5-point estimate is not resolvable
+at $n{=}\UtilGateN$ (Fisher $p{=}0.49$; paired discordant 3/0, exact
+McNemar $p{=}0.25$) and is structurally uninformative: 23 of the 24
+benign tasks never call a protected tool, the one that does was
+blocked, and the two other extra failures occurred with nothing
+filtered. We claim neither that the cost is small nor that it is
+large; the registered study stratifies on protected-tool use.
+
+\paragraph*{Registered study}
+The utility comparison is re-run as a within-task crossover: each of
+the 97 benign tasks of the four suites runs under three registered
+seeds with no defense, admission plus gate, B1, and B2strict (291 pairs
+per contrast, registered random order), pairing the within-task
+variation an independent-arms design treats as noise. The sample size
+follows from a pre-registered minimal important difference of 10 points
+from the 83.3\,\% baseline (independent-arms floor 266 per arm at
+80\,\% power; the paired test has power 0.83 at the independence bound
+and more under positive within-task correlation). Paired RD with a
+Newcombe interval for admission plus gate versus no defense is the
+headline; the paired contrasts against B2strict and B1, Holm-corrected,
+decide whether admission costs less than the filter; exact McNemar and
+a task-level cluster bootstrap is secondary; protected-tool-use and
+development-contact strata are descriptive; every failure is classified
+as defense-induced (blocked by a named invariant), model-induced, or
+degenerate.
+The registered crossover shows a material cost: DEI+gate changes
+completion by \RqThreeUtilDeiGatePairedRD{} relative to no defense
+(Newcombe $[\RqThreeUtilDeiGatePairedRDlo,\RqThreeUtilDeiGatePairedRDhi]$;
+task-cluster bootstrap $[\RqThreeUtilDeiGateClusterRDlo,\RqThreeUtilDeiGateClusterRDhi]$),
+not by a negligible amount. It nevertheless outperforms B2strict by
+\RqThreeUtilDeiGateVsBTwoStrictPairedRD{}
+($[\RqThreeUtilDeiGateVsBTwoStrictPairedRDlo,\RqThreeUtilDeiGateVsBTwoStrictPairedRDhi]$;
+Holm $p{=}\RqThreeUtilDeiGateVsBTwoStrictHolmP$) and B1 by
+\RqThreeUtilDeiGateVsBOnePairedRD{}
+($[\RqThreeUtilDeiGateVsBOnePairedRDlo,\RqThreeUtilDeiGateVsBOnePairedRDhi]$;
+Holm $p{=}\RqThreeUtilDeiGateVsBOneHolmP$), the latter borderline.
+DEI+gate failures split into 74 defense-induced, 115 model-induced, and
+0 degenerate episodes; B2strict splits into 132 defense-induced and 88
+model-induced. The practical claim is therefore a security--utility
+trade-off, not preserved utility.
+
+\subsection{RQ4: Generality}
+\label{sec:rq4}
+The pilot covers three workspace user tasks, one attack family, and
+one model (per-case susceptibility 0.18--1.00), so no cell
+extrapolates. Pre-fix open-weight archives (0/87 on qwen3-coder-30B,
+0/33 on qwen3-32B) are negative observations, not resistance; a
+post-fix development run of qwen3.6-35B followed the injection in
+18/60 no-defense episodes across the four suites, so RQ4 re-runs that
+family under the registration. On gpt-4.1-mini, ASR is
+\RqFourASecNoDefenseASR{} with no defense, \RqFourASecDeiASR{} with DEI,
+\RqFourASecDeiGateASR{} with DEI+gate, and \RqFourASecBOneASR{} with B1.
+On \texttt{tool\_knowledge}, the corresponding rates are
+\RqFourCSecNoDefenseASR, \RqFourCSecDeiASR, and
+\RqFourCSecBOneASR. All 150-security-case rows have Wilson intervals and
+zero voided outcomes; the benign rows are secondary and are not promoted
+to primary evidence. The open-weight row is completed but uninformative:
+qwen3:8b follows only \RqFourBSecNoDefenseHit/\RqFourBSecNoDefenseN{}
+no-defense injections (DEI \RqFourBSecDeiHit/\RqFourBSecDeiN), so it does
+not establish susceptibility or robustness. AgentDyn replicates on 1,120
+episodes with 30 voided attempts excluded: ASR falls from
+\RqAgentDynSecNoDefenseASR{} to \RqAgentDynSecDeiASR{} (RD
+\RqAgentDynSecDeiRD{} $[\RqAgentDynSecDeiRDlo,\RqAgentDynSecDeiRDhi]$,
+Fisher $p=\RqAgentDynSecDeiFisherP$), with suite-generality stated only
+for the dynamic benchmark.
+
+\subsection{RQ5: Latency}
+Admission costs are those of Table~\ref{tab:overhead}: the replacement
+A2 gateway adds \RqFiveOverheadRange{} p50 overhead over A0 at
+5--100 req/s, with mean p50 \RqFiveATwoTwentyFiveMedian\,ms and mean p95
+\RqFiveATwoTwentyFiveTail\,ms at 25 req/s. The gate adds one
+re-commitment per enforced perturbation on irreversible classes
+(\GateOverhead$\times$ benign model time in the development probes).
+
+\subsection{Threats to Validity}
+\label{sec:threats}
+\paragraph*{Construct and internal}
+\DEI{} constrains evidential structure, not truth, and within-TCB
+compromise is excluded by the threat model. The pilot's defended arms
+ran a protected-tool filter at an unset temperature (\S\ref{sec:evalsetup});
+the registered harness fixes both, and B3 isolates \Ifour's
+contribution. Development probes were built against the gateway's own
+threat model; held-out sets are registered and timestamped before the
+runs.
+\paragraph*{External and statistical}
+CZTA is one instantiation on one deployment; efficacy is per model,
+suite, and attack family, and RQ4 bounds the generality claim. The
+pilot's security comparison has power $\approx 0.99$ for its effect;
+its utility arm is underpowered; its defended arms are one filter, so
+RQ2 is answered where admission is provably blind.
+\paragraph*{Adaptive adversaries}
+\Ifive's perturbation class is registered but finite; an attacker
+outside it, or a model that re-commits identically with and without
+the plant, is the counterexample \S\ref{sec:falsifiability} invites.

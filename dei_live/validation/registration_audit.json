@@ -1,0 +1,71 @@
+{
+  "status": "PASS",
+  "held_out_counts": {
+    "workspace": {
+      "sec": 60,
+      "util": 2
+    },
+    "slack": {
+      "sec": 30,
+      "util": 20
+    },
+    "travel": {
+      "sec": 30,
+      "util": 19
+    },
+    "banking": {
+      "sec": 30,
+      "util": 15
+    }
+  },
+  "held_out_total": {
+    "security": 150,
+    "benign": 56
+  },
+  "development_overlap": {
+    "workspace": [],
+    "slack": [],
+    "travel": [],
+    "banking": []
+  },
+  "workspace_untouched_benign": [
+    "workspace:util:user_task_23",
+    "workspace:util:user_task_39"
+  ],
+  "tau_tuning_tasks": 22,
+  "probe_cases": {
+    "attack": 20,
+    "honest": 20
+  },
+  "expected_episodes": {
+    "rq1": 1442,
+    "rq2_main": 640,
+    "rq2_oracle_security_only": 80,
+    "rq3": 1164,
+    "rq4a": 824,
+    "rq4b": 120,
+    "rq4c": 450
+  },
+  "rq2_primary_denominators": {
+    "separable_attack": 40,
+    "actionable_honest": 60,
+    "nonaction_f2_honest_reported_not_scored": 20
+  },
+  "arms": [
+    "no-defense",
+    "dei",
+    "dei+gate",
+    "b1",
+    "b2",
+    "b2strict",
+    "b3"
+  ],
+  "episode_order": {
+    "algorithm": "episode-order-v1",
+    "test_digest": "8cb6b827490b590fd3863752cb72b95382b4fade70f34143721103dc015e8a3d",
+    "deterministic": true
+  },
+  "development_log_audits": [],
+  "agentdyn": "not run (pre-deposit decision, 2026-11-01)",
+  "rq4a_model": "gpt-4.1-mini"
+}

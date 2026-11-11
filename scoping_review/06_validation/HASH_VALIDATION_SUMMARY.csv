@@ -1,0 +1,4 @@
+field,records_checked,matches,mismatches,interpretation
+title_sha256,6512,6390,122,Recomputed from retained P3-screening.csv using the published NFKC/lowercase/whitespace-collapse specification.
+abstract_sha256,6512,5563,949,Mismatch indicates the released public fingerprint does not align to the retained source-text snapshot under the published specification; it does not alter screening counts.
+bibliographic_fingerprint_sha256,6512,5517,995,Both released and recomputed values are retained for audit; use recomputed values to align this private full-text package.

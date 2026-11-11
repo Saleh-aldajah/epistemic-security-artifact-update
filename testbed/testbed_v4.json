@@ -1,0 +1,661 @@
+{
+  "protocol": "czta-v9-replacement-open-loop-v2",
+  "status": "PASS",
+  "documents": [
+    {
+      "protocol": "czta-v9-replacement-open-loop-v2",
+      "implementation": {
+        "implementation": "v9-replacement-2",
+        "arm": "A0",
+        "arm_semantics": "authorization + upstream only",
+        "code_manifest_sha256": "ee4f46b238f6fb63608153750f1b09876a9bb912e2aeae295efc8d6839ea7f53",
+        "code_hashes": {
+          "run_protocol.py": "60c8e9fa02286e4f7b5df207b4e6f69d4b5532600abafef68adcfca01dafde00",
+          "combine_results.py": "1911f28e066f3525603066e738b707b57ffd10fed8fca8165ef71aaae3e83eec",
+          "merge_restart_results.py": "e8972a3ce2294d20aa1efb1f9210dd18a888e26ba63c3da7a04fb5dc08b13ecd",
+          "run_restarts.sh": "8a9dfed6deb2804b67d2165dadd49bad954e1d9330e3688538d3fa085487d171",
+          "run_offline_smoke.sh": "32020b560247393701966748ac5ff0ae957c57d82f77b06e4975545910128d4e",
+          "czta_gateway/__init__.py": "ace1a52b9b126fa562c59c10cbf89ffa2eda3f31d3aefe3d442e71b98f66c217",
+          "czta_gateway/app.py": "01214f730e8cdae1ae733344e54bc2ad9939d9fc07ed9f2b2509d9f3c72452b5",
+          "czta_gateway/auth.py": "2115b8b96aff98aaa9177e783751e5681111a066fdb79c068b4086e83e5a1ed1",
+          "czta_gateway/config.py": "6081413894d457c520661106f7a3f2ab098719e15afb6421dc456af815b8414d",
+          "czta_gateway/dei_monitor.py": "8ef4117155e21d309567bace9533c3977d199c19ffd86ea0195a8767ee9ecc12",
+          "czta_gateway/fixtures.py": "feec4a37ebeb2e0c20f7436a8d9528eb4271aba83dc0a16b67a8cc4050c1b2f0",
+          "czta_gateway/ledger.py": "b6f3e24048c915f55a57d9f0fde953bdf36a78aab85fbcafe49e8da02376c1a2",
+          "czta_gateway/monitor.py": "bf1bb3ba616f8c4e8637d05b5831a129f5f41c53a9f34d887c5cae5dadb1870a",
+          "czta_gateway/stub.py": "20623a501b3184f6ea55d9815e73bddd4190730ab4795a2ecd76262ff075e537",
+          "czta_ref/__init__.py": "f7e2ddb69d6137a0c7fb71c5f2500e5e78474a684bbcf1561c6cd1fc9545307d",
+          "czta_ref/benchmark.py": "cd19cc2f2407e7a614923532a405b84765e1988af5b66661a3b9cfe639fbd51a",
+          "czta_ref/governance.py": "243c833eed47e66e33735a9e64977bac90bd30a3afb6a74e77ce542da07549e4",
+          "czta_ref/identity.py": "8805af35c80b6a8e0bfb34da0a2d4820bf2568d4dcc59900b53f47c5adb32de2",
+          "czta_ref/localization.py": "89835a2228878ce3e82552b4169aec19718eeef2134a347a97b160766b819a64",
+          "czta_ref/mcp_gateway.py": "eeda25f25526b57015c528e3ea31d8c073e968f317f4dcd3ef7f08d210af1bc6",
+          "czta_ref/pipeline.py": "a21dc18a7c60b5c2a5b1683fee09e29f397482f18d5c419b44cfa493b642f28c",
+          "czta_ref/rla.py": "b7b42e3b08e10e584e0120e280907f73d852a1aac6059c8217cc71d12c15d3df",
+          "czta_ref/scenario.py": "73daff757eb2434e7c41729c630e76c21a844046fc223f33067bc66a85d2f169",
+          "czta_ref/trust_analytics.py": "ef4435730285848357f58d1263ac0bdd7ce9195ad93e848c8fc114fbe8879f25"
+        },
+        "issuer": "http://127.0.0.1:8080/realms/czta",
+        "audience": "czta-gateway",
+        "upstream": "http://127.0.0.1:9001/v1/execute",
+        "tau": 0.45
+      },
+      "arm": "A0",
+      "seed": 20260814,
+      "warmup_s": 20.0,
+      "measured_s": 60.0,
+      "reps": 3,
+      "rates_req_s": [
+        5.0,
+        25.0,
+        100.0
+      ],
+      "runs": [
+        {
+          "arm": "A0",
+          "rate_req_s": 5.0,
+          "rep": 1,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 404,
+          "measured_requests": 308,
+          "achieved_req_s": 5.133333333333334,
+          "p50_ms": 5.024192010750994,
+          "p95_ms": 6.605585842044093,
+          "errors": []
+        },
+        {
+          "arm": "A0",
+          "rate_req_s": 5.0,
+          "rep": 2,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 404,
+          "measured_requests": 308,
+          "achieved_req_s": 5.133333333333334,
+          "p50_ms": 5.088194477139041,
+          "p95_ms": 6.6507307667052356,
+          "errors": []
+        },
+        {
+          "arm": "A0",
+          "rate_req_s": 5.0,
+          "rep": 3,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 404,
+          "measured_requests": 308,
+          "achieved_req_s": 5.133333333333334,
+          "p50_ms": 4.942596540786326,
+          "p95_ms": 6.909771190839817,
+          "errors": []
+        },
+        {
+          "arm": "A0",
+          "rate_req_s": 25.0,
+          "rep": 1,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 2088,
+          "measured_requests": 1540,
+          "achieved_req_s": 25.666666666666668,
+          "p50_ms": 4.667539993533865,
+          "p95_ms": 6.651886907638978,
+          "errors": []
+        },
+        {
+          "arm": "A0",
+          "rate_req_s": 25.0,
+          "rep": 2,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 2088,
+          "measured_requests": 1540,
+          "achieved_req_s": 25.666666666666668,
+          "p50_ms": 4.7669280029367656,
+          "p95_ms": 6.797255229321308,
+          "errors": []
+        },
+        {
+          "arm": "A0",
+          "rate_req_s": 25.0,
+          "rep": 3,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 2088,
+          "measured_requests": 1540,
+          "achieved_req_s": 25.666666666666668,
+          "p50_ms": 4.774642002303153,
+          "p95_ms": 6.8924125080229715,
+          "errors": []
+        },
+        {
+          "arm": "A0",
+          "rate_req_s": 100.0,
+          "rep": 1,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 8006,
+          "measured_requests": 6030,
+          "achieved_req_s": 100.5,
+          "p50_ms": 4.7090399893932045,
+          "p95_ms": 7.454281245009042,
+          "errors": []
+        },
+        {
+          "arm": "A0",
+          "rate_req_s": 100.0,
+          "rep": 2,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 8006,
+          "measured_requests": 6030,
+          "achieved_req_s": 100.5,
+          "p50_ms": 4.601916501997039,
+          "p95_ms": 7.202429423341533,
+          "errors": []
+        },
+        {
+          "arm": "A0",
+          "rate_req_s": 100.0,
+          "rep": 3,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 8006,
+          "measured_requests": 6030,
+          "achieved_req_s": 100.5,
+          "p50_ms": 4.633377509890124,
+          "p95_ms": 6.978429167065771,
+          "errors": []
+        }
+      ],
+      "rla": null,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "protocol": "czta-v9-replacement-open-loop-v2",
+      "implementation": {
+        "implementation": "v9-replacement-2",
+        "arm": "A1",
+        "arm_semantics": "I1-I3 monitor (empty beta), no ledger",
+        "code_manifest_sha256": "ee4f46b238f6fb63608153750f1b09876a9bb912e2aeae295efc8d6839ea7f53",
+        "code_hashes": {
+          "run_protocol.py": "60c8e9fa02286e4f7b5df207b4e6f69d4b5532600abafef68adcfca01dafde00",
+          "combine_results.py": "1911f28e066f3525603066e738b707b57ffd10fed8fca8165ef71aaae3e83eec",
+          "merge_restart_results.py": "e8972a3ce2294d20aa1efb1f9210dd18a888e26ba63c3da7a04fb5dc08b13ecd",
+          "run_restarts.sh": "8a9dfed6deb2804b67d2165dadd49bad954e1d9330e3688538d3fa085487d171",
+          "run_offline_smoke.sh": "32020b560247393701966748ac5ff0ae957c57d82f77b06e4975545910128d4e",
+          "czta_gateway/__init__.py": "ace1a52b9b126fa562c59c10cbf89ffa2eda3f31d3aefe3d442e71b98f66c217",
+          "czta_gateway/app.py": "01214f730e8cdae1ae733344e54bc2ad9939d9fc07ed9f2b2509d9f3c72452b5",
+          "czta_gateway/auth.py": "2115b8b96aff98aaa9177e783751e5681111a066fdb79c068b4086e83e5a1ed1",
+          "czta_gateway/config.py": "6081413894d457c520661106f7a3f2ab098719e15afb6421dc456af815b8414d",
+          "czta_gateway/dei_monitor.py": "8ef4117155e21d309567bace9533c3977d199c19ffd86ea0195a8767ee9ecc12",
+          "czta_gateway/fixtures.py": "feec4a37ebeb2e0c20f7436a8d9528eb4271aba83dc0a16b67a8cc4050c1b2f0",
+          "czta_gateway/ledger.py": "b6f3e24048c915f55a57d9f0fde953bdf36a78aab85fbcafe49e8da02376c1a2",
+          "czta_gateway/monitor.py": "bf1bb3ba616f8c4e8637d05b5831a129f5f41c53a9f34d887c5cae5dadb1870a",
+          "czta_gateway/stub.py": "20623a501b3184f6ea55d9815e73bddd4190730ab4795a2ecd76262ff075e537",
+          "czta_ref/__init__.py": "f7e2ddb69d6137a0c7fb71c5f2500e5e78474a684bbcf1561c6cd1fc9545307d",
+          "czta_ref/benchmark.py": "cd19cc2f2407e7a614923532a405b84765e1988af5b66661a3b9cfe639fbd51a",
+          "czta_ref/governance.py": "243c833eed47e66e33735a9e64977bac90bd30a3afb6a74e77ce542da07549e4",
+          "czta_ref/identity.py": "8805af35c80b6a8e0bfb34da0a2d4820bf2568d4dcc59900b53f47c5adb32de2",
+          "czta_ref/localization.py": "89835a2228878ce3e82552b4169aec19718eeef2134a347a97b160766b819a64",
+          "czta_ref/mcp_gateway.py": "eeda25f25526b57015c528e3ea31d8c073e968f317f4dcd3ef7f08d210af1bc6",
+          "czta_ref/pipeline.py": "a21dc18a7c60b5c2a5b1683fee09e29f397482f18d5c419b44cfa493b642f28c",
+          "czta_ref/rla.py": "b7b42e3b08e10e584e0120e280907f73d852a1aac6059c8217cc71d12c15d3df",
+          "czta_ref/scenario.py": "73daff757eb2434e7c41729c630e76c21a844046fc223f33067bc66a85d2f169",
+          "czta_ref/trust_analytics.py": "ef4435730285848357f58d1263ac0bdd7ce9195ad93e848c8fc114fbe8879f25"
+        },
+        "issuer": "http://127.0.0.1:8080/realms/czta",
+        "audience": "czta-gateway",
+        "upstream": "http://127.0.0.1:9001/v1/execute",
+        "tau": 0.45
+      },
+      "arm": "A1",
+      "seed": 20260814,
+      "warmup_s": 20.0,
+      "measured_s": 60.0,
+      "reps": 3,
+      "rates_req_s": [
+        5.0,
+        25.0,
+        100.0
+      ],
+      "runs": [
+        {
+          "arm": "A1",
+          "rate_req_s": 5.0,
+          "rep": 1,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 394,
+          "measured_requests": 299,
+          "achieved_req_s": 4.983333333333333,
+          "p50_ms": 4.849342978559434,
+          "p95_ms": 7.248229399556291,
+          "errors": []
+        },
+        {
+          "arm": "A1",
+          "rate_req_s": 5.0,
+          "rep": 2,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 394,
+          "measured_requests": 299,
+          "achieved_req_s": 4.983333333333333,
+          "p50_ms": 5.003630998544395,
+          "p95_ms": 7.054859708296135,
+          "errors": []
+        },
+        {
+          "arm": "A1",
+          "rate_req_s": 5.0,
+          "rep": 3,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 394,
+          "measured_requests": 299,
+          "achieved_req_s": 4.983333333333333,
+          "p50_ms": 4.985422012396157,
+          "p95_ms": 6.708556931698695,
+          "errors": []
+        },
+        {
+          "arm": "A1",
+          "rate_req_s": 25.0,
+          "rep": 1,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 2036,
+          "measured_requests": 1557,
+          "achieved_req_s": 25.95,
+          "p50_ms": 4.741240001749247,
+          "p95_ms": 6.727735011372713,
+          "errors": []
+        },
+        {
+          "arm": "A1",
+          "rate_req_s": 25.0,
+          "rep": 2,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 2036,
+          "measured_requests": 1557,
+          "achieved_req_s": 25.95,
+          "p50_ms": 4.82463400112465,
+          "p95_ms": 6.858332571573545,
+          "errors": []
+        },
+        {
+          "arm": "A1",
+          "rate_req_s": 25.0,
+          "rep": 3,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 2036,
+          "measured_requests": 1557,
+          "achieved_req_s": 25.95,
+          "p50_ms": 4.752002016175538,
+          "p95_ms": 6.75755318952724,
+          "errors": []
+        },
+        {
+          "arm": "A1",
+          "rate_req_s": 100.0,
+          "rep": 1,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 7989,
+          "measured_requests": 5967,
+          "achieved_req_s": 99.45,
+          "p50_ms": 4.714874958153814,
+          "p95_ms": 7.618948991876094,
+          "errors": []
+        },
+        {
+          "arm": "A1",
+          "rate_req_s": 100.0,
+          "rep": 2,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 7989,
+          "measured_requests": 5967,
+          "achieved_req_s": 99.45,
+          "p50_ms": 4.710815032012761,
+          "p95_ms": 7.437891617882997,
+          "errors": []
+        },
+        {
+          "arm": "A1",
+          "rate_req_s": 100.0,
+          "rep": 3,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 7989,
+          "measured_requests": 5967,
+          "achieved_req_s": 99.45,
+          "p50_ms": 4.896931000985205,
+          "p95_ms": 8.028479671338573,
+          "errors": []
+        }
+      ],
+      "rla": null,
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "protocol": "czta-v9-replacement-open-loop-v2",
+      "implementation": {
+        "implementation": "v9-replacement-2",
+        "arm": "A2",
+        "arm_semantics": "I1-I4 monitor + sealed Ed25519 ledger",
+        "code_manifest_sha256": "ee4f46b238f6fb63608153750f1b09876a9bb912e2aeae295efc8d6839ea7f53",
+        "code_hashes": {
+          "run_protocol.py": "60c8e9fa02286e4f7b5df207b4e6f69d4b5532600abafef68adcfca01dafde00",
+          "combine_results.py": "1911f28e066f3525603066e738b707b57ffd10fed8fca8165ef71aaae3e83eec",
+          "merge_restart_results.py": "e8972a3ce2294d20aa1efb1f9210dd18a888e26ba63c3da7a04fb5dc08b13ecd",
+          "run_restarts.sh": "8a9dfed6deb2804b67d2165dadd49bad954e1d9330e3688538d3fa085487d171",
+          "run_offline_smoke.sh": "32020b560247393701966748ac5ff0ae957c57d82f77b06e4975545910128d4e",
+          "czta_gateway/__init__.py": "ace1a52b9b126fa562c59c10cbf89ffa2eda3f31d3aefe3d442e71b98f66c217",
+          "czta_gateway/app.py": "01214f730e8cdae1ae733344e54bc2ad9939d9fc07ed9f2b2509d9f3c72452b5",
+          "czta_gateway/auth.py": "2115b8b96aff98aaa9177e783751e5681111a066fdb79c068b4086e83e5a1ed1",
+          "czta_gateway/config.py": "6081413894d457c520661106f7a3f2ab098719e15afb6421dc456af815b8414d",
+          "czta_gateway/dei_monitor.py": "8ef4117155e21d309567bace9533c3977d199c19ffd86ea0195a8767ee9ecc12",
+          "czta_gateway/fixtures.py": "feec4a37ebeb2e0c20f7436a8d9528eb4271aba83dc0a16b67a8cc4050c1b2f0",
+          "czta_gateway/ledger.py": "b6f3e24048c915f55a57d9f0fde953bdf36a78aab85fbcafe49e8da02376c1a2",
+          "czta_gateway/monitor.py": "bf1bb3ba616f8c4e8637d05b5831a129f5f41c53a9f34d887c5cae5dadb1870a",
+          "czta_gateway/stub.py": "20623a501b3184f6ea55d9815e73bddd4190730ab4795a2ecd76262ff075e537",
+          "czta_ref/__init__.py": "f7e2ddb69d6137a0c7fb71c5f2500e5e78474a684bbcf1561c6cd1fc9545307d",
+          "czta_ref/benchmark.py": "cd19cc2f2407e7a614923532a405b84765e1988af5b66661a3b9cfe639fbd51a",
+          "czta_ref/governance.py": "243c833eed47e66e33735a9e64977bac90bd30a3afb6a74e77ce542da07549e4",
+          "czta_ref/identity.py": "8805af35c80b6a8e0bfb34da0a2d4820bf2568d4dcc59900b53f47c5adb32de2",
+          "czta_ref/localization.py": "89835a2228878ce3e82552b4169aec19718eeef2134a347a97b160766b819a64",
+          "czta_ref/mcp_gateway.py": "eeda25f25526b57015c528e3ea31d8c073e968f317f4dcd3ef7f08d210af1bc6",
+          "czta_ref/pipeline.py": "a21dc18a7c60b5c2a5b1683fee09e29f397482f18d5c419b44cfa493b642f28c",
+          "czta_ref/rla.py": "b7b42e3b08e10e584e0120e280907f73d852a1aac6059c8217cc71d12c15d3df",
+          "czta_ref/scenario.py": "73daff757eb2434e7c41729c630e76c21a844046fc223f33067bc66a85d2f169",
+          "czta_ref/trust_analytics.py": "ef4435730285848357f58d1263ac0bdd7ce9195ad93e848c8fc114fbe8879f25"
+        },
+        "issuer": "http://127.0.0.1:8080/realms/czta",
+        "audience": "czta-gateway",
+        "upstream": "http://127.0.0.1:9001/v1/execute",
+        "tau": 0.45
+      },
+      "arm": "A2",
+      "seed": 20260814,
+      "warmup_s": 20.0,
+      "measured_s": 60.0,
+      "reps": 3,
+      "rates_req_s": [
+        5.0,
+        25.0,
+        100.0
+      ],
+      "runs": [
+        {
+          "arm": "A2",
+          "rate_req_s": 5.0,
+          "rep": 1,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 369,
+          "measured_requests": 278,
+          "achieved_req_s": 4.633333333333334,
+          "p50_ms": 5.122149013914168,
+          "p95_ms": 7.126302891992963,
+          "errors": []
+        },
+        {
+          "arm": "A2",
+          "rate_req_s": 5.0,
+          "rep": 2,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 369,
+          "measured_requests": 278,
+          "achieved_req_s": 4.633333333333334,
+          "p50_ms": 5.068257974926382,
+          "p95_ms": 6.795929011423139,
+          "errors": []
+        },
+        {
+          "arm": "A2",
+          "rate_req_s": 5.0,
+          "rep": 3,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 369,
+          "measured_requests": 278,
+          "achieved_req_s": 4.633333333333334,
+          "p50_ms": 6.3900410023052245,
+          "p95_ms": 9.0868716040859,
+          "errors": []
+        },
+        {
+          "arm": "A2",
+          "rate_req_s": 25.0,
+          "rep": 1,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 2041,
+          "measured_requests": 1527,
+          "achieved_req_s": 25.45,
+          "p50_ms": 4.9510259996168315,
+          "p95_ms": 6.929752981523052,
+          "errors": []
+        },
+        {
+          "arm": "A2",
+          "rate_req_s": 25.0,
+          "rep": 2,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 2041,
+          "measured_requests": 1527,
+          "achieved_req_s": 25.45,
+          "p50_ms": 4.986484011169523,
+          "p95_ms": 7.611545914551245,
+          "errors": []
+        },
+        {
+          "arm": "A2",
+          "rate_req_s": 25.0,
+          "rep": 3,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 2041,
+          "measured_requests": 1527,
+          "achieved_req_s": 25.45,
+          "p50_ms": 5.136755004059523,
+          "p95_ms": 8.280056674266234,
+          "errors": []
+        },
+        {
+          "arm": "A2",
+          "rate_req_s": 100.0,
+          "rep": 1,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 8038,
+          "measured_requests": 6114,
+          "achieved_req_s": 101.9,
+          "p50_ms": 4.971474991180003,
+          "p95_ms": 8.303220165544186,
+          "errors": []
+        },
+        {
+          "arm": "A2",
+          "rate_req_s": 100.0,
+          "rep": 2,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 8038,
+          "measured_requests": 6114,
+          "achieved_req_s": 101.9,
+          "p50_ms": 4.717109492048621,
+          "p95_ms": 7.626352558145298,
+          "errors": []
+        },
+        {
+          "arm": "A2",
+          "rate_req_s": 100.0,
+          "rep": 3,
+          "warmup_s": 20.0,
+          "measured_s": 60.0,
+          "scheduled_requests": 8038,
+          "measured_requests": 6114,
+          "achieved_req_s": 101.9,
+          "p50_ms": 4.627379996236414,
+          "p95_ms": 7.189480966189874,
+          "errors": []
+        }
+      ],
+      "rla": {
+        "iterations": 1000,
+        "sign_p50_ms": 1.4160700084175915,
+        "sign_p95_ms": 2.1374618518166235,
+        "verify_p50_ms": 1.4679324813187122,
+        "verify_p95_ms": 2.176356769632548,
+        "errors": []
+      },
+      "status": "PASS",
+      "errors": []
+    }
+  ],
+  "summary": [
+    {
+      "rate_req_s": 5.0,
+      "A0": {
+        "p50_ms": [
+          5.024192010750994,
+          5.088194477139041,
+          4.942596540786326
+        ],
+        "p95_ms": [
+          6.605585842044093,
+          6.6507307667052356,
+          6.909771190839817
+        ],
+        "measured_requests": 924
+      },
+      "A1": {
+        "p50_ms": [
+          4.849342978559434,
+          5.003630998544395,
+          4.985422012396157
+        ],
+        "p95_ms": [
+          7.248229399556291,
+          7.054859708296135,
+          6.708556931698695
+        ],
+        "measured_requests": 897
+      },
+      "A2": {
+        "p50_ms": [
+          5.122149013914168,
+          5.068257974926382,
+          6.3900410023052245
+        ],
+        "p95_ms": [
+          7.126302891992963,
+          6.795929011423139,
+          9.0868716040859
+        ],
+        "measured_requests": 834
+      },
+      "a2_minus_a0_p50_ms": 0.5084883208231377,
+      "a2_minus_a0_p50_percent": 10.132624922683371
+    },
+    {
+      "rate_req_s": 25.0,
+      "A0": {
+        "p50_ms": [
+          4.667539993533865,
+          4.7669280029367656,
+          4.774642002303153
+        ],
+        "p95_ms": [
+          6.651886907638978,
+          6.797255229321308,
+          6.8924125080229715
+        ],
+        "measured_requests": 4620
+      },
+      "A1": {
+        "p50_ms": [
+          4.741240001749247,
+          4.82463400112465,
+          4.752002016175538
+        ],
+        "p95_ms": [
+          6.727735011372713,
+          6.858332571573545,
+          6.75755318952724
+        ],
+        "measured_requests": 4671
+      },
+      "A2": {
+        "p50_ms": [
+          4.9510259996168315,
+          4.986484011169523,
+          5.136755004059523
+        ],
+        "p95_ms": [
+          6.929752981523052,
+          7.611545914551245,
+          8.280056674266234
+        ],
+        "measured_requests": 4581
+      },
+      "a2_minus_a0_p50_ms": 0.2883850053573651,
+      "a2_minus_a0_p50_percent": 6.088734735298385
+    },
+    {
+      "rate_req_s": 100.0,
+      "A0": {
+        "p50_ms": [
+          4.7090399893932045,
+          4.601916501997039,
+          4.633377509890124
+        ],
+        "p95_ms": [
+          7.454281245009042,
+          7.202429423341533,
+          6.978429167065771
+        ],
+        "measured_requests": 18090
+      },
+      "A1": {
+        "p50_ms": [
+          4.714874958153814,
+          4.710815032012761,
+          4.896931000985205
+        ],
+        "p95_ms": [
+          7.618948991876094,
+          7.437891617882997,
+          8.028479671338573
+        ],
+        "measured_requests": 17901
+      },
+      "A2": {
+        "p50_ms": [
+          4.971474991180003,
+          4.717109492048621,
+          4.627379996236414
+        ],
+        "p95_ms": [
+          8.303220165544186,
+          7.626352558145298,
+          7.189480966189874
+        ],
+        "measured_requests": 18342
+      },
+      "a2_minus_a0_p50_ms": 0.12387682606155614,
+      "a2_minus_a0_p50_percent": 2.665100234622502
+    }
+  ],
+  "note": "Relative overhead is implementation- and deployment-specific. With a stub upstream it is an upper-bound testbed measurement, not a production-latency claim."
+}

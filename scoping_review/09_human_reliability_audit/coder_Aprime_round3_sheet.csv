@@ -1,0 +1,115 @@
+record_key,token,eligibility(include-core|include-background|exclude),primary_attack_class(1of10|n/a)
+K3cd3c25feb,R3C0017,include-core,provenance or identity tampering
+Kccf5427b9a,R3C0032,include-background,n/a
+K52952b07a7,R3C0029,include-core,misinformation & disinformation
+Kf9319f0bf5,R3C0093,include-core,hallucination & factuality failure
+Ka3a2150ada,R3C0085,include-core,hallucination & factuality failure
+K2bfc2cdf84,R3C0006,include-core,retrieval & knowledge poisoning
+K482c8b626d,R3C0010,include-core,retrieval & knowledge poisoning
+K3c603d63f2,R3C0023,include-background,n/a
+K06fcaf2630,R3C0003,include-core,misinformation & disinformation
+K493983fedf,R3C0040,include-core,no adversarial mechanism (control/evaluation)
+Kd767a5e278,R3C0035,include-core,hallucination & factuality failure
+Kb347701caf,R3C0083,include-core,misinformation & disinformation
+K90060e4df4,R3C0114,include-core,confidence or trust manipulation
+K4afb6749ba,R3C0092,include-core,prompt injection & jailbreak
+K5144865a41,R3C0049,include-core,hallucination & factuality failure
+K314f092ac2,R3C0077,include-background,n/a
+Kd1a5618a02,R3C0008,include-core,no adversarial mechanism (control/evaluation)
+K6b0815f881,R3C0111,include-core,hallucination & factuality failure
+Ke1152312d6,R3C0096,include-core,retrieval & knowledge poisoning
+K0089b3771a,R3C0090,include-core,misinformation & disinformation
+K67d4afcf9b,R3C0070,include-core,confidence or trust manipulation
+Ka5b8e1009a,R3C0041,include-core,no adversarial mechanism (control/evaluation)
+K553697794a,R3C0112,include-core,provenance or identity tampering
+K0bec3e285c,R3C0075,include-background,n/a
+K07764705b8,R3C0018,include-core,confidence or trust manipulation
+K55b2e04c2c,R3C0022,include-core,retrieval & knowledge poisoning
+Ka151833d28,R3C0081,include-core,misinformation & disinformation
+K20f8b60c76,R3C0084,include-core,prompt injection & jailbreak
+Kad6c3832b6,R3C0071,include-core,retrieval & knowledge poisoning
+K8933ef5c82,R3C0039,include-core,confidence or trust manipulation
+K2fc09394bc,R3C0106,include-core,prompt injection & jailbreak
+K61290839b0,R3C0028,include-core,confidence or trust manipulation
+K158dc89e97,R3C0100,include-core,misinformation & disinformation
+K0d893a5227,R3C0068,include-background,n/a
+K0bba35beea,R3C0015,include-background,n/a
+Kb1d85d0257,R3C0104,include-core,hallucination & factuality failure
+Kdeb56327d3,R3C0001,include-core,misinformation & disinformation
+K81321365e0,R3C0044,include-core,hallucination & factuality failure
+Kf2a3179644,R3C0026,include-core,misinformation & disinformation
+K5e6bf8c23e,R3C0058,include-core,hallucination & factuality failure
+K8f476b48ae,R3C0057,include-core,hallucination & factuality failure
+Kb3b93b75ca,R3C0042,include-core,prompt injection & jailbreak
+K0d283b2f69,R3C0005,include-core,misinformation & disinformation
+K7fe7a86ef4,R3C0059,include-core,provenance or identity tampering
+Kdda6a7afb3,R3C0074,include-core,prompt injection & jailbreak
+Kba416a4f96,R3C0025,include-core,misinformation & disinformation
+Kc4f752962e,R3C0014,include-core,retrieval & knowledge poisoning
+K1fa25c6b4e,R3C0054,include-background,n/a
+K3d84407d9e,R3C0103,include-core,misinformation & disinformation
+K626588021b,R3C0037,include-core,retrieval & knowledge poisoning
+K6ae51b1faa,R3C0108,include-core,no adversarial mechanism (control/evaluation)
+Kf05afcabe6,R3C0033,include-core,confidence or trust manipulation
+Kf04b1b73a9,R3C0019,include-core,prompt injection & jailbreak
+K6f14d94f9c,R3C0031,include-core,tool or agent hijacking
+Kb12c4dd09e,R3C0027,include-core,prompt injection & jailbreak
+K734f5d600f,R3C0002,include-core,misinformation & disinformation
+K204df9aa72,R3C0038,include-core,prompt injection & jailbreak
+K4ffb208769,R3C0016,include-core,misinformation & disinformation
+K899df034ad,R3C0062,include-core,prompt injection & jailbreak
+Kdf1b7a9c8c,R3C0082,include-core,confidence or trust manipulation
+K1cfb18e725,R3C0110,include-core,no adversarial mechanism (control/evaluation)
+Ka0b5f00467,R3C0043,include-core,misinformation & disinformation
+K0e929a6b99,R3C0056,include-core,hallucination & factuality failure
+Ke03a9b06b4,R3C0061,include-core,no adversarial mechanism (control/evaluation)
+K0ca88fdee8,R3C0007,include-core,no adversarial mechanism (control/evaluation)
+K7dc2158824,R3C0087,include-core,misinformation & disinformation
+Kdfe5caaef8,R3C0079,include-core,hallucination & factuality failure
+Kdba11ec2e4,R3C0094,include-background,n/a
+Ke697844645,R3C0080,include-core,misinformation & disinformation
+K803aca4355,R3C0045,include-core,provenance or identity tampering
+Kd4efd84626,R3C0069,include-core,provenance or identity tampering
+Kbc345b6206,R3C0048,include-core,prompt injection & jailbreak
+K9bf5fb215c,R3C0011,include-core,prompt injection & jailbreak
+Ke2cde4b5ad,R3C0078,include-core,retrieval & knowledge poisoning
+Ke8cee24277,R3C0047,include-core,no adversarial mechanism (control/evaluation)
+Kf20553cbc8,R3C0064,include-background,n/a
+K4b7388f4ae,R3C0004,include-background,n/a
+Kf0ea265d0f,R3C0097,include-core,hallucination & factuality failure
+K3210d9d2af,R3C0101,include-core,retrieval & knowledge poisoning
+K0e694bd37d,R3C0102,include-core,confidence or trust manipulation
+Ka1a25653f4,R3C0065,include-background,n/a
+Kad60d1b1ec,R3C0046,include-core,retrieval & knowledge poisoning
+Kf65f7fec2c,R3C0060,include-core,misinformation & disinformation
+K2fbf0e39a6,R3C0109,include-core,retrieval & knowledge poisoning
+K25f0195a60,R3C0067,include-core,hallucination & factuality failure
+Kf280ad6d2b,R3C0013,include-core,hallucination & factuality failure
+K8758b28e97,R3C0051,include-background,n/a
+K6e4d904dcb,R3C0009,include-core,no adversarial mechanism (control/evaluation)
+K173803ad0f,R3C0012,include-background,n/a
+K05ce7cfd8e,R3C0024,include-core,misinformation & disinformation
+K78848877fa,R3C0073,include-background,n/a
+Kfa0e17eef7,R3C0034,include-core,misinformation & disinformation
+K12697b0f83,R3C0107,include-core,misinformation & disinformation
+K0237015d25,R3C0095,include-core,prompt injection & jailbreak
+K6134f40938,R3C0020,include-core,no adversarial mechanism (control/evaluation)
+Kc2be732002,R3C0105,include-core,prompt injection & jailbreak
+K2be5f8bb28,R3C0050,include-core,misinformation & disinformation
+K56bc4aa389,R3C0021,include-core,prompt injection & jailbreak
+Kb0759f4766,R3C0091,include-core,hallucination & factuality failure
+Kec34813926,R3C0030,include-core,retrieval & knowledge poisoning
+K1a9b677232,R3C0088,include-core,prompt injection & jailbreak
+Kddb786de53,R3C0098,include-core,misinformation & disinformation
+Kc97d0e0cef,R3C0052,include-core,hallucination & factuality failure
+K607bc77d8e,R3C0072,include-background,n/a
+Kd4981ada3d,R3C0076,include-core,hallucination & factuality failure
+K3f855f3f9d,R3C0036,include-core,misinformation & disinformation
+Keac600354b,R3C0063,include-core,provenance or identity tampering
+Ke5e1e908d9,R3C0053,include-core,hallucination & factuality failure
+K3bbdca978c,R3C0089,include-core,no adversarial mechanism (control/evaluation)
+Kd6c80729d3,R3C0113,include-core,confidence or trust manipulation
+K9e5385c064,R3C0055,include-core,misinformation & disinformation
+K185d3377db,R3C0099,include-background,n/a
+K9a78ea21e8,R3C0086,include-core,hallucination & factuality failure
+Kc853482dcf,R3C0066,include-core,retrieval & knowledge poisoning

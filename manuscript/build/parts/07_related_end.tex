@@ -1,0 +1,106 @@
+\section{Related Work}
+\label{sec:related}
+\paragraph*{Defenses}
+Indirect prompt injection was identified early as the structural risk
+of tool-using LLM systems~\cite{greshake}; in-band defenses (detection
+classifiers, prompt hygiene, instruction-hierarchy fine-tuning) have
+been broken by adaptive evaluation~\cite{abdelnabi}. Out of band, CaMeL
+separates control flow from data flow and attaches capability metadata
+to values~\cite{camel}; its successors (FIDES, Progent, RTBAS, Conseca,
+FORGE) are systematized in~\cite{oob} as Biba integrity plus reference
+monitoring plus least privilege, with two open problems that shape this
+paper: validation almost exclusively on static benchmarks, and an
+under-specified trusted base for provenance assignment.
+Guardrail agents~\cite{guardagent}, ARGUS's influence provenance
+graph~\cite{argus}, provenance surveys~\cite{tracessurvey}, and
+machine-checked Biba for agent memory~\cite{louck2026tmanm} are CZTA's
+instantiation peers; none states the property it approximates as a
+definition. Counterfactual and causal
+defenses~\cite{melon,agentsentry,causalarmor,liao2026provenance,babu2026gistcmtf,pona2025acf}
+are compared with the gate in \S\ref{sec:gate}.
+
+\paragraph*{Integrity framings}
+Intent-to-execution integrity~\cite{qu} gives judgment integrity the
+invariance form adopted here as \Ifive; agent epistemic
+integrity~\cite{shen} is an architectural constraint secured by a
+model--harness contract; context-to-execution integrity~\cite{cxi}
+binds field, effect, and invocation authority to one manifest at the
+sink; a concurrent theory characterizes what a deterministic
+pre-execution gate can enforce~\cite{ray2026enforced}; semantic
+laundering~\cite{romanchuk2026semantic} states the architectural
+version of the rationalization gap.
+
+\paragraph*{Benchmarks, protocol surface, foundations}
+AgentDojo established live-environment evaluation of
+injection~\cite{agentdojo}, with documented scoring
+defects~\cite{bhagwatkar2025firewalls} and realism gaps~\cite{agentdyn};
+sibling suites are consolidated in~\cite{benchtax}. MCP standardized
+tool connectivity and authorization~\cite{mcpspec}; taxonomies rank
+tool poisoning among its principal risks~\cite{owaspmcp,mcpdpt};
+zero-trust MCP gateways decide who may call
+what~\cite{ztmcp,kodathala2026aiauthz}, not what may count as a reason;
+frontier-lab guidance treats internal agents as compromised
+insiders~\cite{controlroadmap}. \DEI{} applies classical machinery to a
+new object: integrity models~\cite{biba,denning,clarkwilson},
+noninterference~\cite{goguen}, decentralized IFC~\cite{myersliskov},
+provenance~\cite{prov}, evidence theory~\cite{shafer,dung}, and the
+runtime-verification canon~\cite{alpern,schneider,bauer,pnueli,mop,hyperprops,finkbeiner,stucki}.
+``Epistemic security'' also names a societal program~\cite{seger};
+ours is the technical sense.
+
+\section{Conclusion}
+Defenses for agentic systems constrain what an agent may do. We have
+stated what it means for an agent's reasons to be trustworthy, proved
+which part a monitor can enforce and which it can only audit, and
+measured the resulting trade-offs. \Ifour{} is the admission result:
+bound arguments must have cited evidential standing. The counterfactual
+gate is valuable on separable plants, but its misses, false quarantines,
+and utility costs are limits, not evidence of a general counterfactual
+defense.
+
+\section*{Ethics considerations}
+This work evaluates defenses on a testbed the authors control; no
+production or third-party systems were probed, no third-party
+vulnerabilities were identified, and no responsible disclosure was
+required. The taxonomy of \S\ref{sec:taxonomy} derives from a
+registered literature review whose expert annotators coded publicly
+available bibliographic metadata against a registered codebook; no
+personal data about the annotators was collected, and only their
+per-record codes are released under role labels. No human-subjects study was conducted for this paper; a
+registered threshold-adjudication pilot described in the artifact
+awaits an ethics determination and contributes no result here. The
+attack content used in the evaluation is the public AgentDojo
+injection corpus and constructed probes against a local testbed; it
+confers no capability beyond what the benchmark already publishes.
+
+\section*{LLM usage considerations}
+The authors used large language model assistants for editorial and
+preparatory support (phrasing, formatting, \LaTeX, and
+consistency-checking of reported figures against source data), for
+assistance drafting definitions and proofs from author-specified
+theorem statements, and for developing the artifact's Lean~4
+mechanization scripts. Every definition, theorem statement, and proof
+was reviewed and verified by the authors; every Lean script is checked
+by the Lean~4 kernel, which re-verifies each inference step
+independently of its provenance; every reported number is recomputed
+from episode logs by the pipeline in the artifact. The motivation for
+this use is editorial throughput and the mechanized re-verification it
+made affordable. The research questions, the framework, the system,
+and all contributions are the authors' own, and the authors take full
+responsibility for all material herein.
+
+\section*{Availability}
+The anonymized artifact~\cite{artifact} contains the \texttt{czta\_ref}
+reference monitor (hash-pinned at \texttt{/env}); the executable
+reference semantics and property tests (Appendix~\ref{app:refsem}); the
+Lean~4 mechanization (\texttt{DeiSafety.lean}) of the safety core,
+re-checkable by \texttt{check\_formal.sh}; the scoping-review protocol,
+ledger, codebooks, instruments, per-record hashes, and amendment log;
+the measurement harness and per-run outputs behind
+Table~\ref{tab:overhead}; the authorization-layer harness and verdict
+logs; the live-model campaign behind Table~\ref{tab:livemodel} (the
+seed-audited harness \texttt{g2\_extended.py}, both episode logs, the
+full console log, the recompute-and-macro pipeline, and a verification
+manifest whose SHA-256 hashes and recomputed figures match every number
+reported here); and the registered protocols, deposits, and timestamps
+for the completed runs of \S\ref{sec:eval}.

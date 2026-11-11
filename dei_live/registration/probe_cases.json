@@ -1,0 +1,242 @@
+[
+ {
+  "id": "workspace:probe:user_task_900:injection_task_900",
+  "family": "F1_wrong_file",
+  "placement": "colocated",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_900",
+  "family": "F1_wrong_file",
+  "placement": "colocated",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_901:injection_task_901",
+  "family": "F1_wrong_file",
+  "placement": "colocated",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_901",
+  "family": "F1_wrong_file",
+  "placement": "colocated",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_902:injection_task_902",
+  "family": "F1_wrong_file",
+  "placement": "colocated",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_902",
+  "family": "F1_wrong_file",
+  "placement": "colocated",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_903:injection_task_903",
+  "family": "F1_wrong_file",
+  "placement": "colocated",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_903",
+  "family": "F1_wrong_file",
+  "placement": "colocated",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_904:injection_task_904",
+  "family": "F1_wrong_file",
+  "placement": "colocated",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_904",
+  "family": "F1_wrong_file",
+  "placement": "colocated",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_905:injection_task_905",
+  "family": "F1_wrong_file",
+  "placement": "separate",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_905",
+  "family": "F1_wrong_file",
+  "placement": "separate",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_906:injection_task_906",
+  "family": "F1_wrong_file",
+  "placement": "separate",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_906",
+  "family": "F1_wrong_file",
+  "placement": "separate",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_907:injection_task_907",
+  "family": "F1_wrong_file",
+  "placement": "separate",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_907",
+  "family": "F1_wrong_file",
+  "placement": "separate",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_908:injection_task_908",
+  "family": "F1_wrong_file",
+  "placement": "separate",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_908",
+  "family": "F1_wrong_file",
+  "placement": "separate",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_909:injection_task_909",
+  "family": "F1_wrong_file",
+  "placement": "separate",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_909",
+  "family": "F1_wrong_file",
+  "placement": "separate",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_910:injection_task_910",
+  "family": "F2_premature_send",
+  "placement": "colocated",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_910",
+  "family": "F2_premature_send",
+  "placement": "colocated",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_911:injection_task_911",
+  "family": "F2_premature_send",
+  "placement": "colocated",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_911",
+  "family": "F2_premature_send",
+  "placement": "colocated",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_912:injection_task_912",
+  "family": "F2_premature_send",
+  "placement": "colocated",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_912",
+  "family": "F2_premature_send",
+  "placement": "colocated",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_913:injection_task_913",
+  "family": "F2_premature_send",
+  "placement": "colocated",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_913",
+  "family": "F2_premature_send",
+  "placement": "colocated",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_914:injection_task_914",
+  "family": "F2_premature_send",
+  "placement": "colocated",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_914",
+  "family": "F2_premature_send",
+  "placement": "colocated",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_915:injection_task_915",
+  "family": "F3_wrong_option",
+  "placement": "colocated",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_915",
+  "family": "F3_wrong_option",
+  "placement": "colocated",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_916:injection_task_916",
+  "family": "F3_wrong_option",
+  "placement": "colocated",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_916",
+  "family": "F3_wrong_option",
+  "placement": "colocated",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_917:injection_task_917",
+  "family": "F3_wrong_option",
+  "placement": "colocated",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_917",
+  "family": "F3_wrong_option",
+  "placement": "colocated",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_918:injection_task_918",
+  "family": "F3_wrong_option",
+  "placement": "colocated",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_918",
+  "family": "F3_wrong_option",
+  "placement": "colocated",
+  "kind": "utility"
+ },
+ {
+  "id": "workspace:probe:user_task_919:injection_task_919",
+  "family": "F3_wrong_option",
+  "placement": "colocated",
+  "kind": "security"
+ },
+ {
+  "id": "workspace:probe-honest:user_task_919",
+  "family": "F3_wrong_option",
+  "placement": "colocated",
+  "kind": "utility"
+ }
+]

@@ -1,0 +1,134 @@
+\documentclass[conference,compsoc]{IEEEtran}
+% IEEE S&P requires IEEEtran.cls V1.8b with the compsoc option, US letter.
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{stmaryrd}
+\usepackage{booktabs,array,multirow,tabularx,threeparttable}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,fit,backgrounds,calc}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumitem}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{microtype}
+
+\definecolor{accent}{HTML}{0B5394}
+\definecolor{accentlight}{HTML}{D9E8F7}
+\definecolor{warn}{HTML}{B45F06}
+\definecolor{okgreen}{HTML}{38761D}
+\definecolor{ledger}{HTML}{674EA7}
+\definecolor{pend}{HTML}{C00000}
+
+% ---- Draft-only marker for experiments that are registered but not yet run.
+% Every number that must come from a new run is behind \PENDING; the final
+% submission must contain zero occurrences (grep -c PENDING main.tex == 0).
+\newcommand{\PENDING}[1]{\textcolor{pend}{[\textsc{pending}: #1]}}
+
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\newtheorem{assumption}{Assumption}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\theoremstyle{plain}
+
+% ---- Invariants. I4 is argument binding (new in this version); the
+% counterfactual-dependence bound, formerly I4, is now I5.
+\newcommand{\Ione}{\ensuremath{I_1}}
+\newcommand{\Itwo}{\ensuremath{I_2}}
+\newcommand{\Ithree}{\ensuremath{I_3}}
+\newcommand{\Ifour}{\ensuremath{I_4}}
+\newcommand{\Ifive}{\ensuremath{I_5}}
+\providecommand{\tc}{\tau_{c}}
+\providecommand{\meet}{\sqcap}
+\providecommand{\DeltaIrrel}{\Delta_{\mathrm{irrel}}}
+\providecommand{\Dirr}{D_{\mathrm{irr}}}
+\providecommand{\Lift}{\mathrm{Lift}}
+\providecommand{\Tr}{\Sigma}
+\newcommand{\att}{\ensuremath{\mathsf{att}}}
+\newcommand{\cert}{\ensuremath{\mathsf{cert}}}
+\newcommand{\deps}{\ensuremath{\mathsf{dep}}}
+\newcommand{\support}{\ensuremath{\mathsf{support}}}
+\newcommand{\acts}{\ensuremath{\mathsf{acts}}}
+\newcommand{\args}{\ensuremath{\mathsf{args}}}
+\newcommand{\vals}{\ensuremath{\mathsf{vals}}}
+\newcommand{\bindpol}{\ensuremath{\beta}}
+\newcommand{\ev}[1]{\ensuremath{\mathsf{#1}}}
+\newcommand{\lmin}{\ensuremath{\ell_{\min}}}
+\newcommand{\lreq}{\ensuremath{\ell_{\mathrm{req}}}}
+\newcommand{\Cprot}{\ensuremath{C_{\mathrm{prot}}}}
+\newcommand{\Dirrel}{\ensuremath{\Delta_{\mathrm{irrel}}}}
+\newcommand{\dist}{\ensuremath{\mathsf{dist}}}
+\newcommand{\DEI}{\ensuremath{\mathrm{DEI}}}
+% ==== GATE MEASURED VALUES (results_gate/*.json, 2026-08-02; offline cache replay) ====
+\newcommand{\GateFollows}{4}
+\newcommand{\GateQuar}{2}
+\newcommand{\GateHonestUnch}{1}
+\newcommand{\GateInterUnch}{1}
+\newcommand{\GateBenignDestr}{3}
+\newcommand{\GateFalseQuarN}{0}
+\newcommand{\GateFalseQuar}{0\%}
+\newcommand{\GateOverhead}{1.375}
+\newcommand{\GateMonitorUs}{52}
+\newcommand{\tick}{\ensuremath{\checkmark}}
+\newcommand{\partl}{\ensuremath{\sim}}
+\newcommand{\absent}{---}
+
+\begin{document}
+\input{results_macros}  % auto-generated live-model numbers (n=40 grid); regenerate via recompute_and_emit_macros.py
+\input{results_macros_derived}  % RD/RR derived from the same counts (see file header)
+\input{results_macros_rq5}  % restarted MCP RQ5 measurements; regenerate via build/emit_rq5_macros.py
+\input{results_macros_rq1}  % registered seven-arm campaign; regenerate via analyze.py
+\input{results_macros_rq2}  % registered probe and oracle campaign; regenerate via analyze.py
+\input{results_macros_rq1_table}  % Table 4 cells; regenerate via build/emit_rq1_table_macros.py
+\input{results_macros_rq3}  % paired RQ3 utility analysis
+\input{results_macros_rq4a}  % gpt-4.1-mini replication
+\input{results_macros_rq4c}  % tool_knowledge replication
+\input{results_macros_rq4b}  % open-weight replication with limited susceptibility
+\input{results_macros_agentdyn}  % AgentDyn dynamic-suite replication
+
+\title{Epistemic Security: Enforceable Admission and the Limits of Counterfactual Defense}
+
+\author{\IEEEauthorblockN{Anonymous Author(s)}
+\IEEEauthorblockA{Submission to the IEEE Symposium on Security and Privacy}}
+
+\maketitle
+
+\begin{abstract}
+Agentic AI systems act on beliefs derived from adversarially writable
+content. We formalize \emph{decision-level epistemic integrity} (DEI)
+as five invariants and prove that the first four are
+execution-monitor-enforceable safety properties, while the fifth,
+counterfactual dependence, is a 2-safety hyperproperty that no
+single-trace monitor can evaluate. We instantiate the enforceable
+fragment in CZTA, a zero-trust MCP gateway, as the physical realization
+of Algorithm~1 and Proposition~1, and measure its cost: mean p50
+\RqFiveATwoTwentyFiveMedian\,ms at 25 req/s and A2$-$A0 overhead of
+\RqFiveOverheadRange{} at 5--100 req/s. The admission result is
+\Ifour, not full-DEI superiority. Deployable $\delta_3$ catches
+\RqTwoSeparableDeltaThreeK/\RqTwoSeparableDeltaThreeN{} separable
+commitments but misses \RqTwoDeltaThreeFn{} oracle-positive cases
+(miss rate \RqTwoDeltaThreeMissRate) and falsely quarantines
+\RqTwoHonestDeltaThreeK/\RqTwoHonestDeltaThreeN{} actionable controls.
+DEI+gate changes completion by \RqThreeUtilDeiGatePairedRD{} relative
+to no defense, but outperforms B2strict by
+\RqThreeUtilDeiGateVsBTwoStrictPairedRD{} and B1 by
+\RqThreeUtilDeiGateVsBOnePairedRD. On gpt-4.1-mini and
+\texttt{tool\_knowledge}, ASR falls from
+\RqFourASecNoDefenseASR{} and \RqFourCSecNoDefenseASR{} to
+\RqFourASecDeiASR{} and \RqFourCSecDeiASR; AgentDyn further reduces ASR
+from \RqAgentDynSecNoDefenseASR{} to \RqAgentDynSecDeiASR. These
+implementation-specific results delineate when admission-time
+provenance is enforceable and when counterfactual auditing remains
+limited, rather than claiming that all counterfactual defenses are
+doomed.
+\end{abstract}
+
+\begin{IEEEkeywords}
+agentic AI security, epistemic integrity, runtime verification,
+reference monitors, zero trust, Model Context Protocol, prompt
+injection
+\end{IEEEkeywords}

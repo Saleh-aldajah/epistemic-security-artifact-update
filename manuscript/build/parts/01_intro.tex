@@ -1,0 +1,116 @@
+\section{Introduction}
+An agentic AI system is an epistemic machine before it is an acting
+one: it reads, retrieves, remembers, and only then invokes tools with
+real-world effects. Its adversaries have noticed. Indirect prompt
+injection, tool and Model Context Protocol (MCP) poisoning, retrieval
+and memory poisoning, and curated context all attack the same surface:
+not the action interface but the \emph{evidential basis} on which
+actions are chosen. Defenses have answered at the action interface.
+Information-flow and capability designs~\cite{camel}, execution-boundary
+authority checks~\cite{cxi}, guardrail agents~\cite{guardagent}, and
+influence tracking~\cite{argus} constrain what a compromised agent may
+do. None of them states the property they are reaching for: what it
+means for an agent's conclusions to be trustworthy, and which part of
+that property anyone can enforce at runtime.
+
+\paragraph*{The question}
+Consider the case we return to throughout the paper. A user instructs an
+assistant to delete file~0 from a shared drive. A document the assistant
+reads while planning carries a planted instruction to delete file~13
+``with the owner's approval.'' The assistant deletes file~13 and, when
+asked to justify itself, cites the user's genuine directive. Every piece
+of evidence it cites is authentic, attested, and sufficient; the action
+is wrong. A monitor that checks only \emph{what the agent says supports
+its action} admits this; one that also checks that the action's
+\emph{target} is named by trusted evidence blocks it, because file~13
+appears in no directive. But the same adversary can plant ``delete
+file~0 now, before the backup completes'' when the user asked for the
+backup first: the target is trusted-derivable, the citation is genuine,
+and only a comparison of what the agent does with and without the
+planted span reveals that the injection chose the action. This paper asks
+one question: \emph{which properties of an agent's decision can a runtime
+monitor enforce, which can only be audited, and does enforcing the former
+change outcomes on a live model?}
+
+\paragraph*{The answer}
+We define \emph{decision-level epistemic integrity} (DEI) over decision
+traces of evidence, provenance, belief state, and action
+(\S\ref{sec:definition}) as five invariants: provenance-completeness
+(\Ione), integrity non-degradation (\Itwo), evidential-support
+sufficiency (\Ithree), argument binding (\Ifour), and a
+counterfactual-dependence bound (\Ifive). We prove that \Ione--\Ifour{}
+are safety properties, runtime-monitorable and enforceable by execution
+monitoring in Schneider's sense, while \Ifive{} is a 2-safety
+hyperproperty that provably cannot be checked by any monitor observing
+a single trace (\S\ref{sec:monitorability}). The boundary is a theorem
+about adversaries, not a convenience of definition: the
+\emph{rationalization gap} (Corollary~\ref{cor:ratgap}) shows that an
+adversary who chooses the action from injected content and cites
+genuine evidence for it evades every sound admission-time monitor
+whenever the action's bound arguments are trusted-derivable, and that a
+decision-local counterfactual re-commitment detects exactly that
+residual class. The definition is built to be refuted: each invariant
+carries a finite falsifying observation, and the definition as a whole
+is falsified by a successful attack on an invariant-satisfying
+execution (\S\ref{sec:falsifiability}).
+
+This is a systems paper with a formal spine, and every proposition ends
+in a measurement. The enforceable fragment is instantiated in CZTA, a
+zero-trust gateway in front of a live MCP deployment
+(\S\ref{sec:czta}); the auditable fragment is deployed as a
+counterfactual audit gate over irreversible actions (\S\ref{sec:gate});
+and both are evaluated against a frontier model that follows the
+canonical AgentDojo injection in \SecNdHit{} of \SecNdN{} episodes
+(\S\ref{sec:eval}). We execute the rationalization attack end to end
+against a real model, reproduce the coverage counterexample the
+enforceable fragment admits, and quarantine it with the gate.
+
+\paragraph*{Contributions}
+\begin{enumerate}[leftmargin=1.3em,itemsep=1pt,label=\textbf{C\arabic*}]
+\item \textbf{A formal, falsifiable definition with a proved
+enforceability boundary.} DEI, stated relative to an explicit and
+minimized epistemic TCB; the decomposition into four
+execution-monitor-enforceable invariants and one 2-safety invariant; the
+rationalization-gap theorem that locates the boundary; a soundness
+theorem for the mapping from attack classes to invariants; and a
+mechanization of the safety core in Lean~4.
+\item \textbf{I4-centered admission and a conditional counterfactual gate.}
+CZTA enforces the safety fragment on a live MCP deployment; the
+measured replacement gateway adds \RqFiveOverheadRange{} p50 overhead
+at 5--100 req/s (mean p50 \RqFiveATwoTwentyFiveMedian\,ms at 25 req/s); the gate
+re-commits irreversible actions under pre-registered perturbations and
+quarantines those whose commitment does not survive. We give the
+architecture, the end-to-end workflow on the running example, and a
+security analysis of the gateway's own attack surface, with miss,
+false-quarantine, and utility costs reported as first-class results.
+\item \textbf{A live-model evaluation under a registered design.}
+Against gemini-2.5-flash on AgentDojo, a pilot shows the attack family
+succeeds in \SecNdASR{} of episodes and that a protected-tool filter
+already reduces it to \SecGateASR{} ($p{=}\GateVsNdFisherP$) at a utility
+cost $n{=}\UtilGateN$ per arm cannot resolve; the registered campaign
+separates the cases used to develop the gateway from the held-out cases
+used to score it, measures admission against that filter, against
+argument--instruction matching, and against \Ifour{} alone, measures the
+gate where the enforceable fragment is blind, and powers the utility
+comparison on a pre-registered minimal important difference.
+The registered study ties admission and B1 at ASR
+\SpSecDeiASR{} while no defense reaches \SpSecNoDefenseASR, localizing
+the security result to \Ifour. Deployable $\delta_3$ catches
+\RqTwoSeparableDeltaThreeK/\RqTwoSeparableDeltaThreeN{} separable
+commitments but has miss rate \RqTwoDeltaThreeMissRate{} and false
+quarantine rate \RqTwoHonestDeltaThreeRate. DEI+gate changes completion
+by \RqThreeUtilDeiGatePairedRD{} versus no defense, but improves it by
+\RqThreeUtilDeiGateVsBTwoStrictPairedRD{} over B2strict and by
+\RqThreeUtilDeiGateVsBOnePairedRD{} over B1. On gpt-4.1-mini and
+\texttt{tool\_knowledge}, the defensive direction replicates.
+\end{enumerate}
+
+\paragraph*{Scope of the novelty claim}
+Within a registered search through 17~July~2026 (\S\ref{sec:related}),
+no prior work gives a formal, falsifiable definition of decision-level
+epistemic integrity that separates runtime-enforceable from
+auditable-only invariants with supporting theory, proves where the
+boundary lies, and instantiates the enforceable fragment in a working
+monitor. We adopt the invariance condition of~\cite{qu} as \Ifive{} and
+claim neither first use of the phrase~\cite{shen} nor first statement
+of decision invariance.

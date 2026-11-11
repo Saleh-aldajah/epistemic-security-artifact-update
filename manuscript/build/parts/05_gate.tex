@@ -1,0 +1,156 @@
+\section{The Counterfactual Audit Gate}
+\label{sec:gate}
+Corollary~\ref{cor:ratgap} prices the enforceable fragment: a laundered
+choice is admitted, and no admission-time check can tell. The
+impossibility is about single traces, not decisions, and a decision can
+be re-run. This section deploys the auditable fragment as a
+decision-local gate over irreversible classes: an action whose
+commitment does not survive its own counterfactual is quarantined.
+
+\subsection{Design}
+The gate sits between admission and dispatch. For every admitted
+action $a$ with cited support $S_c$ whose class is in the
+pre-registered irreversible set $D = \{\mathrm{delete}, \mathrm{share},
+\mathrm{send}\}$, the gateway issues re-commitments on perturbed
+evidence planes and compares the result with $a$. If any re-commitment
+returns an action $a' \neq a$, or leaves $a$ without qualifying
+support, $a$ is quarantined and escalated to the human checkpoint that
+already serves sub-$\tc$ admissions. Reversible classes are not gated:
+the audit is priced where mistakes are permanent.
+Algorithm~\ref{alg:gate} states the semantics; the gate adds no TCB,
+since its inputs (admission record, labeler, ledgered atoms, commitment
+protocol) are already inside the TCB of \S\ref{sec:tcb}.
+
+\paragraph*{Which content is removed, and how the gate knows}
+The gate never identifies malicious content. It removes evidence by
+\emph{provenance class}, which is computable inside the TCB from the
+ledger alone, and it asks whether the action stands on what remains.
+Three perturbations are defined:
+\begin{itemize}[leftmargin=1.15em,itemsep=1pt]
+\item $\delta_1$, \emph{plant removal}: the evidence plane in which the
+injected content never entered. This is an \emph{oracle} perturbation,
+available only when the harness knows the injection vector; it is used
+in the evaluation as the upper bound on what any deployed removal can
+achieve.
+\item $\delta_2$, \emph{cited-sub-required removal}: strike every
+$x \in S_c$ with $\ell(x) \sqsubset \lreq(c(a))$ and re-commit against
+what remains. (The version of this perturbation evaluated in
+\S\ref{sec:rq2} struck atoms below $\lmin$ rather than below $\lreq$,
+which in the deployed policy never fires; the $\lreq$ form is the
+registered deployable version.)
+\item $\delta_3$, \emph{uncited removal}: restrict the plane to the cited
+support $S_c$ plus the trusted state and re-commit. If the action
+depended on uncited content, it changes.
+\end{itemize}
+$\delta_2$ and $\delta_3$ are oracle-free. Together they cover both
+ways a plant can influence a committed action: if the plant is uncited,
+$\delta_3$ removes it; if it is cited, it sits below $\lreq$ for any
+protected class whose required label exceeds the tool channel's, and
+$\delta_2$ removes it. A plant cited \emph{at} $\lreq$ is channel
+spoofing (\S\ref{sec:security}), not laundering. The registered
+deployment \emph{enforces} $\delta_3$ and \emph{observes} $\delta_2$:
+at atom granularity $\delta_2$ cannot tell a commitment that depends on
+needed $\mathrm{MEDIUM}$ data from one that depends on a plant sharing
+the same atom, so its flips are logged and reported as the gate's
+resolution limit rather than enforced.
+
+\paragraph*{Mixed content, stochasticity, and divergent state}
+Removal is at atom granularity: a plant that shares an atom with the
+data the decision needs (a planted claim inside the file listing the
+user asked to be read) is removed together with that data under
+$\delta_2$, and an honest commitment changes for the same reason a
+laundered one does; a plant in an atom of its own is removed by
+$\delta_3$ alone. The probe families of \S\ref{sec:rq2} are built in
+both placements so that this limit is measured, not assumed; span-level
+provenance~\cite{argus} is what would lift it. Re-commitments are issued at the
+endpoint's deterministic setting (temperature~0, fixed seed where
+supported); otherwise the registered rule is $k$ re-commitments with a
+majority verdict, and the gate's inferences assume deterministic $J$.
+Tool state cannot diverge between runs because the counterfactual
+plane is assembled from ledgered atoms, never by re-querying tools. A
+re-commitment that differs for a reason unrelated to the removed
+content is quarantined anyway: the conservative default, priced by the
+same false-quarantine rate.
+
+\begin{algorithm}[t]
+\caption{Counterfactual audit gate (per admitted irreversible action).}
+\label{alg:gate}
+\footnotesize
+\begin{algorithmic}[1]
+\Require admitted action $a$, cited support $S_c$, $c(a) \in D$; perturbation set $\Delta_{\mathrm{gate}}$ ($\{\delta_1\}$ in the oracle evaluation; $\{\delta_2, \delta_3\}$ deployed)
+\For{$\delta \in \Delta_{\mathrm{gate}}$}
+  \State $a' \gets \textsc{Recommit}(\mathrm{plane}(\mathrm{ctx}) \setminus \delta)$ \Comment{plane assembled from ledgered atoms}
+  \If{$a' \neq a$ \textbf{ or } $\neg\textsc{Qualifies}(a)$ under $\delta$}
+    \State \Return \textsc{Quarantine}$(a)$; escalate to human checkpoint
+  \EndIf
+\EndFor
+\State \Return \textsc{Execute}$(a)$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Soundness and the Approximation Gap}
+\begin{proposition}[Gate soundness, oracle case]
+\label{prop:gatesound}
+Under Assumptions~\ref{asm:mediation}--\ref{asm:recorded},
+deterministic $J$, and oracle plant removal ($\delta_1 \in
+\DeltaIrrel(q)$): if the gate quarantines an admitted action $a$ on
+the plant-removal plane, the executions on $(q,d)$ and $(q, d \oplus
+\delta_1)$ are an \Ifive{} witness pair at the level of
+policy-admissible decisions---$J_{\Pi}(x)=J(x)$ if $J(x)$ qualifies
+under admission and $\bot$ otherwise---with $\dist=1>\varepsilon$
+under the discrete metric extended by $\dist(a,\bot)=1$.
+\end{proposition}
+
+\begin{proposition}[Approximation gap, deployable perturbations]
+\label{prop:approxgap}
+Let the deployed gate approximate the plant-removal plane by an
+enforced set $E \subseteq \{\delta_2, \delta_3\}$, and over the
+registered probe distribution let $\mathit{fp}$ be the rate at which an
+honest commitment changes under some $\delta \in E$ and $\mathit{miss}$
+the rate at which a laundered commitment survives every $\delta \in E$.
+For deterministic $J$ the false-quarantine rate is at most $\mathit{fp}$
+and the missed-quarantine rate at most $\mathit{miss}$; each
+$\delta \in E$ is an exact recomputation inside the TCB and contributes
+no gap of its own.
+\end{proposition}
+\noindent\emph{Proofs:} the artifact (faithful re-commitment; both
+quarantine disjuncts discharged at the policy-admissible level;
+qualification-preservation lemma and two event inclusions).
+$\mathit{fp}$ and $\mathit{miss}$ are measured in \S\ref{sec:rq2}:
+$\delta_3$ has $\mathit{fp}$ \RqTwoHonestDeltaThreeRate{} on actionable
+honest evaluations and $\mathit{miss}$ \RqTwoDeltaThreeMissRate{} against
+the oracle comparator.
+
+\subsection{Relation to Counterfactual Defenses}
+Two concurrent efforts bound the same phenomenon from opposite sides:
+provenance-sensitivity auditing measures latent dependence offline and
+is disclaimed as a guardrail~\cite{liao2026provenance}; causal tool
+filtering minimizes which tools are visible~\cite{babu2026gistcmtf}.
+Rationalization operates where filtering cannot help (the correct tool,
+legitimately cited), and the gate acts where offline diagnosis cannot
+(between admission and dispatch). Counterfactual re-execution defenses
+perturb a different plane: MELON masks the user prompt~\cite{melon},
+AgentSentry purifies the untrusted context~\cite{agentsentry},
+CausalArmor ablates untrusted spans~\cite{causalarmor}; each asks
+whether the action depends on content it should ignore, whereas the gate
+asks whether the action stands on what it \emph{cites} and quarantines
+irreversible classes before dispatch. Intervening at the (action, args)
+decision point rather than in token or latent space~\cite{pona2025acf}
+is what makes the audit cheap enough to run per action.
+
+
+\begin{proposition}[Composition with sink authorization]
+\label{prop:compose}
+For $P_{\DEI}=\Ione\wedge\Itwo\wedge\Ithree\wedge\Ifour$ and any
+EM-enforceable safety property $P_{\mathrm{sink}}$ over the extended
+alphabet (a sink-authorization discipline~\cite{cxi}), the conjunction
+$P_{\DEI}{\uparrow}\wedge P_{\mathrm{sink}}$ is EM-enforceable by a
+product truncation automaton: every executed protected action is both
+evidentially sound and manifest-authorized, and the conjunction
+strictly refines each conjunct.
+\end{proposition}
+\noindent\emph{Proof:} the artifact (padding preserves safety; product
+truncation automaton; commutativity; strictness witnesses in both
+directions). The practical reading is that \DEI{} gates what may count
+as a reason and CXI-class systems gate what a proposal may do; neither
+subsumes the other.

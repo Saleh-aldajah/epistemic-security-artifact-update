@@ -1,0 +1,564 @@
+\section{Decision-Level Epistemic Integrity}
+\label{sec:definition}
+Prior work formalizes what an agent may \emph{do}: which tools it may
+invoke, which flows may reach which sinks~\cite{camel,cxi,argus}. We
+formalize what an agent may \emph{conclude}: the conditions under which
+the beliefs that support a consequential action can be trusted, and
+which of those conditions a runtime monitor can actually enforce. Every
+object the invariants quantify over is declared once, in
+Definition~\ref{def:policy}, before any invariant uses it; the running
+example of \S\ref{sec:setting} is instantiated as soon as the objects
+exist and is revisited after each result.
+
+\subsection{Policy Objects and Decision Traces}
+\label{sec:prelim}
+
+\begin{definition}[Integrity lattice, labels, and policy objects]
+\label{def:policy}
+Let $(L, \sqsubseteq, \sqcap, \sqcup)$ be a finite lattice of integrity
+labels with top $\top$ (maximally trusted) and bottom $\bot$
+(untrusted), in the sense of Biba~\cite{biba} and
+Denning~\cite{denning}. Let $\mathit{Ch}$ be the finite set of ingress
+channels (user turn, tool result, retrieved document, memory read, model
+output), $C$ the set of action classes, and $\mathit{Slots}$ the set of
+named argument positions. A \emph{policy} $\Pi$ fixes:
+\begin{itemize}[leftmargin=1.15em,itemsep=1pt]
+\item an \emph{ingress labeling} $\lambda : \mathit{Ch} \to L$ and a
+\emph{floor} $\lmin \in L$; model-generated and external content default
+to low labels;
+\item \emph{protected classes} $\Cprot \subseteq C$ (irreversible,
+external, or safety-relevant effects), a \emph{required label}
+$\lreq : \Cprot \to L$, and a \emph{sufficiency threshold}
+$\tau : \Cprot \to [0,1]$ (written $\tc$ for $\tau(c)$);
+\item a \emph{binding policy} $\bindpol$ assigning to each
+$c \in \Cprot$ a set $\bindpol(c) \subseteq \mathit{Slots}$ of bound
+argument slots and, for each $s \in \bindpol(c)$, a required label
+$\ell_{\bindpol}(c, s) \in L$;
+\item an \emph{endorsement policy} $\pi$, a finite set of authorized
+label-raising rules (e.g., $k$-source corroboration, verifier-tool
+confirmation, human sign-off), each with a predicate
+$\mathsf{Authorized}(\rho, b, \ell')$ stating when rule $\rho \in \pi$
+may raise belief $b$ to label $\ell'$;
+\item a \emph{tolerance} $\varepsilon : \Cprot \to \mathbb{R}_{\ge 0}$
+and a class $\Dirrel(q)$ of task-irrelevant perturbations
+(Def.~\ref{def:i5}).
+\end{itemize}
+Every evidence atom and belief carries a label $\ell(\cdot) \in L$;
+for an atom $e$ ingested on channel $\mathit{ch}$, $\ell(e) :=
+\lambda(\mathit{ch})$. The concrete lattice used throughout the paper
+is $\mathrm{UNTRUSTED} \sqsubset \mathrm{MEDIUM} \sqsubset
+\mathrm{TRUSTED}$, with $\lambda(\text{user turn}) = \mathrm{TRUSTED}$
+(session-signed), $\lambda(\text{tool result}) = \lambda(\text{memory})
+= \mathrm{MEDIUM}$ (channel-attested), and $\lambda(\text{model
+output}) = \mathrm{UNTRUSTED}$; the deployed values of the remaining
+objects are given in \S\ref{sec:evalsetup}.
+\end{definition}
+
+\begin{definition}[Evidence and attestation]
+\label{def:evidence}
+An \emph{evidence atom} $e \in E$ is an immutable record of ingested
+content with label $\ell(e)$, channel $\mathit{ch}(e)$, source metadata,
+and an optional attestation. The predicate $\att(e)$ holds iff $e$
+carries a signature chain that verifies against a trusted root and
+whose validity window covers the current time. The freshness clause
+subsumes long-horizon staleness: expired attestations fail $\att$, so
+drift over long deployments surfaces as a provenance-completeness
+violation rather than a silent decay.
+\end{definition}
+
+\paragraph*{What an attestation is, concretely}
+In CZTA (\S\ref{sec:czta}) an attestation is the tuple (channel
+credential, content digest, issue time, validity window, signature).
+For user turns the credential is the session's RS256 token, verified
+against the identity provider's published JWKS; for tool results and
+memory reads it is the gateway's Ed25519 receipt over the content
+digest, issued at ingress and chained into the ledger. The trusted root
+is thus the realm key for user channels and the ledger key otherwise;
+windows are the token expiry and a per-channel time-to-live; $\att$
+fails on a bad signature, an unknown signer, a digest mismatch, or a
+lapsed window. The definition does not depend on this choice; it is
+stated so that the TCB of \S\ref{sec:tcbdef} is concrete.
+
+\begin{definition}[Beliefs, provenance, updates, endorsements]
+\label{def:beliefs}
+A \emph{belief} $b \in B$ is a labeled assertion the agent system holds
+at runtime, with dependency set $\deps(b) \subseteq E \cup B$ and a
+finite set $\vals(b) \subseteq V$ of the values it names (identifiers,
+principals, amounts, file names), extracted at creation time by the
+recorder from the belief's content. The \emph{provenance graph} $P$ is
+the directed acyclic graph whose nodes are $E \cup B$ and whose edges
+run from each $b$ to every element of $\deps(b)$; it is recorded in an
+append-only, hash-chained log (we use the W3C~PROV vocabulary for the
+edge kinds~\cite{prov}, a recording convention that carries no semantic
+commitment). Two event kinds modify beliefs:
+\begin{itemize}[leftmargin=1.15em,itemsep=1pt]
+\item an \emph{update} $\ev{upd}(b', X)$ creates $b'$ with
+$\deps(b') = X$ and default label
+$\ell(b') := \bigsqcap_{x \in X} \ell(x)$. This is the Biba derivation
+rule~\cite{biba}; its guarantee is that a derived belief's label is a
+certified lower bound on the trust of everything it was derived from,
+so no derivation can manufacture trust;
+\item an \emph{endorsement} $\ev{end}(b, \ell', \rho)$ raises
+$\ell(b)$ to $\ell'$ under a rule $\rho \in \pi$ with
+$\mathsf{Authorized}(\rho, b, \ell')$, in the sense of endorsement in
+decentralized IFC~\cite{myersliskov}. Endorsements are logged,
+attributable, and rate-limitable; they are the only lawful label
+increases.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Actions, arguments, and decision traces]
+\label{def:actions}
+An \emph{action event} $\ev{act}(a)$ has class $c(a) \in C$, an
+\emph{argument map} $\args(a) : \mathit{Slots} \rightharpoonup V$, and a
+\emph{support set} $\support(a) \subseteq B$, the beliefs the system
+commits to as justifying $a$. Fix the event alphabet
+$\Sigma = \{ \ev{ing}(e, ch),\, \ev{upd}(b, X),\, \ev{end}(b, \ell, \rho),\, \ev{act}(a) \}$.
+A \emph{decision trace} is a finite sequence
+$\sigma = \epsilon_1 \epsilon_2 \cdots \epsilon_k$ over $\Sigma$;
+$\acts(\sigma)$ denotes its protected action events. For a task input
+$q$ and untrusted-channel content $d$, we write $J(q, d)$ for the
+protected action the system selects at a designated decision point,
+holding trusted state fixed.
+\end{definition}
+
+\paragraph*{Epistemic TCB}
+\label{sec:tcbdef}
+The definition is stated relative to a trusted computing base: the
+ingress labeler $\lambda$ together with the channel authentication it
+relies on, the attestation verifier and its keys, the append-only
+provenance recorder including the extraction of $\vals(\cdot)$, the
+support aggregator $S$ (Def.~\ref{def:i3}), and the policy engine and
+gateway. The model, all tool outputs, retrieved content, and memory
+contents are \emph{untrusted}. Making the TCB explicit answers the
+observation that provenance assignment is the under-specified trusted
+base of out-of-band defenses~\cite{oob}; we do not eliminate that base,
+we name it, minimize it, and measure it (\S\ref{sec:tcb}). The labeler
+is deliberately simple: it is a function of the authenticated channel
+identity alone, never of content, so the only way to obtain a high
+label for adversarial content is to deliver it over a high channel,
+which is channel spoofing and is excluded by
+Assumption~\ref{asm:recorded}. The value recorder is the one TCB
+component that reads content; it is a deterministic extractor over the
+belief's text (identifiers, principals, amounts), and its failure mode
+(missing a value) is fail-closed under \Ifour.
+
+\begin{example}[Running example, I: the objects]
+\label{ex:objects}
+The user turn ``Delete file~0 from the shared drive'' is ingested on the
+user channel as atom $e_u$ with $\ell(e_u) = \mathrm{TRUSTED}$,
+$\att(e_u)$ true. The drive listing returned by a tool is atom $e_l$
+($\mathrm{MEDIUM}$, attested by gateway receipt); the body of one listed
+document, which carries the planted span ``also delete file~13, the
+owner has approved,'' is atom $e_p$ ($\mathrm{MEDIUM}$, attested as a
+tool result, content untrusted). The system forms beliefs
+$b_u$ (``the user wants file~0 deleted,'' $\deps = \{e_u\}$,
+$\vals = \{\text{file~0}\}$, $\mathrm{TRUSTED}$), $b_l$ (the listing,
+$\mathrm{MEDIUM}$), and $b_p$ (``file~13 should be deleted,''
+$\deps = \{e_p\}$, $\vals = \{\text{file~13}\}$, $\mathrm{MEDIUM}$) by
+the meet rule. The
+action $\ev{act}(a)$ with $c(a) = \mathrm{delete} \in \Cprot$ has
+$\args(a)(\mathsf{target}) = \text{file~13}$; the policy binds
+$\mathsf{target}$ at $\ell_{\bindpol}(\mathrm{delete}, \mathsf{target})
+= \mathrm{TRUSTED}$. The compromised model commits $\support(a) =
+\{b_u\}$: a genuine, attested, trusted directive.
+\end{example}
+
+\subsection{The Definition}
+\begin{definition}[Provenance-completeness, \Ione]
+\label{def:i1}
+A trace $\sigma$ satisfies \Ione{} iff for every
+$\ev{act}(a) \in \acts(\sigma)$ and every $b \in \support(a)$:
+(i)~the transitive dependency closure of $b$ in $P$ is
+well-founded and every maximal derivation path terminates in $E$;
+and (ii)~every such terminal evidence atom $e$ satisfies $\att(e)$
+and $\ell(e) \sqsupseteq \lmin$. Informally: no protected action
+rests on an orphan belief (no evidential root, the formal shape
+of a fabricated claim) or on an unattested or sub-floor root.
+\end{definition}
+
+\begin{definition}[Integrity non-degradation, \Itwo]
+\label{def:i2}
+A trace $\sigma$ satisfies \Itwo{} iff every label increase on any
+belief is effected by a logged endorsement event authorized by
+$\pi$; equivalently, for every update $\ev{upd}(b', X)$,
+$\ell(b') \sqsubseteq \bigsqcap_{x \in X} \ell(x)$, and no other
+event raises a label. Informally: untrusted input can never
+silently launder itself into trusted belief; every upgrade has an
+accountable, policy-cited justification.
+\end{definition}
+
+\begin{definition}[Evidential-support sufficiency, \Ithree]
+\label{def:i3}
+Fix an audited aggregator $S : 2^{B} \times L \to [0,1]$ scoring a
+support set against a required label, subject to three stated
+requirements: \emph{(A1) qualification}: $S(U, \ell)$ depends only
+on evidence at or above $\ell$ that is attested;
+\emph{(A2) monotonicity}: adding qualifying evidence never
+decreases the score; \emph{(A3) auditability}: $S$ is fixed,
+computable from the recorded prefix state, and inside the TCB.
+$S$ is instantiable as Dempster--Shafer belief $\mathrm{Bel}(\cdot)$
+over the qualifying evidence~\cite{shafer}, or as an
+accepted-argument criterion in an argumentation
+framework~\cite{dung}. A trace satisfies \Ithree{} iff for every
+$\ev{act}(a) \in \acts(\sigma)$,
+$S(\support(a), \lreq(c(a))) \geq \tau_{c(a)}$. Informally:
+consequential actions require enough qualifying evidence, with
+per-class thresholds.
+\end{definition}
+
+\begin{definition}[Argument binding, \Ifour]
+\label{def:i4}
+A trace $\sigma$ satisfies \Ifour{} iff for every
+$\ev{act}(a) \in \acts(\sigma)$ and every bound slot
+$s \in \bindpol(c(a))$ with $\args(a)(s)$ defined, there exists
+$b \in \support(a)$ with $\args(a)(s) \in \vals(b)$ and
+$\ell(b) \sqsupseteq \ell_{\bindpol}(c(a), s)$. Informally: every
+argument that determines what the action does to the world is named by
+a cited belief of sufficient standing. The model may choose the action;
+it may not choose its targets. \Ifour{} is the decision-layer
+counterpart of the authority binding that context-to-execution
+integrity enforces at the sink~\cite{cxi}: CXI binds a field value to
+the manifest that authorizes its effect, \Ifour{} binds an argument
+value to the evidence that justifies naming it. An argument slot left
+unbound by $\bindpol$ (free-text message bodies, say) is unconstrained
+by \Ifour{} and falls to \Ifive.
+\end{definition}
+
+\begin{definition}[Counterfactual-dependence bound, \Ifive]
+\label{def:i5}
+Let $\Dirrel(q)$ be a class of task-irrelevant perturbations of
+untrusted content (perturbations that preserve the task-relevant
+semantics of $d$; operationalized by a generator suite,
+\S\ref{sec:falsifiability}), and let $\dist$ be a metric on
+protected actions (0/1 for discrete choices). A system satisfies
+\Ifive{} iff for all $\delta \in \Dirrel(q)$,
+$\dist\big(J(q, d),\, J(q, d \oplus \delta)\big) \leq \varepsilon_{c}$
+for the class $c$ of $J(q,d)$. This is the invariance condition
+articulated for judgment integrity in~\cite{qu}, restated over decision
+traces; unlike \Ione--\Ifour{} it relates \emph{pairs} of executions.
+\end{definition}
+
+\begin{definition}[Decision-level epistemic integrity]
+\label{def:dei}
+Write $\Lift(P) = \{\,T : \forall \sigma \in T.\; \sigma \models P\,\}$
+for the set-level lifting of a trace property $P$. A system with
+reachable-trace set $T$ satisfies \DEI{} with respect to policy
+$\Pi$ iff
+\[
+T \;\in\; \underbrace{\Lift(\Ione \wedge \Itwo \wedge \Ithree \wedge \Ifour)}_{\text{safety fragment (enforceable)}} \;\cap\; \underbrace{\Ifive}_{\text{2-safety (auditable)}} .
+\]
+\DEI{} is thus, by construction, a hyperproperty whose safety fragment
+and whose properly $k$-safety fragment are named separately: the form in
+which the enforceability results of \S\ref{sec:monitorability} are
+stated.
+\end{definition}
+
+\begin{example}[Running example, II: what the invariants decide]
+\label{ex:invariants}
+On the trace of Example~\ref{ex:objects}: \Ione{} holds ($b_u$ roots in
+the attested, trusted $e_u$); \Itwo{} holds (no label was raised);
+\Ithree{} holds (a trusted directive is $\tc$-sufficient for a single
+deletion under the deployed scorer); \Ifour{} \emph{fails}: the bound
+slot $\mathsf{target}$ carries file~13, and no cited belief at
+$\mathrm{TRUSTED}$ names file~13. The monitor blocks at admission. Now
+change the plant to ``delete file~0 now, before the backup completes,''
+with the user having asked for the backup first: the model commits
+$\args(a)(\mathsf{target}) = \text{file~0}$ with the same support, and
+\Ione--\Ifour{} all hold. The action is wrong because its timing was chosen by the plant, but
+every single-trace check passes; only \Ifive{}---re-running the
+decision with the plant removed---distinguishes this trace from an
+honest one. Corollary~\ref{cor:ratgap} shows this is a limit of
+admission-time checking as such, not of our particular invariants.
+\end{example}
+
+\subsection{Monitorability: What a Gateway Can Enforce}
+\label{sec:monitorability}
+The invariants deliberately fall on both sides of a classical
+boundary, and the definition's honesty depends on saying which
+side each is on. Algorithm~\ref{alg:monitor} makes the
+enforceable side concrete: a single event-admission procedure whose block
+branches are exactly the bad prefixes of
+Proposition~\ref{prop:safety}. Two assumptions are stated explicitly
+because the proofs depend on them.
+
+%%ALG1%%
+
+\begin{assumption}[Complete mediation]
+\label{asm:mediation}
+The gateway mediates every $\Sigma$-event that can affect a
+protected action; there is no side channel from untrusted content
+to belief state or action that bypasses admission.
+\end{assumption}
+
+\begin{assumption}[Trusted TCB]
+\label{asm:recorded}
+The epistemic TCB of \S\ref{sec:tcbdef} behaves as specified:
+(i)~channel identity is authenticated, so $\lambda$ assigns to every
+atom the label its channel carries by policy; (ii)~the recorder
+extracts $\vals(\cdot)$ faithfully and the log is append-only;
+(iii)~the attestation verifier, the aggregator $S$, and the policy
+engine compute what their definitions state. Compromise of any
+component voids all guarantees (\S\ref{sec:limitations}).
+\end{assumption}
+
+\begin{proposition}[\Ione--\Ifour{} are enforceable safety properties]
+\label{prop:safety}
+Over decision traces, \Ione, \Itwo, \Ithree, and \Ifour{} are safety
+properties in the sense of Alpern--Schneider~\cite{alpern}: every
+violating trace has a finite bad prefix (the offending action or
+update event) after which no extension repairs the violation.
+Consequently (i)~they are monitorable, and an
+$\mathrm{LTL}_3$-style monitor~\cite{bauer,pnueli} issues the
+verdict $\bot$ exactly at the bad prefix; and (ii)~they lie in
+the class of policies enforceable by execution
+monitoring~\cite{schneider}: a reference monitor that truncates
+the trace at the bad prefix (blocking the action or
+update) enforces them, not merely detects them.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+For \Ione, \Ithree, and \Ifour{} the candidate bad event is a protected
+action; its support set, the relevant provenance subgraph, the
+aggregator score, the cited beliefs' value sets, and the action's
+argument map are all determined by the finite prefix at that event, so
+violation is a property of the prefix and is irremediable once the
+action executes. For \Itwo{} the bad event is a label-raising
+transition without a matching authorized endorsement in the same
+prefix. Quantification over runtime objects (beliefs, evidence) is
+handled by parametric monitoring~\cite{mop}: the object universe at
+any prefix is the finite set of objects observed so far, so each
+instantiated monitor is a finite-state safety monitor. Enforcement
+follows because blocking the bad event yields a legal trace, i.e., the
+monitor is a truncation automaton in Schneider's
+sense~\cite{schneider}. The full proof, including the two
+legality-preservation facts, is Appendix~\ref{app:proofs}. The
+\Ione--\Ifour{} clauses and the two legality facts are mechanized in
+Lean~4 (finite-trace form; kernel-checked; the only axiom is
+\texttt{propext}, on two lemmas), re-checkable in the artifact via
+\texttt{formal/check\_formal.sh}.
+\end{proof}
+
+\begin{remark}[Online cost]
+With per-belief \emph{root certificates} (a memoized, hash-chained
+receipt that a belief's evidential roots are attested and
+$\sqsupseteq \lmin$, established when the belief is created) the
+\Ione{} check at an action is $O(|\support(a)|)$ constant-time receipt
+verifications; \Itwo{} is one lattice meet per update; \Ithree{} is one
+aggregator evaluation; \Ifour{} is $O(|\bindpol(c(a))| \cdot
+|\support(a)|)$ set-membership tests on recorded value sets. These are
+the operations whose cost CZTA measures (Table~\ref{tab:overhead}); the
+reference implementation confirms the asymptotics, with memoized
+\Ione{} checks flat across a $256\times$ range of provenance depth
+while the unmemoized check grows linearly
+(Appendix~\ref{app:refsem}).
+\end{remark}
+
+\begin{proposition}[\Ifive{} is auditable but not single-trace monitorable]
+\label{prop:hyper}
+\Ifive{} is a 2-safety hyperproperty~\cite{hyperprops}: its
+violation is witnessed only by a pair of finite traces
+$(J(q, d), J(q, d \oplus \delta))$. No black-box monitor observing
+a single production trace can detect a violation, since
+satisfaction is not a property of any individual
+trace~\cite{hyperprops}; runtime checking requires either stored
+comparison executions or a model of the system (gray-box
+monitoring)~\cite{finkbeiner,stucki}. \Ifive{} is therefore
+classified \emph{auditable}: falsifiable offline by exhibiting a
+witness pair, testable by a differential harness, and checkable before
+dispatch only by re-executing the decision (\S\ref{sec:gate}), never by
+inspecting the production trace alone.
+\end{proposition}
+
+\begin{corollary}[The DEI decomposition]
+\label{cor:decomp}
+$\DEI = \Lift(\Ione \wedge \Itwo \wedge \Ithree \wedge \Ifour) \cap \Ifive$
+(Def.~\ref{def:dei}) is the conjunction of an EM-enforceable
+safety fragment (Prop.~\ref{prop:safety}) and a 2-safety fragment
+that no single-trace monitor enforces (Prop.~\ref{prop:hyper}).
+Any monitor claiming to enforce \DEI{} wholesale is unsound.
+\end{corollary}
+
+\begin{remark}[The boundary, stated plainly]
+Full noninterference between untrusted channels and decisions is a
+general hyperproperty~\cite{hyperprops,goguen} and inherits the same
+non-monitorability; we neither claim nor need it. Complete
+transformer-level noninterference is explicitly a non-goal even for
+sink-authorization systems~\cite{cxi}, and there are principled
+arguments that in-band immunity to injection may be
+unattainable~\cite{abdelnabi}. Likewise, no monitor decides whether a
+belief is \emph{true}; \DEI{} constrains the evidential and provenance
+structure of decisions, not their semantic veracity. Concurrent work
+characterizes generically what a deterministic pre-execution agent gate
+can enforce: the safety policies whose good prefixes its state model
+recognizes~\cite{ray2026enforced}. Prop.~\ref{prop:hyper} names a
+specific, security-relevant property outside that class for
+\emph{every} state model, and \S\ref{sec:gate} builds the
+decision-local gate that audits exactly that property.
+\end{remark}
+
+\begin{proposition}[Mutual independence of the aggregator axioms]
+\label{prop:indep}
+There exist aggregators $S_{\neg\mathrm{A1}}$, $S_{\neg\mathrm{A2}}$,
+$S_{\neg\mathrm{A3}}$, each violating exactly one axiom of
+Def.~\ref{def:i3} while satisfying the other two: no axiom is
+derivable from the rest, and dropping any one admits a named attack.
+\end{proposition}
+\noindent\emph{Proof:} the artifact, one explicit violating aggregator
+per axiom with codomain and monotonicity checks.
+
+\subsection{The Rationalization Gap}
+\label{sec:guarantees}
+The crosswalk of Appendix~\ref{app:crosswalk} maps each attack class of
+\S\ref{sec:taxonomy} to the invariant it must violate.
+Theorem~\ref{thm:crosswalk} shows the mapping is sound against the
+enforceable fragment; Corollary~\ref{cor:ratgap} shows why that
+fragment is nevertheless insufficient, and exactly which attacks
+survive it.
+
+\begin{theorem}[Crosswalk soundness]
+\label{thm:crosswalk}
+Under Assumptions~\ref{asm:mediation} and~\ref{asm:recorded}: for
+every charting class $K$ with machine-fired primary $j(K)$ and every
+trace $\sigma$ with $\mathrm{Mech}_K(\sigma)$, there is a finite prefix
+$\sigma[..k]$ with $\mathit{viol}_{j(K)}(\sigma[..k])$, and
+Algorithm~\ref{alg:monitor} blocks at or before $\epsilon_k$. Conversely
+(anti-triviality), control/evaluation instances satisfy $\neg
+\mathit{viol}_j$ at every prefix for all $j$ and are admitted.
+\end{theorem}
+\noindent\emph{Proof:} Appendix~\ref{app:t1c2} (finite case analysis
+over the machine-fired rows, anti-triviality, and a delimitation of the
+proved implication from its empirical support). The per-row predicates
+$\mathrm{Mech}_K$ (Definition~\ref{def:mech}) are stated there.
+
+\begin{corollary}[Rationalization gap: choice laundering is admission-undetectable]
+\label{cor:ratgap}
+Let $M$ be any sound monitor enforcing $\Ione \wedge \Itwo \wedge
+\Ithree \wedge \Ifour$ at admission over traces where $\support(a)$ is
+committed by an untrusted component (the model; a compromised model is
+an adversarial component). Let $S_0$ be the support set of any honestly
+admitted protected action of class $c_0$, and let $A_{\bindpol}(S_0)$
+be the set of class-$c_0$ actions every bound argument of which is named
+by some belief in $S_0$ at the label $\bindpol$ requires. Then for every
+$a^{*} \in A_{\bindpol}(S_0)$ there exists an adversarial model
+strategy---select $a^{*}$ from injected content; commit $S_0$---such that
+on the resulting trace $\mathit{viol}_j$ holds at no prefix for any
+$j \in \{1,2,3,4\}$ while the action's actual basis is the injection.
+Hence (i)~the strategy is undetectable at admission by any sound
+$\Ione$--$\Ifour$ monitor at \emph{any} provenance granularity; and
+(ii)~an $\Ifive$-side counterfactual check is necessary, not optional:
+no refinement of the enforceable fragment detects it.
+\end{corollary}
+\noindent\emph{Proof:} Appendix~\ref{app:t1c2} (existence via the
+full-support commitment $S_0$ restricted to $A_{\bindpol}(S_0)$;
+necessity via the $S^{\pm}$ construction of Prop.~\ref{prop:hyper}).
+
+\begin{remark}[What \Ifour{} catches and what it leaves]
+\label{rem:residual}
+The corollary quantifies over $A_{\bindpol}(S_0)$, which is the
+precise residual: an injection can still choose \emph{which} of the
+trusted-derivable actions is taken, \emph{whether} it is taken, and
+\emph{when}, but it can no longer choose a target that trusted evidence
+does not name. The laundering probes executed in \S\ref{sec:rq2}
+(delete file~13 for file~0; share with an attacker-chosen recipient) are
+\emph{not} instances of the corollary's strategy: they violate \Ifour{}
+and are blocked at admission once \Ifour{} is enforced. The gate's
+incremental value must therefore be demonstrated on choice-laundering
+probes, and \S\ref{sec:rq2} is designed accordingly. This is also why
+\Ifour{} is a separate invariant rather than a clause of \Ithree: it
+changes the adversary's residual strategy space, and the corollary
+states that space exactly.
+\end{remark}
+
+\subsection{Falsifiability Protocol}
+\label{sec:falsifiability}
+Each invariant carries a refutation condition: the finite observation
+that falsifies the claim that a given system enforces or satisfies it.
+A single logged protected action admitted with an unattested or
+sub-floor evidential root refutes ``the deployment enforces \Ione'';
+a single silent label upgrade refutes \Itwo; a single admitted action
+below threshold refutes \Ithree; a single admitted action with a bound
+argument named by no qualifying cited belief refutes \Ifour; and one
+$\delta \in \Dirrel$ with $\dist(J(q,d), J(q,d \oplus \delta)) >
+\varepsilon_c$ refutes \Ifive. The first four are checkable by any
+auditor holding the log, which is why the log is hash-chained and
+receipt-bearing; the fifth requires the pre-registered differential
+harness.
+
+\paragraph*{Falsifying the definition itself (coverage)}
+Let $\mathcal{A}$ be the attack taxonomy of \S\ref{sec:taxonomy} with
+the per-instance success predicate of the evaluation harness. Say
+\DEI{} \emph{covers} $\mathcal{A}$ on a corpus if every successful
+attack instance violates at least one of \Ione--\Ifour{} on its trace
+or \Ifive{} on its witness pair. A successful epistemic attack on an
+invariant-satisfying execution falsifies coverage and shows the
+definition incomplete: a reportable outcome, not an embarrassment. The
+crosswalk (Appendix~\ref{app:crosswalk}) records, per attack class, the
+invariant predicted to be violated, registered before the campaigns
+that test it. An adaptive adversary must therefore either violate a
+monitored invariant (and be blocked or logged) or exhibit a coverage
+counterexample (and falsify the definition), the adaptive-evaluation
+design the systematization of out-of-band defenses calls
+for~\cite{oob}.
+
+\begin{example}[Running example, III: the protocol applied]
+\label{ex:protocol}
+Walk the two traces of Example~\ref{ex:invariants} through the
+protocol. Trace~1 (target file~13): if the deployment admits the action,
+the admission log itself refutes ``the deployment enforces
+\Ifour''---an implementation failure, repaired by fixing the monitor,
+with no bearing on the definition. Trace~2 (target file~0, timing chosen
+by the plant): every enforceable invariant holds on the log, so no
+admission record can refute anything; the differential harness re-runs
+the decision with the plant removed, the action changes, and the pair
+refutes \Ifive. Had the action \emph{not} changed while the attack still
+succeeded---say through an unbound free-text argument the perturbation
+family never touches---that would be a coverage counterexample,
+reported as evidence that the definition (here $\bindpol$ or
+$\Dirrel$) is incomplete. The three outcomes are distinguishable from
+the artifacts alone, which is what makes the protocol executable.
+\end{example}
+
+\paragraph*{Human validation of the crosswalk}
+Because the crosswalk is a judgment artifact, two blinded domain
+experts independently assigned invariants to each class from the
+definitions alone, with an adjudicator resolving disagreements. On the
+eight classes with a machine-fired primary they agreed exactly on 7/8
+(Wilson 95\,\% CI 0.53--0.98) and 10/10 on the in-scope boundary; the
+adjudicated consensus matches the invariant that actually fired in the
+reference monitor on 6/8. The divergences are informative: both coders
+read stale evidence as insufficient support (\Ithree) where the monitor
+enforces a lapsed attestation (\Ione), and read prompt injection as a
+provenance failure (\Ione) where the gateway blocks the unendorsed
+label raise (\Itwo). The crosswalk records what the monitor
+\emph{enforces}; the mapping was frozen before any campaign was scored
+against it, and the instrument and scorer are released.
+
+\subsection{Scope and Limitations}
+\label{sec:limitations}
+Appendix~\ref{app:refsem} distinguishes proved, implemented, measured,
+development, and uninformative evidence, so that no deferred study or
+failed susceptibility check is mistaken for a positive result. Beyond
+that: (1)~all guarantees are relative to the epistemic TCB; compromising
+the labeler, the channel authentication it relies on, the verifier
+keys, the recorder, or the aggregator voids them, and \S\ref{sec:tcb}
+quantifies that base. (2)~Rationalization is a faithfulness gap, not a
+granularity one. \Ione--\Ifour{} constrain the \emph{committed} support
+set and the action's bound arguments, but the support set is committed
+by an untrusted model, so a compromised model can select an action from
+adversarial content and cite legitimate evidence for it. \Ifour{}
+narrows the residual to choice laundering under trusted-derivable
+arguments (Cor.~\ref{cor:ratgap}) without closing it; sub-document
+laundering is a resolution limit that finer provenance
+tightens~\cite{argus,cxi}, and~\cite{romanchuk2026semantic} states the
+architectural version of the gap as \emph{semantic laundering}, for
+which \S\ref{sec:gate} builds the runtime check. (3)~$\bindpol$ and
+$\ell_{\bindpol}$ are policy with a utility cost: a target discovered
+from a $\mathrm{MEDIUM}$ tool result cannot bind at $\mathrm{TRUSTED}$,
+so $\bindpol$'s tightness is bounded by the attestation topology
+exactly as $\tc$ is (\S\ref{sec:evalsetup}). (4)~$\Dirrel$ is itself a judgment
+and the hard core of \Ifive~\cite{qu}; we pre-register the generator
+suite rather than choose perturbations post hoc. (5)~\Ithree's
+aggregator encodes an epistemology; we require only A1--A3.
+(6)~\DEI{} constrains structure, not truth: attested, well-supported,
+invariant-satisfying decisions can still be wrong.
